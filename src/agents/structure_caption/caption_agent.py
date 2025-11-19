@@ -80,7 +80,14 @@ Output valid JSON only, no additional text."""
         system_prompt = """You are an expert at answering questions about driving scenes.
 Answer using the structured caption and features available.
 Follow the nuScenes-MQA format:
-- Use XML tags: <target>, <obj>, <cnt> for answers
+- Use XML tags:
+  - <target>: Encapsulates <cnt> and <obj>.
+  - <obj>: Represents an object, restricted to a single word.
+  - <cnt>: Represents a count, restricted to a single word.
+  - <ans>: Represents a binary response, a single word.
+  - <cam>: Represents one of the six cameras.
+  - <dst>: Represents distance.
+  - <loc>: Represents (x, y) coordinates.
 - Be precise with counts and object references
 - Use the exact format expected by the benchmark
 
