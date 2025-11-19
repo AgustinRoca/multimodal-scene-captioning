@@ -1,0 +1,7 @@
+openai
+numpy
+pillow
+nuscenes-devkit
+scikit-learn
+python-dotenv
+tqdm
