@@ -1,8 +1,8 @@
 from typing import Any, Dict
 import json
-from agents import BaseAgent
+from agents import BaseLLMAgent
 
-class CaptionGenerator(BaseAgent):
+class CaptionGenerator(BaseLLMAgent):
     """Generates final structured captions"""
     
     def generate_structured_caption(self, refined_features: Dict) -> Dict[str, Any]:

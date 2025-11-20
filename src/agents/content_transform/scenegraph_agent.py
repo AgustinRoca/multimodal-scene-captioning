@@ -1,8 +1,8 @@
 from typing import Any, Dict, List, Optional
-from agents import BaseAgent
+from agents import BaseLLMAgent
 import json
 
-class SceneGraphAgent(BaseAgent):
+class SceneGraphAgent(BaseLLMAgent):
     """Converts object annotations to scene graph representation"""
     
     def process(self, annotations: List[Dict], context: Optional[Dict] = None) -> Dict[str, Any]:

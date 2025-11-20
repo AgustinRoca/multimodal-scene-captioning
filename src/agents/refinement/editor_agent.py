@@ -1,8 +1,8 @@
 from typing import List, Dict, Any
 import json
-from agents import BaseAgent
+from agents import BaseLLMAgent
 
-class EditorAgent(BaseAgent):
+class EditorAgent(BaseLLMAgent):
     """Refines features based on suggestions"""
     
     def refine(self, seed_features: List[Dict], suggestions: Dict) -> Dict[str, Any]:

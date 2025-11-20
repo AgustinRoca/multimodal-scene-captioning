@@ -1,8 +1,8 @@
 from typing import Any, Dict, List, Optional
-from agents import BaseAgent
+from agents import BaseLLMAgent
 import json
 
-class BEVFusionAgent(BaseAgent):
+class BEVFusionAgent(BaseLLMAgent):
     """Fuses multi-modal information into unified representation"""
     
     def process(self, camera_output: Dict, lidar_output: Dict, 

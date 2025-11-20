@@ -1,11 +1,11 @@
 # Base classes
-from .base_agent import BaseAgent
+from .base_llm_agent import BaseLLMAgent
 
 # Content transform agents
 from .content_transform.bev_agent import BEVFusionAgent
 from .content_transform.camera_agent import CameraAgent
 from .content_transform.crossmodal_agent import CrossModalAgent
-from .content_transform.lidar_agent import LiDARAgent
+from .content_transform.lidar_agent import create_lidar_agent
 from .content_transform.scenegraph_agent import SceneGraphAgent
 
 # Refinement agents
@@ -19,11 +19,11 @@ from .seed_generation.seedfeature_agent import SeedFeatureAgent
 from .structure_caption.caption_agent import CaptionGenerator
 
 __all__ = [
-    "BaseAgent",
+    "BaseLLMAgent",
     "BEVFusionAgent",
     "CameraAgent",
     "CrossModalAgent",
-    "LiDARAgent",
+    "create_lidar_agent",
     "SceneGraphAgent",
     "EditorAgent",
     "SuggesterAgent",

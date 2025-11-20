@@ -1,8 +1,8 @@
 from typing import List, Dict, Any
 import json
-from agents import BaseAgent
+from agents import BaseLLMAgent
 
-class SuggesterAgent(BaseAgent):
+class SuggesterAgent(BaseLLMAgent):
     """Suggests improvements to seed features"""
     
     def suggest(self, seed_features: List[Dict]) -> Dict[str, Any]:

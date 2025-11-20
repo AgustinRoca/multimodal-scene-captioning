@@ -1,8 +1,8 @@
 from typing import Any, Dict, List
-from agents import BaseAgent
+from agents import BaseLLMAgent
 import json
 
-class CrossModalAgent(BaseAgent):
+class CrossModalAgent(BaseLLMAgent):
     """Facilitates information sharing between agents"""
     
     def facilitate_exchange(self, agent_outputs: List[Dict]) -> Dict[str, Any]:

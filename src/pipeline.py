@@ -51,8 +51,8 @@ class SemanticCaptioningPipeline:
         self.camera_agent = CameraAgent(
             self.client, self.config.vision_model, "CameraAgent"
         )
-        self.lidar_agent = LiDARAgent(
-            self.client, self.config.small_model, "LiDARAgent"
+        self.lidar_agent = create_lidar_agent(
+            self.client, self.config, "hybrid"
         )
         self.scene_graph_agent = SceneGraphAgent(
             self.client, self.config.small_model, "SceneGraphAgent"

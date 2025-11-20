@@ -1,12 +1,12 @@
 from typing import Any, Dict, List, Optional
-from agents import BaseAgent
+from agents import BaseLLMAgent
 import numpy as np
 import json
 from PIL import Image
 from io import BytesIO
 import base64
 
-class CameraAgent(BaseAgent):
+class CameraAgent(BaseLLMAgent):
     """Processes camera images to extract visual features"""
     
     def process(self, images: List[np.ndarray], camera_names: List[str], 

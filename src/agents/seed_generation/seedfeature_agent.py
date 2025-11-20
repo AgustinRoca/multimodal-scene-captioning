@@ -1,9 +1,9 @@
 from typing import Any, Dict
 import json
-from agents.base_agent import BaseAgent
+from agents.base_llm_agent import BaseLLMAgent
 from openai import AzureOpenAI
 
-class SeedFeatureAgent(BaseAgent):
+class SeedFeatureAgent(BaseLLMAgent):
     """Generates seed features from transformed content"""
     
     def __init__(self, client: AzureOpenAI, model: str, agent_name: str, focus_area: str):

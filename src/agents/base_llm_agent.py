@@ -2,7 +2,7 @@ from typing import List, Dict
 from openai import AzureOpenAI, RateLimitError
 import time
 
-class BaseAgent:
+class BaseLLMAgent:
     """Base class for all agents"""
     
     def __init__(self, client: AzureOpenAI, model: str, agent_name: str):
