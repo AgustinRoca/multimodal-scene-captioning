@@ -1,3 +1,4 @@
 .env
 __pycache__/
 captioning_env
+.DS_Store

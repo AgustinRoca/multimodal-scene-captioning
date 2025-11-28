@@ -57,9 +57,6 @@ class SemanticCaptioningPipeline:
         self.scene_graph_agent = SceneGraphAgent(
             self.client, self.config.small_model, "SceneGraphAgent"
         )
-        self.bev_fusion_agent = BEVFusionAgent(
-            self.client, self.config.small_model, "BEVFusionAgent"
-        )
         self.cross_modal_agent = CrossModalAgent(
             self.client, self.config.small_model, "CrossModalAgent"
         )
@@ -138,17 +135,6 @@ class SemanticCaptioningPipeline:
             cross_modal_output = self.cross_modal_agent.facilitate_exchange(layer1_outputs)
             layer1_outputs.append(cross_modal_output)
             print("  ✓ CrossModalAgent coordinated information")
-        
-        # BEV Fusion (if we have camera and lidar)
-        if modality_config.use_cameras and modality_config.use_lidar:
-            cam_out = next((o for o in layer1_outputs if o["modality"] == "camera"), None)
-            lid_out = next((o for o in layer1_outputs if o["modality"] == "lidar"), None)
-            sg_out = next((o for o in layer1_outputs if o["modality"] == "scene_graph"), None)
-            
-            if cam_out and lid_out:
-                bev_output = self.bev_fusion_agent.process(cam_out, lid_out, sg_out)
-                layer1_outputs.append(bev_output)
-                print("  ✓ BEVFusionAgent fused modalities")
         
         results["pipeline_stages"]["layer1_content_transformation"] = layer1_outputs
         

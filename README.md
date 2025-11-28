@@ -12,7 +12,6 @@ The pipeline consists of 4 layers:
    - CameraAgent: Vision-Language Model for camera images
    - LiDARAgent: Processes 3D point clouds
    - SceneGraphAgent: Converts annotations to structured scene graphs
-   - BEVFusionAgent: Fuses multi-modal information
    - CrossModalAgent: Facilitates information exchange
 
 2. **Seed Features Generation**: Multiple LLM agents extract features focusing on different aspects (objects, spatial relations, dynamics, safety, scene structure)
@@ -43,11 +42,11 @@ pip install -r requirements.txt
 
 1. Download nuScenes dataset from [nuScenes website](https://www.nuscenes.org/download). A free account is required.
 2. Download v1.0-mini (10 scenes, ~3.5GB) for testing or full v1.0-trainval (850 scenes, ~365GB)
-3. Extract to a directory, e.g., `/data/nuscenes/`
+3. Extract to a directory, e.g., `data/nuscenes/`
 
 Directory structure should be:
 ```
-/data/nuscenes/
+data/nuscenes/
 ├── v1.0-mini/
 │   ├── samples/
 │   ├── sweeps/
@@ -78,7 +77,7 @@ Directory structure should be:
    AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/
    AZURE_OPENAI_API_VERSION=2024-02-15-preview
    
-   NUSCENES_DATAROOT=/data/nuscenes/v1.0-mini
+   NUSCENES_DATAROOT=data/nuscenes/v1.0-mini
    NUSCENES_VERSION=v1.0-mini
    ```
 

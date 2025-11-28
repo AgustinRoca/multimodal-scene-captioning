@@ -8,11 +8,11 @@ load_dotenv()
 
 MODALITY_CONFIG = ModalityConfig(
     use_cameras=True,
-    use_lidar=False,
+    use_lidar=True,
     camera_indices=[0, 1, 2, 3, 4, 5] # front, front_left, front_right, rear, rear_left, rear_right
 )
 
-USE_MOCK = True
+USE_MOCK = False
 
 # Setup
 config = ModelConfig(
