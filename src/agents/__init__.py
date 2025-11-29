@@ -10,6 +10,7 @@ from .content_transform.scenegraph_agent import SceneGraphAgent
 # Refinement agents
 from .refinement.editor_agent import EditorAgent
 from .refinement.suggester_agent import SuggesterAgent
+from .refinement.refinement_controller import IterativeRefinementController
 
 # Seed generation
 from .seed_generation.seedfeature_agent import SeedFeatureAgent
@@ -25,6 +26,7 @@ __all__ = [
     "SceneGraphAgent",
     "EditorAgent",
     "SuggesterAgent",
+    "IterativeRefinementController",
     "SeedFeatureAgent",
     "CaptionGenerator",
 ]

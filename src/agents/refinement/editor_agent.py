@@ -3,12 +3,23 @@ import json
 from agents import BaseAgent
 
 class EditorAgent(BaseAgent):
-    """Refines features based on suggestions"""
+    """Enhanced editor that tracks refinement quality"""
     
-    def refine(self, seed_features: List[Dict], suggestions: Dict) -> Dict[str, Any]:
-        """Refine features based on suggestions"""
+    def refine(self, features: Dict[str, Any], suggestions: Dict[str, Any], 
+               iteration: int = 1) -> Dict[str, Any]:
+        """
+        Refine features based on suggestions
         
-        system_prompt = """You are an expert editor who refines and improves feature descriptions.
+        Args:
+            features: Current features
+            suggestions: Suggestions dict from SuggesterAgent
+            iteration: Current iteration number
+        """
+        
+        system_prompt = f"""You are an expert editor who refines and improves feature descriptions.
+
+This is refinement iteration {iteration}.
+
 Apply the suggested improvements to create polished, comprehensive features.
 Ensure:
 - Completeness and accuracy
@@ -17,14 +28,12 @@ Ensure:
 - Proper structure and organization
 - Removal of redundancy
 
-Output refined features in a structured format."""
+Output refined features in a structured format matching the input structure."""
 
-        features_summary = {f["focus_area"]: f["features"] for f in seed_features}
-        
         user_prompt = f"""Refine these features based on the suggestions:
 
-Original Features:
-{json.dumps(features_summary, indent=2)}
+Current Features:
+{json.dumps(features, indent=2)}
 
 Suggestions:
 {suggestions['suggestions']}
@@ -40,5 +49,6 @@ Provide refined, high-quality features."""
         
         return {
             "agent": self.agent_name,
+            "iteration": iteration,
             "refined_features": response
         }

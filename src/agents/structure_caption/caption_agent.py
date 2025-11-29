@@ -102,7 +102,7 @@ Scene Information:
 {json.dumps(structured_caption, indent=2)}
 
 Additional Features:
-{refined_features['refined_features'][:500]}
+{refined_features['refined_features']}
 
 Provide a precise answer in the correct format."""
 

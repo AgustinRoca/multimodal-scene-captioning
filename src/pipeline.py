@@ -76,6 +76,10 @@ class SemanticCaptioningPipeline:
         self.editor = EditorAgent(
             self.client, self.config.small_model, "EditorAgent"
         )
+
+        self.refinement_system = IterativeRefinementController(
+            self.suggester, self.editor, max_iterations=3, verbose=False
+        )
         
         # Layer 4: Caption Generation
         self.caption_generator = CaptionGenerator(
@@ -97,7 +101,7 @@ class SemanticCaptioningPipeline:
             point_cloud: LiDAR point cloud data
             annotations: Object annotations
             modality_config: Configuration for modality dropout
-        
+
         Returns:
             Complete pipeline output with structured caption
         """
@@ -152,17 +156,28 @@ class SemanticCaptioningPipeline:
         
         results["pipeline_stages"]["layer2_seed_features"] = seed_features
         
-        # Layer 3: Features Refinement
-        print("\nLayer 3: Features Refinement...")
-        suggestions = self.suggester.suggest(seed_features)
-        print("  ✓ SuggesterAgent provided suggestions")
+        # Layer 3: Iterative Features Refinement
+        print("\nLayer 3: Iterative Features Refinement...")
         
-        refined_features = self.editor.refine(seed_features, suggestions)
-        print("  ✓ EditorAgent refined features")
+        refinement_result = self.refinement_system.refine(seed_features)
         
+        # Print summary
+        convergence_status = "converged" if refinement_result['converged'] else "completed"
+        print(f"  ✓ Refinement {convergence_status} after {refinement_result['total_iterations']} iteration(s)")
+        
+        # Store complete refinement history
         results["pipeline_stages"]["layer3_refinement"] = {
-            "suggestions": suggestions,
-            "refined_features": refined_features
+            "iterations": refinement_result['iterations'],
+            "final_features": refinement_result['final_features'],
+            "converged": refinement_result['converged'],
+            "total_iterations": refinement_result['total_iterations'],
+            "convergence_iteration": refinement_result.get('convergence_iteration')
+        }
+        
+        # Prepare refined features for caption generation
+        refined_features = {
+            "agent": "IterativeRefinementSystem",
+            "refined_features": refinement_result['final_features']
         }
         
         # Layer 4: Caption Generation
@@ -175,11 +190,25 @@ class SemanticCaptioningPipeline:
         results["pipeline_stages"]["layer4_caption"] = structured_caption
         results["final_caption"] = structured_caption["structured_caption"]
         
+        # Add refinement metadata to results
+        results["refinement_metadata"] = {
+            "converged": refinement_result['converged'],
+            "iterations": refinement_result['total_iterations']
+        }
+        
         return results
     
     def answer_mqa(self, question: str, scene_results: Dict) -> str:
         """Answer MQA question about a processed scene"""
-        refined_features = scene_results["pipeline_stages"]["layer3_refinement"]["refined_features"]
+        # Extract refined features from the new iterative refinement structure
+        layer3_data = scene_results["pipeline_stages"]["layer3_refinement"]
+        
+        # The refined features are now in 'final_features' key
+        refined_features = {
+            "agent": "IterativeRefinementSystem",
+            "refined_features": layer3_data["final_features"]
+        }
+        
         structured_caption = scene_results["final_caption"]
         
         return self.caption_generator.answer_mqa_question(
