@@ -147,6 +147,8 @@ class IterativeRefinementController:
             print("STARTING ITERATIVE REFINEMENT")
             print(f"Max iterations: {self.max_iterations}")
             print(f"{'='*80}\n")
+
+        self.iterations = []
         
         # Convert seed features to dict format for processing
         current_features = {f["focus_area"]: f["features"] for f in seed_features}
