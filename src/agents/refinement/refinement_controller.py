@@ -5,98 +5,19 @@ Implements suggest→edit loop until convergence or max iterations
 
 from typing import List, Dict, Any, Optional
 import json
-import re
 from dataclasses import dataclass
-from agents import BaseAgent, SuggesterAgent, EditorAgent
-
+from agents.refinement.suggester_agent import SuggesterAgent, SuggestionResponse
+from agents.refinement.editor_agent import EditorAgent, RefinedFeaturesResponse
 
 @dataclass
 class RefinementIteration:
     """Records one iteration of refinement"""
     iteration: int
-    suggestions: str
-    refined_features: str
+    suggestions: List[str]
     has_suggestions: bool
-    suggestion_count: int
-
-
-class ConvergenceDetector:
-    """Detects when refinement has converged (no more meaningful suggestions)"""
-    
-    def __init__(self):
-        self.convergence_keywords = [
-            "no further suggestions",
-            "no additional improvements",
-            "features are complete",
-            "well-structured and comprehensive",
-            "no significant issues",
-            "ready for use",
-            "all aspects are covered",
-            "no major improvements needed"
-        ]
-        
-        self.minimal_suggestion_patterns = [
-            r"minor\s+(formatting|style|wording)",
-            r"(optional|could consider|might)",
-            r"no\s+(major|significant|critical)\s+issues"
-        ]
-    
-    def has_converged(self, suggestions: str) -> bool:
-        """
-        Determine if suggestions indicate convergence
-        
-        Returns True if:
-        - Suggestions explicitly state no improvements needed
-        - Only minor/optional suggestions remain
-        - Suggestions are very short (< 50 words)
-        """
-        suggestions_lower = suggestions.lower()
-        
-        # Check for explicit convergence keywords
-        for keyword in self.convergence_keywords:
-            if keyword in suggestions_lower:
-                return True
-        
-        # Check for minimal suggestion patterns
-        for pattern in self.minimal_suggestion_patterns:
-            if re.search(pattern, suggestions_lower):
-                # If multiple such patterns found, likely converged
-                matches = sum(1 for p in self.minimal_suggestion_patterns 
-                            if re.search(p, suggestions_lower))
-                if matches >= 2:
-                    return True
-        
-        # Check suggestion length (very short = likely converged)
-        word_count = len(suggestions.split())
-        if word_count < 50:
-            return True
-        
-        return False
-    
-    def count_suggestions(self, suggestions: str) -> int:
-        """
-        Count the number of distinct suggestions
-        
-        Looks for:
-        - Numbered lists (1., 2., 3.)
-        - Bullet points (-, *, •)
-        - Line breaks suggesting separate suggestions
-        """
-        # Count numbered items
-        numbered = len(re.findall(r'\n\s*\d+\.', suggestions))
-        
-        # Count bullet points
-        bullets = len(re.findall(r'\n\s*[-*•]', suggestions))
-        
-        # Use whichever is greater
-        count = max(numbered, bullets)
-        
-        # If no clear markers, estimate by paragraphs
-        if count == 0:
-            paragraphs = [p.strip() for p in suggestions.split('\n\n') if p.strip()]
-            count = len(paragraphs)
-        
-        return max(1, count)  # At least 1 if there's any text    
+    reasoning: str
+    refined_features: Dict[str, str]
+    changes_made: List[str]
 
 class IterativeRefinementController:
     """
@@ -122,7 +43,6 @@ class IterativeRefinementController:
         self.editor = editor
         self.max_iterations = max_iterations
         self.verbose = verbose
-        self.convergence_detector = ConvergenceDetector()
         
         # Track refinement history
         self.iterations: List[RefinementIteration] = []
@@ -162,33 +82,28 @@ class IterativeRefinementController:
             if self.verbose:
                 print("  Suggester: Analyzing features...")
             
-            suggestions_result = self.suggester.suggest(current_features, iteration)
-            suggestions = suggestions_result['suggestions']
-            
-            # Check for convergence
-            has_converged = self.convergence_detector.has_converged(suggestions)
-            suggestion_count = self.convergence_detector.count_suggestions(suggestions)
+            suggestion_response = self.suggester.suggest(current_features, iteration)
             
             if self.verbose:
-                print(f"  Suggester: Found {suggestion_count} suggestions")
-                if has_converged:
-                    print("  Suggester: ✓ Convergence detected!")
+                print(f"  Suggester: {len(suggestion_response.suggestions)} suggestions")
+                if not suggestion_response.has_suggestions:
+                    print(f"  Suggester: ✓ No more suggestions - {suggestion_response.reasoning}")
             
-            # Record iteration
+            # Record iteration (will update refined_features if we continue)
             iteration_record = RefinementIteration(
                 iteration=iteration,
-                suggestions=suggestions,
-                refined_features="",  # Will be filled if we continue
-                has_suggestions=not has_converged,
-                suggestion_count=suggestion_count
+                suggestions=suggestion_response.suggestions,
+                has_suggestions=suggestion_response.has_suggestions,
+                reasoning=suggestion_response.reasoning,
+                refined_features=current_features,
+                changes_made=[]
             )
             
             # Check if we should stop
-            if has_converged:
+            if not suggestion_response.has_suggestions:
                 if self.verbose:
                     print(f"\n✓ Converged after {iteration} iteration(s)")
                 converged = True
-                iteration_record.refined_features = json.dumps(current_features, indent=2)
                 self.iterations.append(iteration_record)
                 break
             
@@ -196,37 +111,21 @@ class IterativeRefinementController:
             if self.verbose:
                 print("  Editor: Applying suggestions...")
             
-            refined_result = self.editor.refine(
+            refined_response = self.editor.refine(
                 current_features, 
-                suggestions_result, 
+                suggestion_response, 
                 iteration
             )
             
-            refined_features_text = refined_result['refined_features']
+            current_features = refined_response.refined_features
             
-            # Try to parse refined features back to dict
-            try:
-                # Clean markdown code blocks if present
-                cleaned = refined_features_text.strip()
-                if cleaned.startswith("```"):
-                    cleaned = cleaned.split("```")[1]
-                    if cleaned.startswith("json"):
-                        cleaned = cleaned[4:]
-                    cleaned = cleaned.strip()
-                
-                current_features = json.loads(cleaned)
-                
-            except json.JSONDecodeError:
-                # If parsing fails, keep as text and wrap in structure
-                if self.verbose:
-                    print("  Warning: Could not parse refined features as JSON, keeping as text")
-                current_features = {"refined_text": refined_features_text}
-            
-            iteration_record.refined_features = refined_features_text
+            # Update iteration record
+            iteration_record.refined_features = current_features
+            iteration_record.changes_made = refined_response.changes_made
             self.iterations.append(iteration_record)
             
             if self.verbose:
-                print(f"  Editor: ✓ Features refined")
+                print(f"  Editor: ✓ Applied {len(refined_response.changes_made)} changes")
         
         # If we hit max iterations without converging
         if not converged and self.verbose:
@@ -239,9 +138,10 @@ class IterativeRefinementController:
                 {
                     "iteration": it.iteration,
                     "suggestions": it.suggestions,
-                    "refined_features": it.refined_features,
                     "has_suggestions": it.has_suggestions,
-                    "suggestion_count": it.suggestion_count
+                    "reasoning": it.reasoning,
+                    "refined_features": it.refined_features,
+                    "changes_made": it.changes_made
                 }
                 for it in self.iterations
             ],
@@ -267,8 +167,10 @@ class IterativeRefinementController:
         
         for it in self.iterations:
             lines.append(f"Iteration {it.iteration}:")
-            lines.append(f"  - Suggestions: {it.suggestion_count}")
-            lines.append(f"  - Has meaningful suggestions: {it.has_suggestions}")
+            lines.append(f"  - Suggestions: {len(it.suggestions)}")
+            lines.append(f"  - Has suggestions: {it.has_suggestions}")
+            lines.append(f"  - Reasoning: {it.reasoning}")
+            lines.append(f"  - Changes made: {len(it.changes_made)}")
             
             if not it.has_suggestions:
                 lines.append(f"  - ✓ CONVERGED")

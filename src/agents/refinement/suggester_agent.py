@@ -1,28 +1,48 @@
 from typing import List, Dict, Any
 import json
 from agents import BaseAgent
+from pydantic import BaseModel, Field
+
+class SuggestionResponse(BaseModel):
+    """Structured response from Suggester agent"""
+    has_suggestions: bool = Field(
+        description="True if there are meaningful suggestions, False if features are complete"
+    )
+    suggestions: List[str] = Field(
+        default_factory=list,
+        description="List of specific improvement suggestions"
+    )
+    reasoning: str = Field(
+        default="",
+        description="Brief explanation of the suggestions or why no suggestions are needed"
+    )
 
 class SuggesterAgent(BaseAgent):
-    def suggest(self, features: Dict[str, Any], iteration: int = 1) -> Dict[str, Any]:
+    """Enhanced suggester that returns structured JSON"""
+    
+    def suggest(self, features: Dict[str, Any], iteration: int = 1) -> SuggestionResponse:
         """
-        Suggest refinements to features
+        Suggest refinements to features with structured output
         
         Args:
             features: Current features (can be seed features or refined features)
             iteration: Current iteration number (affects prompting)
+            
+        Returns:
+            SuggestionResponse with structured suggestions
         """
         
         # Adjust prompt based on iteration
         if iteration == 1:
             context = "This is the first review of the initial features."
         else:
-            context = f"This is iteration {iteration}. Focus on remaining issues."
+            context = f"This is iteration {iteration}. Focus on remaining issues only."
         
         system_prompt = f"""You are a quality assurance expert who reviews and suggests improvements.
 
 {context}
 
-Analyze the features and suggest:
+Analyze the features and suggest improvements focusing on:
 - Missing information that should be included
 - Redundant or unclear descriptions
 - Inconsistencies between different aspects
@@ -30,17 +50,24 @@ Analyze the features and suggest:
 - Better ways to structure the information
 
 IMPORTANT: 
-- If the features are already high quality and comprehensive, state: "No further suggestions needed."
+- If the features are already high quality and comprehensive, set has_suggestions to false
 - Be specific and constructive
 - Only suggest meaningful improvements
-- Avoid nitpicking minor issues if overall quality is good"""
+- Avoid nitpicking minor issues if overall quality is good
+
+You must respond with valid JSON matching this schema:
+{{
+  "has_suggestions": boolean,
+  "suggestions": ["suggestion 1", "suggestion 2", ...],
+  "reasoning": "brief explanation"
+}}"""
 
         user_prompt = f"""Review these features (Iteration {iteration}):
 
 {json.dumps(features, indent=2)}
 
-Provide specific, actionable suggestions for refinement.
-If the features are already comprehensive and well-structured, explicitly state that no further improvements are needed."""
+Analyze and provide structured suggestions in JSON format.
+If features are comprehensive, set has_suggestions to false and explain why."""
 
         messages = [
             {"role": "system", "content": system_prompt},
@@ -49,8 +76,25 @@ If the features are already comprehensive and well-structured, explicitly state 
         
         response = self.call_llm(messages, temperature=0.6)
         
-        return {
-            "agent": self.agent_name,
-            "iteration": iteration,
-            "suggestions": response
-        }
+        # Parse JSON response
+        try:
+            # Clean response (remove markdown code blocks if present)
+            cleaned = response.strip()
+            if cleaned.startswith("```"):
+                cleaned = cleaned.split("```")[1]
+                if cleaned.startswith("json"):
+                    cleaned = cleaned[4:]
+                cleaned = cleaned.strip()
+            
+            data = json.loads(cleaned)
+            return SuggestionResponse(**data)
+            
+        except (json.JSONDecodeError, Exception) as e:
+            print(f"  Warning: Failed to parse suggester response as JSON: {e}")
+            print(f"  Raw response: {response[:200]}...")
+            # Return default with no suggestions if parsing fails
+            return SuggestionResponse(
+                has_suggestions=False,
+                suggestions=[],
+                reasoning="Failed to parse response, assuming complete"
+            )
