@@ -3,11 +3,12 @@ Iterative Refinement System for Feature Enhancement
 Implements suggest→edit loop until convergence or max iterations
 """
 
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any
 import json
 from dataclasses import dataclass
-from agents.refinement.suggester_agent import SuggesterAgent, SuggestionResponse
-from agents.refinement.editor_agent import EditorAgent, RefinedFeaturesResponse
+
+
+from agents import SuggesterAgent, EditorAgent
 
 @dataclass
 class RefinementIteration:
@@ -117,15 +118,15 @@ class IterativeRefinementController:
                 iteration
             )
             
-            current_features = refined_response.refined_features
+            current_features = refined_response["refined_features"]
             
             # Update iteration record
             iteration_record.refined_features = current_features
-            iteration_record.changes_made = refined_response.changes_made
+            iteration_record.changes_made = refined_response["changes_made"]
             self.iterations.append(iteration_record)
             
             if self.verbose:
-                print(f"  Editor: ✓ Applied {len(refined_response.changes_made)} changes")
+                print(f"  Editor: ✓ Applied {len(refined_response['changes_made'])} changes")
         
         # If we hit max iterations without converging
         if not converged and self.verbose:
@@ -215,7 +216,7 @@ if __name__ == "__main__":
     # Setup
     client = AzureOpenAI(
         api_key=os.getenv("AZURE_OPENAI_API_KEY"),
-        api_version="2024-02-15-preview",
+        api_version=os.getenv("AZURE_OPENAI_API_VERSION"),
         azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT")
     )
     

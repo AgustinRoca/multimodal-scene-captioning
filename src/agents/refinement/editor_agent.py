@@ -1,25 +1,26 @@
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 import json
 from agents import BaseAgent
 from pydantic import BaseModel, Field
 from agents.refinement.suggester_agent import SuggestionResponse
 
+
 class RefinedFeaturesResponse(BaseModel):
     """Structured response from Editor agent"""
-    refined_features: Dict[str, str] = Field(
-        description="Dictionary of refined features by focus area"
-    )
-    changes_made: List[str] = Field(
-        default_factory=list,
-        description="List of key changes applied"
-    )
+    objects: str = Field(description="Refined description of objects in the scene")
+    scene_structure: str = Field(description="Refined description of scene structure")
+    spatial_relations: str = Field(description="Refined description of spatial relationships")
+    dynamics: str = Field(description="Refined description of dynamics and movement")
+    safety: str = Field(description="Refined description of safety considerations")
+    changes_made: List[str] = Field(description="List of key changes applied")
+
 
 class EditorAgent(BaseAgent):
     """Enhanced editor that returns structured JSON"""
     
     def refine(self, features: Dict[str, Any], 
                suggestion_response: SuggestionResponse, 
-               iteration: int = 1) -> RefinedFeaturesResponse:
+               iteration: int = 1) -> Dict[str, Any]:
         """
         Refine features based on suggestions with structured output
         
@@ -29,7 +30,7 @@ class EditorAgent(BaseAgent):
             iteration: Current iteration number
             
         Returns:
-            RefinedFeaturesResponse with structured refined features
+            Dictionary with refined features
         """
         
         system_prompt = f"""You are an expert editor who refines and improves feature descriptions.
@@ -42,17 +43,7 @@ Ensure:
 - Clarity and precision
 - Consistency across all aspects
 - Proper structure and organization
-- Removal of redundancy
-
-You must respond with valid JSON matching this schema:
-{{
-  "refined_features": {{
-    "focus_area_1": "refined description",
-    "focus_area_2": "refined description",
-    ...
-  }},
-  "changes_made": ["change 1", "change 2", ...]
-}}"""
+- Removal of redundancy"""
 
         suggestions_text = "\n".join(f"- {s}" for s in suggestion_response.suggestions)
         
@@ -66,33 +57,36 @@ Suggestions:
 
 Reasoning: {suggestion_response.reasoning}
 
-Provide refined features in JSON format with the same structure (same focus area keys)."""
+Provide refined features for all five focus areas and list all changes made."""
 
         messages = [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt}
         ]
         
-        response = self.call_llm(messages, temperature=0.5)
-        
-        # Parse JSON response
         try:
-            # Clean response (remove markdown code blocks if present)
-            cleaned = response.strip()
-            if cleaned.startswith("```"):
-                cleaned = cleaned.split("```")[1]
-                if cleaned.startswith("json"):
-                    cleaned = cleaned[4:]
-                cleaned = cleaned.strip()
-            
-            data = json.loads(cleaned)
-            return RefinedFeaturesResponse(**data)
-            
-        except (json.JSONDecodeError, Exception) as e:
-            print(f"  Warning: Failed to parse editor response as JSON: {e}")
-            print(f"  Raw response: {response[:200]}...")
-            # Return current features unchanged if parsing fails
-            return RefinedFeaturesResponse(
-                refined_features=features,
-                changes_made=["Failed to parse response, no changes applied"]
+            response = self.call_llm(
+                messages, 
+                temperature=0.5, 
+                response_format=RefinedFeaturesResponse
             )
+            
+            # Convert back to dict format
+            return {
+                "refined_features": {
+                    "objects": response.objects,
+                    "scene_structure": response.scene_structure,
+                    "spatial_relations": response.spatial_relations,
+                    "dynamics": response.dynamics,
+                    "safety": response.safety
+                },
+                "changes_made": response.changes_made
+            }
+            
+        except Exception as e:
+            print(f"  ⚠️  Error in EditorAgent, returning unchanged features: {e}")
+            # Fallback: return features unchanged
+            return {
+                "refined_features": features,
+                "changes_made": ["Error occurred, no changes applied"]
+            }

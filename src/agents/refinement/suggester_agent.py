@@ -9,11 +9,9 @@ class SuggestionResponse(BaseModel):
         description="True if there are meaningful suggestions, False if features are complete"
     )
     suggestions: List[str] = Field(
-        default_factory=list,
         description="List of specific improvement suggestions"
     )
     reasoning: str = Field(
-        default="",
         description="Brief explanation of the suggestions or why no suggestions are needed"
     )
 
@@ -74,27 +72,6 @@ If features are comprehensive, set has_suggestions to false and explain why."""
             {"role": "user", "content": user_prompt}
         ]
         
-        response = self.call_llm(messages, temperature=0.6)
+        response = self.call_llm(messages, temperature=0.6, response_format=SuggestionResponse)
         
-        # Parse JSON response
-        try:
-            # Clean response (remove markdown code blocks if present)
-            cleaned = response.strip()
-            if cleaned.startswith("```"):
-                cleaned = cleaned.split("```")[1]
-                if cleaned.startswith("json"):
-                    cleaned = cleaned[4:]
-                cleaned = cleaned.strip()
-            
-            data = json.loads(cleaned)
-            return SuggestionResponse(**data)
-            
-        except (json.JSONDecodeError, Exception) as e:
-            print(f"  Warning: Failed to parse suggester response as JSON: {e}")
-            print(f"  Raw response: {response[:200]}...")
-            # Return default with no suggestions if parsing fails
-            return SuggestionResponse(
-                has_suggestions=False,
-                suggestions=[],
-                reasoning="Failed to parse response, assuming complete"
-            )
+        return response

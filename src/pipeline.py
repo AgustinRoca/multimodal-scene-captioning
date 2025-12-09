@@ -14,7 +14,7 @@ class ModelConfig:
     """Configuration for Azure OpenAI models"""
     api_key: str
     endpoint: str
-    api_version: str = "2024-02-15-preview"
+    api_version: str = "2025-01-01-preview"
     small_model: str = "gpt-4o-mini"  # For testing
     large_model: str = "gpt-4o"  # For production
     vision_model: str = "gpt-4o-mini"  # For vision tasks

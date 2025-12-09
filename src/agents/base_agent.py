@@ -1,5 +1,6 @@
 from typing import List, Dict
-from openai import AzureOpenAI, RateLimitError
+from openai import AzureOpenAI, RateLimitError, Omit, omit
+from pydantic import BaseModel
 import time
 
 class BaseAgent:
@@ -10,18 +11,27 @@ class BaseAgent:
         self.model = model
         self.agent_name = agent_name
     
-    def call_llm(self, messages: List[Dict], temperature: float = 0.7, max_retries: int = 8) -> str:
+    def call_llm(self, messages: List[Dict], temperature: float = 0.7, max_retries: int = 8, response_format: BaseModel | Omit=omit) -> str:
         """Call Azure OpenAI API with strong retry logic."""
         delay = 5  # start with 5 seconds – Azure recommends >= 5s
 
         for attempt in range(max_retries):
             try:
-                response = self.client.chat.completions.create(
-                    model=self.model,
-                    messages=messages,
-                    temperature=temperature
-                )
-                return response.choices[0].message.content
+                if response_format is omit:
+                    response = self.client.chat.completions.create(
+                        model=self.model,
+                        messages=messages,
+                        temperature=temperature
+                    )
+                    return response.choices[0].message.content
+                else:
+                    response = self.client.chat.completions.parse(
+                        model=self.model,
+                        messages=messages,
+                        temperature=temperature,
+                        response_format=response_format
+                    )
+                    return response.choices[0].message.parsed
 
             except Exception as e:
                 # Check if it's a rate limit (Azure sometimes wraps it differently)

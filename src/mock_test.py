@@ -8,8 +8,8 @@ load_dotenv()
 
 MODALITY_CONFIG = ModalityConfig(
     use_cameras=True,
-    use_lidar=True,
-    use_annotations=True,
+    use_lidar=False,
+    use_annotations=False,
     camera_indices=[0, 1, 2, 3, 4, 5] # front, front_left, front_right, rear, rear_left, rear_right
 )
 
@@ -19,6 +19,7 @@ USE_MOCK = False
 config = ModelConfig(
     api_key=os.getenv("AZURE_OPENAI_API_KEY"),
     endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
+    api_version=os.getenv("AZURE_OPENAI_API_VERSION"),
     small_model="gpt-4o-mini",  # Cheap for testing
     vision_model="gpt-4o-mini"
 )

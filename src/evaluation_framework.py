@@ -7,11 +7,9 @@ import re
 import json
 import pandas as pd
 import numpy as np
-from typing import List, Dict, Any, Optional, Tuple
+from typing import List, Dict, Any, Optional
 from collections import defaultdict
 from dataclasses import dataclass
-from itertools import product
-import os
 from datetime import datetime
 
 
@@ -391,7 +389,7 @@ class ModalityConfigGenerator:
         configs = {}
         
         # Individual cameras
-        for i in range(6):
+        for i in range(1):
             configs[f'cam_{i}_only'] = ModalityConfig(
                 use_cameras=True,
                 camera_indices=[i],
@@ -399,60 +397,60 @@ class ModalityConfigGenerator:
                 use_annotations=False
             )
         
-        # Camera groups
-        configs['all_cams'] = ModalityConfig(
-            use_cameras=True,
-            camera_indices=None,
-            use_lidar=False,
-            use_annotations=False
-        )
+        # # Camera groups
+        # configs['all_cams'] = ModalityConfig(
+        #     use_cameras=True,
+        #     camera_indices=None,
+        #     use_lidar=False,
+        #     use_annotations=False
+        # )
         
-        configs['front_cams'] = ModalityConfig(
-            use_cameras=True,
-            camera_indices=[0, 1, 2],  # front, front_left, front_right
-            use_lidar=False,
-            use_annotations=False
-        )
+        # configs['front_cams'] = ModalityConfig(
+        #     use_cameras=True,
+        #     camera_indices=[0, 1, 2],  # front, front_left, front_right
+        #     use_lidar=False,
+        #     use_annotations=False
+        # )
         
-        # LiDAR only
-        configs['lidar_only'] = ModalityConfig(
-            use_cameras=False,
-            use_lidar=True,
-            use_annotations=False
-        )
+        # # LiDAR only
+        # configs['lidar_only'] = ModalityConfig(
+        #     use_cameras=False,
+        #     use_lidar=True,
+        #     use_annotations=False
+        # )
         
-        # Annotations only
-        configs['annotations_only'] = ModalityConfig(
-            use_cameras=False,
-            use_lidar=False,
-            use_annotations=True
-        )
+        # # Annotations only
+        # configs['annotations_only'] = ModalityConfig(
+        #     use_cameras=False,
+        #     use_lidar=False,
+        #     use_annotations=True
+        # )
         
-        # Combinations
-        configs['cams_lidar'] = ModalityConfig(
-            use_cameras=True,
-            use_lidar=True,
-            use_annotations=False
-        )
+        # # Combinations
+        # configs['cams_lidar'] = ModalityConfig(
+        #     use_cameras=True,
+        #     use_lidar=True,
+        #     use_annotations=False
+        # )
         
-        configs['cams_annotations'] = ModalityConfig(
-            use_cameras=True,
-            use_lidar=False,
-            use_annotations=True
-        )
+        # configs['cams_annotations'] = ModalityConfig(
+        #     use_cameras=True,
+        #     use_lidar=False,
+        #     use_annotations=True
+        # )
         
-        configs['lidar_annotations'] = ModalityConfig(
-            use_cameras=False,
-            use_lidar=True,
-            use_annotations=True
-        )
+        # configs['lidar_annotations'] = ModalityConfig(
+        #     use_cameras=False,
+        #     use_lidar=True,
+        #     use_annotations=True
+        # )
         
         # Full (all modalities)
-        configs['full'] = ModalityConfig(
-            use_cameras=True,
-            use_lidar=True,
-            use_annotations=True
-        )
+        # configs['full'] = ModalityConfig(
+        #     use_cameras=True,
+        #     use_lidar=True,
+        #     use_annotations=True
+        # )
         
         return configs
 
@@ -723,6 +721,7 @@ def main():
     config = ModelConfig(
         api_key=os.getenv("AZURE_OPENAI_API_KEY"),
         endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
+        api_version=os.getenv("AZURE_OPENAI_API_VERSION"),
     )
     
     pipeline = SemanticCaptioningPipeline(config)

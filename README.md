@@ -75,7 +75,7 @@ data/nuscenes/
    ```bash
    AZURE_OPENAI_API_KEY=your_api_key_here
    AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/
-   AZURE_OPENAI_API_VERSION=2024-02-15-preview
+   AZURE_OPENAI_API_VERSION=2025-01-01-preview
    
    NUSCENES_DATAROOT=data/nuscenes/v1.0-mini
    NUSCENES_VERSION=v1.0-mini
