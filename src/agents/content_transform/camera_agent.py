@@ -25,7 +25,14 @@ Describe what you see in the camera focusing on:
 - Environmental conditions
 - Potential hazards
 
-Be precise and structured in your observations."""
+Be precise and structured in your observations.
+
+CRITICAL INSTRUCTIONS:
+- Include EVERY piece of information available - no summarization
+- Be exhaustive and thorough - longer captions with more detail are better
+- Don't say "various objects" or "several vehicles" - name each one specifically
+- Include all numerical data (distances, counts, positions)
+- Write as if you're describing the scene to someone who can't see it"""
 
         for img, name in zip(images, camera_names):
 

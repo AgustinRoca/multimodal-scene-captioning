@@ -17,7 +17,7 @@ class RefinementIteration:
     suggestions: List[str]
     has_suggestions: bool
     reasoning: str
-    refined_features: Dict[str, str]
+    refined_caption: Dict[str, str]
     changes_made: List[str]
 
 class IterativeRefinementController:
@@ -48,7 +48,7 @@ class IterativeRefinementController:
         # Track refinement history
         self.iterations: List[RefinementIteration] = []
     
-    def refine(self, seed_features: List[Dict]) -> Dict[str, Any]:
+    def refine(self, seed_caption: Dict, transformed_content: Dict) -> Dict[str, Any]:
         """
         Run iterative refinement process
         
@@ -72,7 +72,7 @@ class IterativeRefinementController:
         self.iterations = []
         
         # Convert seed features to dict format for processing
-        current_features = {f["focus_area"]: f["features"] for f in seed_features}
+        current_caption = seed_caption
         converged = False
         
         for iteration in range(1, self.max_iterations + 1):
@@ -83,7 +83,7 @@ class IterativeRefinementController:
             if self.verbose:
                 print("  Suggester: Analyzing features...")
             
-            suggestion_response = self.suggester.suggest(current_features, iteration)
+            suggestion_response = self.suggester.suggest(current_caption, iteration)
             
             if self.verbose:
                 print(f"  Suggester: {len(suggestion_response.suggestions)} suggestions")
@@ -96,7 +96,7 @@ class IterativeRefinementController:
                 suggestions=suggestion_response.suggestions,
                 has_suggestions=suggestion_response.has_suggestions,
                 reasoning=suggestion_response.reasoning,
-                refined_features=current_features,
+                refined_caption=current_caption,
                 changes_made=[]
             )
             
@@ -113,15 +113,16 @@ class IterativeRefinementController:
                 print("  Editor: Applying suggestions...")
             
             refined_response = self.editor.refine(
-                current_features, 
-                suggestion_response, 
+                current_caption, 
+                suggestion_response,
+                transformed_content, 
                 iteration
             )
             
-            current_features = refined_response["refined_features"]
+            current_caption = refined_response["refined_caption"]
             
             # Update iteration record
-            iteration_record.refined_features = current_features
+            iteration_record.refined_caption = current_caption
             iteration_record.changes_made = refined_response["changes_made"]
             self.iterations.append(iteration_record)
             
@@ -134,14 +135,14 @@ class IterativeRefinementController:
         
         # Prepare final result
         result = {
-            "final_features": current_features,
+            "final_caption": current_caption,
             "iterations": [
                 {
                     "iteration": it.iteration,
                     "suggestions": it.suggestions,
                     "has_suggestions": it.has_suggestions,
                     "reasoning": it.reasoning,
-                    "refined_features": it.refined_features,
+                    "refined_caption": it.refined_caption,
                     "changes_made": it.changes_made
                 }
                 for it in self.iterations

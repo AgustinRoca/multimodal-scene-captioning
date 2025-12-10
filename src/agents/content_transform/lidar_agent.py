@@ -437,7 +437,14 @@ Output format (JSON):
   ]
 }
 
-Be precise and provide confidence scores (0.0-1.0)."""
+Be precise and provide confidence scores (0.0-1.0).
+
+CRITICAL INSTRUCTIONS:
+- Include EVERY piece of information available - no summarization
+- Be exhaustive and thorough - longer captions with more detail are better
+- Don't say "various objects" or "several vehicles" - name each one specifically
+- Include all numerical data (distances, counts, positions)
+- Write as if you're describing the scene to someone who can't see it"""
 
         user_prompt = f"""Classify these {len(cluster_images)} object cluster(s):
 

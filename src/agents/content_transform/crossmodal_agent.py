@@ -20,7 +20,12 @@ Review outputs from multiple perception agents and:
 - Suggest areas needing attention
 - Create summary of multi-modal understanding
 
-Be concise and focused on actionable insights."""
+CRITICAL INSTRUCTIONS:
+- Include EVERY NEW piece of information available that's not already mentioned
+- Be exhaustive and thorough - longer captions with more detail are better
+- Don't say "various objects" or "several vehicles" - name each one specifically
+- Include all numerical data (distances, counts, positions)
+- Write as if you're describing the scene to someone who can't see it"""
 
         agent_summaries = {out["agent"]: out.get("observations", "") 
                           for out in agent_outputs}

@@ -554,7 +554,7 @@ class ComprehensiveMQARunner:
                         )
                         
                         # Get final caption
-                        final_caption = json.dumps(scene_result['final_caption'])
+                        final_caption = scene_result['structured_caption']["full_caption"]
                         
                         # Answer all questions for this sample/config
                         for _, question_row in sample_questions.iterrows():

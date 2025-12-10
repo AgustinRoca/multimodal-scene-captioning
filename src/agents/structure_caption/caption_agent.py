@@ -47,7 +47,7 @@ class StructuredCaption(BaseModel):
 class CaptionGenerator(BaseAgent):
     """Generates final structured captions"""
     
-    def generate_structured_caption(self, refined_features: Dict) -> Dict[str, Any]:
+    def generate_structured_caption(self, refined_caption: str) -> Dict[str, Any]:
         """Generate structured JSON caption using Pydantic"""
         
         system_prompt = """You are a caption generation expert for autonomous driving scenes.
@@ -64,9 +64,9 @@ Guidelines:
 
 Be precise, comprehensive, and factual based on the features provided."""
 
-        user_prompt = f"""Generate a structured caption from these refined features:
+        user_prompt = f"""Generate a structured caption from this refined caption:
 
-{json.dumps(refined_features['refined_features'], indent=2)}
+{refined_caption}
 
 Create a complete, accurate caption covering all aspects of the scene."""
 
@@ -84,6 +84,7 @@ Create a complete, accurate caption covering all aspects of the scene."""
             
             # Convert Pydantic model to dict
             caption_dict = response.model_dump()
+            caption_dict["full_caption"] = refined_caption  # Include full caption text
             
             return {
                 "agent": self.agent_name,
@@ -97,6 +98,7 @@ Create a complete, accurate caption covering all aspects of the scene."""
                 "agent": self.agent_name,
                 "structured_caption": {
                     "scene_summary": "Error generating caption",
+                    "full_caption": "Error generating caption",
                     "ego_vehicle": {
                         "action": "unknown",
                         "lane_position": "unknown",
@@ -119,8 +121,7 @@ Create a complete, accurate caption covering all aspects of the scene."""
                 "error_message": str(e)
             }
     
-    def answer_mqa_question(self, question: str, structured_caption: Dict, 
-                           refined_features: Dict) -> str:
+    def answer_mqa_question(self, question: str, structured_caption: Dict) -> str:
         """Answer nuScenes-MQA style question"""
         
         system_prompt = """You are an expert at answering questions about driving scenes.
@@ -145,21 +146,11 @@ Q: "Is there a <obj>pedestrian</obj> in <cam>front left</cam>?"
 A: "<ans>yes</ans>, there is <target><cnt>1</cnt> <obj>pedestrian</obj></target>."
 
 Be precise with counts and use the exact XML format."""
-
-        # Simplify structured caption for context (to reduce tokens)
-        caption_summary = {
-            "scene_summary": structured_caption.get("scene_summary", ""),
-            "objects": structured_caption.get("objects", []),
-            "environment": structured_caption.get("environment", {})
-        }
         
         user_prompt = f"""Question: {question}
 
 Scene Information:
-{json.dumps(caption_summary, indent=2)}
-
-Additional Features (if needed):
-{str(refined_features.get('refined_features', ''))[:500]}
+{json.dumps(structured_caption, indent=2)}
 
 Provide a precise answer using the correct XML format."""
 

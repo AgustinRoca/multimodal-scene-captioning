@@ -18,12 +18,12 @@ class SuggestionResponse(BaseModel):
 class SuggesterAgent(BaseAgent):
     """Enhanced suggester that returns structured JSON"""
     
-    def suggest(self, features: Dict[str, Any], iteration: int = 1) -> SuggestionResponse:
+    def suggest(self, caption: str, iteration: int = 1) -> SuggestionResponse:
         """
         Suggest refinements to features with structured output
         
         Args:
-            features: Current features (can be seed features or refined features)
+            caption: Current caption (can be seed caption or refined caption)
             iteration: Current iteration number (affects prompting)
             
         Returns:
@@ -60,9 +60,9 @@ You must respond with valid JSON matching this schema:
   "reasoning": "brief explanation"
 }}"""
 
-        user_prompt = f"""Review these features (Iteration {iteration}):
+        user_prompt = f"""Review this caption (Iteration {iteration}):
 
-{json.dumps(features, indent=2)}
+{caption}
 
 Analyze and provide structured suggestions in JSON format.
 If features are comprehensive, set has_suggestions to false and explain why."""

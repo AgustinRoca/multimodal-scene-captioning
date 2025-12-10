@@ -7,25 +7,22 @@ from agents.refinement.suggester_agent import SuggestionResponse
 
 class RefinedFeaturesResponse(BaseModel):
     """Structured response from Editor agent"""
-    objects: str = Field(description="Refined description of objects in the scene")
-    scene_structure: str = Field(description="Refined description of scene structure")
-    spatial_relations: str = Field(description="Refined description of spatial relationships")
-    dynamics: str = Field(description="Refined description of dynamics and movement")
-    safety: str = Field(description="Refined description of safety considerations")
+    caption: str = Field(description="The refined caption text")
     changes_made: List[str] = Field(description="List of key changes applied")
 
 
 class EditorAgent(BaseAgent):
     """Enhanced editor that returns structured JSON"""
     
-    def refine(self, features: Dict[str, Any], 
-               suggestion_response: SuggestionResponse, 
+    def refine(self, caption: str, 
+               suggestion_response: SuggestionResponse,
+               transformed_content: Dict[str, Any],
                iteration: int = 1) -> Dict[str, Any]:
         """
         Refine features based on suggestions with structured output
         
         Args:
-            features: Current features
+            caption: Current caption
             suggestion_response: SuggestionResponse from SuggesterAgent
             iteration: Current iteration number
             
@@ -37,27 +34,37 @@ class EditorAgent(BaseAgent):
 
 This is refinement iteration {iteration}.
 
-Apply the suggested improvements to create polished, comprehensive features.
+Apply the suggested improvements to create polished, comprehensive captions.
 Ensure:
 - Completeness and accuracy
 - Clarity and precision
 - Consistency across all aspects
 - Proper structure and organization
-- Removal of redundancy"""
+- Removal of redundancy
+
+CRITICAL INSTRUCTIONS:
+- Include EVERY piece of information available - no summarization
+- Be exhaustive and thorough - longer captions with more detail are better
+- Don't say "various objects" or "several vehicles" - name each one specifically
+- Include all numerical data (distances, counts, positions)
+- Write as if you're describing the scene to someone who can't see it"""
 
         suggestions_text = "\n".join(f"- {s}" for s in suggestion_response.suggestions)
         
-        user_prompt = f"""Refine these features based on the suggestions:
+        user_prompt = f"""Refine this caption based on the suggestions.:
 
-Current Features:
-{json.dumps(features, indent=2)}
+Current Caption:
+{caption}
 
 Suggestions:
 {suggestions_text}
 
 Reasoning: {suggestion_response.reasoning}
 
-Provide refined features for all five focus areas and list all changes made."""
+To refine the caption, consider the full context from all sensors:
+{json.dumps(transformed_content, indent=2)}
+
+Provide a refined caption and list all changes made."""
 
         messages = [
             {"role": "system", "content": system_prompt},
@@ -73,13 +80,7 @@ Provide refined features for all five focus areas and list all changes made."""
             
             # Convert back to dict format
             return {
-                "refined_features": {
-                    "objects": response.objects,
-                    "scene_structure": response.scene_structure,
-                    "spatial_relations": response.spatial_relations,
-                    "dynamics": response.dynamics,
-                    "safety": response.safety
-                },
+                "refined_caption": response.caption,
                 "changes_made": response.changes_made
             }
             
@@ -87,6 +88,6 @@ Provide refined features for all five focus areas and list all changes made."""
             print(f"  ⚠️  Error in EditorAgent, returning unchanged features: {e}")
             # Fallback: return features unchanged
             return {
-                "refined_features": features,
+                "refined_caption": caption,
                 "changes_made": ["Error occurred, no changes applied"]
             }

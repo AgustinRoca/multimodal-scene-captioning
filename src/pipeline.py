@@ -62,12 +62,7 @@ class SemanticCaptioningPipeline:
         )
         
         # Layer 2: Seed Features Generation
-        self.seed_agents = [
-            SeedFeatureAgent(self.client, self.config.small_model, 
-                           f"SeedAgent_{area}", area)
-            for area in ["objects", "scene_structure", "spatial_relations", 
-                        "dynamics", "safety"]
-        ]
+        self.seed_agent = SeedFeatureAgent(self.client, self.config.small_model)
         
         # Layer 3: Refinement
         self.suggester = SuggesterAgent(
@@ -144,22 +139,18 @@ class SemanticCaptioningPipeline:
         
         # Layer 2: Seed Features Generation
         print("\nLayer 2: Seed Features Generation...")
-        seed_features = []
         transformed_content = {
             "observations": [out.get("observations", "") for out in layer1_outputs]
         }
         
-        for agent in self.seed_agents:
-            seed_output = agent.generate(transformed_content)
-            seed_features.append(seed_output)
-            print(f"  ✓ {agent.agent_name} generated {agent.focus_area} features")
+        seed_caption = self.seed_agent.generate_comprehensive_caption(transformed_content)
         
-        results["pipeline_stages"]["layer2_seed_features"] = seed_features
+        results["pipeline_stages"]["layer2_seed_caption"] = seed_caption
         
         # Layer 3: Iterative Features Refinement
         print("\nLayer 3: Iterative Features Refinement...")
         
-        refinement_result = self.refinement_system.refine(seed_features)
+        refinement_result = self.refinement_system.refine(seed_caption['final_caption'], transformed_content)
         
         # Print summary
         convergence_status = "converged" if refinement_result['converged'] else "completed"
@@ -168,27 +159,24 @@ class SemanticCaptioningPipeline:
         # Store complete refinement history
         results["pipeline_stages"]["layer3_refinement"] = {
             "iterations": refinement_result['iterations'],
-            "final_features": refinement_result['final_features'],
+            "final_caption": refinement_result['final_caption'],
             "converged": refinement_result['converged'],
             "total_iterations": refinement_result['total_iterations'],
             "convergence_iteration": refinement_result.get('convergence_iteration')
         }
         
         # Prepare refined features for caption generation
-        refined_features = {
-            "agent": "IterativeRefinementSystem",
-            "refined_features": refinement_result['final_features']
-        }
+        refined_caption = refinement_result['final_caption']
         
         # Layer 4: Caption Generation
         print("\nLayer 4: Caption Generation...")
         structured_caption = self.caption_generator.generate_structured_caption(
-            refined_features
+            refined_caption
         )
         print("  ✓ CaptionGenerator created structured caption")
         
         results["pipeline_stages"]["layer4_caption"] = structured_caption
-        results["final_caption"] = structured_caption["structured_caption"]
+        results["structured_caption"] = structured_caption["structured_caption"]
         
         # Add refinement metadata to results
         results["refinement_metadata"] = {
@@ -199,18 +187,9 @@ class SemanticCaptioningPipeline:
         return results
     
     def answer_mqa(self, question: str, scene_results: Dict) -> str:
-        """Answer MQA question about a processed scene"""
-        # Extract refined features from the new iterative refinement structure
-        layer3_data = scene_results["pipeline_stages"]["layer3_refinement"]
-        
-        # The refined features are now in 'final_features' key
-        refined_features = {
-            "agent": "IterativeRefinementSystem",
-            "refined_features": layer3_data["final_features"]
-        }
-        
-        structured_caption = scene_results["final_caption"]
+        """Answer MQA question about a processed scene"""        
+        structured_caption = scene_results["structured_caption"]
         
         return self.caption_generator.answer_mqa_question(
-            question, structured_caption, refined_features
+            question, structured_caption
         )
