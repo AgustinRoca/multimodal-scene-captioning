@@ -388,22 +388,22 @@ class ModalityConfigGenerator:
         
         configs = {}
         
-        # Individual cameras
-        for i in range(1):
-            configs[f'cam_{i}_only'] = ModalityConfig(
-                use_cameras=True,
-                camera_indices=[i],
-                use_lidar=False,
-                use_annotations=False
-            )
+        # # Individual cameras
+        # for i in range(1):
+        #     configs[f'cam_{i}_only'] = ModalityConfig(
+        #         use_cameras=True,
+        #         camera_indices=[i],
+        #         use_lidar=False,
+        #         use_annotations=False
+        #     )
         
-        # # Camera groups
-        # configs['all_cams'] = ModalityConfig(
-        #     use_cameras=True,
-        #     camera_indices=None,
-        #     use_lidar=False,
-        #     use_annotations=False
-        # )
+        # Camera groups
+        configs['all_cams'] = ModalityConfig(
+            use_cameras=True,
+            camera_indices=None,
+            use_lidar=False,
+            use_annotations=False
+        )
         
         # configs['front_cams'] = ModalityConfig(
         #     use_cameras=True,
@@ -412,12 +412,12 @@ class ModalityConfigGenerator:
         #     use_annotations=False
         # )
         
-        # # LiDAR only
-        # configs['lidar_only'] = ModalityConfig(
-        #     use_cameras=False,
-        #     use_lidar=True,
-        #     use_annotations=False
-        # )
+        # LiDAR only
+        configs['lidar_only'] = ModalityConfig(
+            use_cameras=False,
+            use_lidar=True,
+            use_annotations=False
+        )
         
         # # Annotations only
         # configs['annotations_only'] = ModalityConfig(
@@ -426,18 +426,18 @@ class ModalityConfigGenerator:
         #     use_annotations=True
         # )
         
-        # # Combinations
-        # configs['cams_lidar'] = ModalityConfig(
-        #     use_cameras=True,
-        #     use_lidar=True,
-        #     use_annotations=False
-        # )
+        # Combinations
+        configs['cams_lidar'] = ModalityConfig(
+            use_cameras=True,
+            use_lidar=True,
+            use_annotations=False
+        )
         
-        # configs['cams_annotations'] = ModalityConfig(
-        #     use_cameras=True,
-        #     use_lidar=False,
-        #     use_annotations=True
-        # )
+        configs['cams_annotations'] = ModalityConfig(
+            use_cameras=True,
+            use_lidar=False,
+            use_annotations=True
+        )
         
         # configs['lidar_annotations'] = ModalityConfig(
         #     use_cameras=False,
@@ -446,11 +446,11 @@ class ModalityConfigGenerator:
         # )
         
         # Full (all modalities)
-        # configs['full'] = ModalityConfig(
-        #     use_cameras=True,
-        #     use_lidar=True,
-        #     use_annotations=True
-        # )
+        configs['full'] = ModalityConfig(
+            use_cameras=True,
+            use_lidar=True,
+            use_annotations=True
+        )
         
         return configs
 
@@ -747,11 +747,15 @@ def main():
     print("nuScenes-MQA COMPREHENSIVE EVALUATION")
     print("="*80)
     
+    start_time = datetime.now()
     results_df = runner.run_complete_evaluation(
         test_mode=TEST_MODE,
         num_test_questions=NUM_TEST_QUESTIONS,
         output_csv=output_csv
     )
+    end_time = datetime.now()
+    duration = end_time - start_time
+    print(f"\nEvaluation Duration: {duration}")
     
     # Analyze results
     runner.analyze_results(results_df)
