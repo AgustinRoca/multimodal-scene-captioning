@@ -710,7 +710,7 @@ def main():
     
     # ========== CONFIGURATION ==========
     TEST_MODE = True  # Set to False for full evaluation
-    NUM_TEST_QUESTIONS = 1  # Only used if TEST_MODE = True
+    NUM_TEST_QUESTIONS = 50  # Only used if TEST_MODE = True
     OUTPUT_DIR = "evaluation_results"
     # ===================================
     
@@ -722,6 +722,8 @@ def main():
         api_key=os.getenv("AZURE_OPENAI_API_KEY"),
         endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
         api_version=os.getenv("AZURE_OPENAI_API_VERSION"),
+        small_model='gpt-4o',
+        vision_model='gpt-4o'
     )
     
     pipeline = SemanticCaptioningPipeline(config)
