@@ -466,14 +466,14 @@ class ComprehensiveMQARunner:
     
     def run_complete_evaluation(self,
                                test_mode: bool = False,
-                               num_test_questions: int = 3,
+                               num_test_scenes: int = 5,
                                output_csv: Optional[str] = None) -> pd.DataFrame:
         """
         Run evaluation on all modality combinations
         
         Args:
-            test_mode: If True, only evaluate first num_test_questions
-            num_test_questions: Number of questions to test
+            test_mode: If True, only evaluate first num_test_scenes
+            num_test_scenes: Number of unique scenes (samples) to test
             output_csv: Path to save results CSV
             
         Returns:
@@ -510,12 +510,14 @@ class ComprehensiveMQARunner:
             print(f"nuScenes {self.loader.version} has {len(available_sample_tokens)} samples")
             return pd.DataFrame()
         
-        # Apply test mode filtering
+        # Apply test mode filtering by unique scenes (sample_tokens)
         if test_mode:
-            questions_df = questions_df.head(num_test_questions)
-            print(f"\nTEST MODE: Evaluating {num_test_questions} questions")
+            unique_samples = questions_df['sample_token'].unique()[:num_test_scenes]
+            questions_df = questions_df[questions_df['sample_token'].isin(unique_samples)]
+            print(f"\nTEST MODE: Evaluating {len(unique_samples)} scenes with {len(questions_df)} questions")
         else:
-            print(f"\nFULL EVALUATION: Evaluating {len(questions_df)} questions")
+            unique_samples = questions_df['sample_token'].unique()
+            print(f"\nFULL EVALUATION: Evaluating {len(unique_samples)} scenes with {len(questions_df)} questions")
         
         # Generate modality configurations
         modality_configs = self.config_generator.generate_all_configs()
@@ -710,7 +712,7 @@ def main():
     
     # ========== CONFIGURATION ==========
     TEST_MODE = True  # Set to False for full evaluation
-    NUM_TEST_QUESTIONS = 50  # Only used if TEST_MODE = True
+    NUM_TEST_SCENES = 20  # Number of unique scenes - only used if TEST_MODE = True
     OUTPUT_DIR = "evaluation_results"
     # ===================================
     
@@ -752,7 +754,7 @@ def main():
     start_time = datetime.now()
     results_df = runner.run_complete_evaluation(
         test_mode=TEST_MODE,
-        num_test_questions=NUM_TEST_QUESTIONS,
+        num_test_scenes=NUM_TEST_SCENES,
         output_csv=output_csv
     )
     end_time = datetime.now()
