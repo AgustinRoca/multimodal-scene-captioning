@@ -12,9 +12,11 @@ import re
 from collections import defaultdict
 
 # Set style
-sns.set_style("whitegrid")
-plt.rcParams['figure.figsize'] = (12, 8)
-plt.rcParams['font.size'] = 10
+sns.set_style("white")
+plt.rcParams['figure.figsize'] = (16, 16)
+plt.rcParams['font.size'] = 64
+plt.rcParams['axes.linewidth'] = 0  # Remove plot border
+plt.rcParams['axes.edgecolor'] = 'none'  # Remove plot border color
 
 
 class MQAResultsVisualizer:
@@ -230,7 +232,7 @@ class MQAResultsVisualizer:
     
     def plot_config_comparison(self):
         """Compare accuracy across different configurations"""
-        fig, ax = plt.subplots(figsize=(14, 8))
+        fig, ax = plt.subplots(figsize=(20, 20))
         
         # Calculate accuracy per config
         config_accuracy = {}
@@ -246,25 +248,57 @@ class MQAResultsVisualizer:
             accuracy = correct / len(config_df) if len(config_df) > 0 else 0
             config_accuracy[config] = accuracy
         
+        # Add baseline if available
+        all_configs = list(config_accuracy.items())
+        if self.baseline_accuracy is not None:
+            all_configs.append(('Baseline GPT-4o', self.baseline_accuracy))
+        
         # Sort by accuracy
-        configs = sorted(config_accuracy.items(), key=lambda x: x[1], reverse=True)
+        configs = sorted(all_configs, key=lambda x: x[1], reverse=True)
         config_names = [c[0] for c in configs]
         accuracies = [c[1] for c in configs]
         
-        # Format config names: replace _ with space and capitalize
-        formatted_names = [name.replace('_', ' ').title() for name in config_names]
+        # Format config names: replace _ with space and capitalize (except for baseline)
+        formatted_names = []
+        colors = []
+        for name, acc in configs:
+            if name == 'Baseline GPT-4o':
+                formatted_names.append('Baseline\nGPT-4o')
+                colors.append('#e74c3c')  # Red for baseline
+            else:
+                formatted = name.replace('_', ' ').title()
+                # Split long labels
+                if formatted == 'Cams Annotations':
+                    formatted = 'Cams\nAnnotations'
+                formatted_names.append(formatted)
+                colors.append(None)  # Will use viridis colormap
+        
+        # Create color array
+        if self.baseline_accuracy is not None:
+            # Use custom colors: baseline is red, others use viridis
+            final_colors = []
+            viridis_colors = plt.cm.viridis(np.linspace(0.3, 0.9, len(configs) - 1))
+            viridis_idx = 0
+            for color in colors:
+                if color is None:
+                    final_colors.append(viridis_colors[viridis_idx])
+                    viridis_idx += 1
+                else:
+                    final_colors.append(color)
+        else:
+            final_colors = plt.cm.viridis(np.linspace(0.3, 0.9, len(configs)))
         
         # Create bar plot
-        bars = ax.barh(formatted_names, accuracies, color=plt.cm.viridis(np.linspace(0.3, 0.9, len(configs))))
+        bars = ax.barh(formatted_names, accuracies, color=final_colors)
         
         # Add value labels
         for i, (bar, acc) in enumerate(zip(bars, accuracies)):
-            ax.text(acc + 0.01, i, f'{acc:.2%}', va='center', fontweight='bold')
+            ax.text(acc + 0.01, i, f'{acc:.2%}', va='center', fontweight='bold', fontsize=64)
         
-        ax.set_xlabel('Accuracy', fontsize=12, fontweight='bold')
-        ax.set_ylabel('Configuration', fontsize=12, fontweight='bold')
-        ax.set_title('Accuracy Comparison Across Modality Configurations', 
-                     fontsize=14, fontweight='bold', pad=20)
+        ax.set_xlabel('Accuracy', fontsize=72, fontweight='bold')
+        ax.set_ylabel('Configuration', fontsize=72, fontweight='bold')
+        ax.tick_params(axis='both', which='major', labelsize=64)
+        ax.tick_params(axis='x', which='both', bottom=False, labelbottom=False)  # Remove x-axis ticks
         ax.set_xlim(0, max(accuracies) * 1.15 if accuracies else 1)
         
         plt.tight_layout()
@@ -275,7 +309,7 @@ class MQAResultsVisualizer:
     
     def plot_object_tags_top10(self):
         """Plot top 10 object tags by frequency"""
-        fig, ax = plt.subplots(figsize=(12, 8))
+        fig, ax = plt.subplots(figsize=(18, 18))
         
         # Extract object tags and compute accuracy
         tag_accuracy = defaultdict(lambda: {'correct': 0, 'total': 0})
@@ -316,11 +350,11 @@ class MQAResultsVisualizer:
         # Add labels
         for i, (bar, acc, count) in enumerate(zip(bars, accuracies, counts)):
             ax.text(acc + 0.01, i, f'{acc:.1%} (n={count})', 
-                   va='center', fontsize=10, fontweight='bold')
+                   va='center', fontsize=56, fontweight='bold')
         
-        ax.set_xlabel('Accuracy', fontsize=12, fontweight='bold')
-        ax.set_ylabel('Object Tag', fontsize=12, fontweight='bold')
-        ax.set_title('Top 10 Object Tags by Frequency', fontsize=14, fontweight='bold', pad=20)
+        ax.set_xlabel('Accuracy', fontsize=72, fontweight='bold')
+        ax.set_ylabel('Object Tag', fontsize=72, fontweight='bold')
+        ax.tick_params(axis='both', which='major', labelsize=64)
         ax.set_xlim(0, max(accuracies) * 1.2 if accuracies else 1)
         
         plt.tight_layout()
@@ -331,7 +365,7 @@ class MQAResultsVisualizer:
     
     def plot_camera_tags_top10(self):
         """Plot top 10 camera tags by frequency"""
-        fig, ax = plt.subplots(figsize=(12, 8))
+        fig, ax = plt.subplots(figsize=(18, 18))
         
         # Extract camera tags and compute accuracy
         tag_accuracy = defaultdict(lambda: {'correct': 0, 'total': 0})
@@ -372,11 +406,11 @@ class MQAResultsVisualizer:
         # Add labels
         for i, (bar, acc, count) in enumerate(zip(bars, accuracies, counts)):
             ax.text(acc + 0.01, i, f'{acc:.1%} (n={count})', 
-                   va='center', fontsize=10, fontweight='bold')
+                   va='center', fontsize=56, fontweight='bold')
         
-        ax.set_xlabel('Accuracy', fontsize=12, fontweight='bold')
-        ax.set_ylabel('Camera Tag', fontsize=12, fontweight='bold')
-        ax.set_title('Top 10 Camera Tags by Frequency', fontsize=14, fontweight='bold', pad=20)
+        ax.set_xlabel('Accuracy', fontsize=72, fontweight='bold')
+        ax.set_ylabel('Camera Tag', fontsize=72, fontweight='bold')
+        ax.tick_params(axis='both', which='major', labelsize=64)
         ax.set_xlim(0, max(accuracies) * 1.2 if accuracies else 1)
         
         plt.tight_layout()
@@ -390,7 +424,7 @@ class MQAResultsVisualizer:
         if self.baseline_df is None:
             return
         
-        fig, ax = plt.subplots(figsize=(10, 6))
+        fig, ax = plt.subplots(figsize=(16, 16))
         
         # Get best config accuracy
         config_accuracy = {}
@@ -420,7 +454,7 @@ class MQAResultsVisualizer:
             height = bar.get_height()
             ax.text(bar.get_x() + bar.get_width()/2., height + 0.01,
                    f'{acc:.2%}',
-                   ha='center', va='bottom', fontsize=14, fontweight='bold')
+                   ha='center', va='bottom', fontsize=56, fontweight='bold')
         
         # Add improvement annotation
         improvement = best_accuracy - self.baseline_accuracy
@@ -429,19 +463,80 @@ class MQAResultsVisualizer:
         # Draw arrow showing improvement
         arrow_y = min(accuracies) + (max(accuracies) - min(accuracies)) / 2
         ax.annotate('', xy=(1, best_accuracy), xytext=(0, self.baseline_accuracy),
-                   arrowprops=dict(arrowstyle='->', lw=2, color='blue', alpha=0.5))
+                   arrowprops=dict(arrowstyle='->', lw=8, color='blue', alpha=0.5))
         ax.text(0.5, arrow_y, f'+{improvement:.2%}\n({improvement_pct:+.1f}%)',
-               ha='center', va='center', fontsize=12, fontweight='bold',
+               ha='center', va='center', fontsize=48, fontweight='bold',
                bbox=dict(boxstyle='round,pad=0.5', facecolor='yellow', alpha=0.7))
         
-        ax.set_ylabel('Accuracy', fontsize=12, fontweight='bold')
-        ax.set_title('Baseline vs Best Agentic Configuration', 
-                    fontsize=14, fontweight='bold', pad=20)
+        ax.set_ylabel('Accuracy', fontsize=72, fontweight='bold')
+        ax.tick_params(axis='both', which='major', labelsize=64)
         ax.set_ylim(0, max(accuracies) * 1.15)
         ax.grid(axis='y', alpha=0.3)
         
         plt.tight_layout()
         output_path = self.output_dir / "baseline_vs_best.png"
+        plt.savefig(output_path, dpi=300, bbox_inches='tight')
+        print(f"Saved: {output_path}")
+        plt.close()
+    
+    def plot_question_type_accuracy(self):
+        """Plot accuracy by question type"""
+        fig, ax = plt.subplots(figsize=(18, 18))
+        
+        # Calculate accuracy per question type
+        qtype_data = []
+        for qtype in self.df['question_type'].unique():
+            qtype_df = self.df[self.df['question_type'] == qtype]
+            
+            pred_parsed = qtype_df['predicted_answer'].apply(self.parse_answer)
+            gt_parsed = qtype_df['ground_truth_answer'].apply(
+                lambda x: self.parse_answer(x.split(':')[0])
+            )
+            
+            correct = sum(p == g for p, g in zip(pred_parsed, gt_parsed))
+            total = len(qtype_df)
+            accuracy = correct / total if total > 0 else 0
+            
+            qtype_data.append({
+                'type': qtype,
+                'accuracy': accuracy,
+                'total': total
+            })
+        
+        # Sort by total count
+        qtype_data = sorted(qtype_data, key=lambda x: x['total'], reverse=True)
+        
+        # Format question type names
+        formatted_qtypes = []
+        for d in qtype_data:
+            qtype = d['type'].replace('_', ' ').capitalize()
+            # Split long labels into two lines
+            if qtype == 'Important object count and direction':
+                qtype = 'Important object count\nand direction'
+            elif qtype == 'Object presence confirmation':
+                qtype = 'Object presence\nconfirmation'
+            formatted_qtypes.append(qtype)
+        
+        qtypes = formatted_qtypes
+        accuracies = [d['accuracy'] for d in qtype_data]
+        totals = [d['total'] for d in qtype_data]
+        
+        # Plot
+        bars = ax.barh(qtypes, accuracies, color=plt.cm.coolwarm(np.array(accuracies)))
+        
+        # Add labels
+        for i, (bar, acc, total) in enumerate(zip(bars, accuracies, totals)):
+            ax.text(acc + 0.01, i, f'{acc:.1%} (n={total})', 
+                   va='center', fontsize=56, fontweight='bold')
+        
+        ax.set_xlabel('Accuracy', fontsize=72, fontweight='bold')
+        ax.set_ylabel('Question Type', fontsize=72, fontweight='bold')
+        ax.tick_params(axis='both', which='major', labelsize=64)
+        ax.tick_params(axis='x', which='both', bottom=False, labelbottom=False)  # Remove x-axis ticks
+        ax.set_xlim(0, max(accuracies) * 1.2 if accuracies else 1)
+        
+        plt.tight_layout()
+        output_path = self.output_dir / "question_type_accuracy.png"
         plt.savefig(output_path, dpi=300, bbox_inches='tight')
         print(f"Saved: {output_path}")
         plt.close()
@@ -460,8 +555,7 @@ class MQAResultsVisualizer:
         # Generate plots
         print("Generating plots...")
         self.plot_config_comparison()
-        if self.baseline_df is not None:
-            self.plot_baseline_vs_best_config()
+        self.plot_question_type_accuracy()
         self.plot_object_tags_top10()
         self.plot_camera_tags_top10()
         
