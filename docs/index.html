@@ -2539,10 +2539,1398 @@ In summary, this urban driving scene presents a complex interaction of vehicles,
             </div>
         </div>
         
+        
+        </div>
             
-            <!-- Layer 4: Caption Generation -->
+        <!-- Scene 2 Layers -->
+        <div class="scene-layers" id="scene-layers-2" style="display: none;">
+            <!-- Layer 1: Content Transformation -->
+            <div class="layer" id="layer1-1">
+                <div class="layer-header">Layer 1: Content Transformation</div>
+                
+        <div class="agent-section">
+            <div class="agent-header" onclick="toggleAgent('camera-agent-1')">
+                <div>
+                    <span class="badge badge-camera">CAMERA</span>
+                    <span class="agent-title">CameraAgent</span>
+                </div>
+                <span class="toggle-icon" id="camera-agent-1-icon">▼</span>
+            </div>
+            <div class="agent-content" id="camera-agent-1">
+                <div class="summary">
+                    <strong>Summary:</strong> Analyzed 6 camera views to extract visual observations including vehicles, pedestrians, road structure, traffic signs, and environmental conditions.
+                </div>
+                
+                <h4>Key Observations by View:</h4>
+                
+            <div style="margin: 15px 0;">
+                <h4 style="color: #667eea;">CAM_FRONT</h4>
+                <p>CAM_FRONT
+- **Vehicles**:  
+  - A black sedan is positioned in the middle lane, stationary or moving slowly, approximately 30 meters ahead.  
+  - A white sedan is in the right lane, slightly ahead of ...</p>
+            </div>
             
-      
+            <div style="margin: 15px 0;">
+                <h4 style="color: #667eea;">CAM_FRONT_RIGHT</h4>
+                <p>CAM_FRONT_RIGHT
+- **Vehicles**:  
+  - No vehicles visible in this camera view.  
+- **Pedestrians and Cyclists**:  
+  - No pedestrians or cyclists are visible in this view.  
+- **Road Structure and Mar...</p>
+            </div>
+            
+            <div style="margin: 15px 0;">
+                <h4 style="color: #667eea;">CAM_FRONT_LEFT</h4>
+                <p>CAM_FRONT_LEFT
+- **Vehicles**:  
+  - No vehicles visible in this camera view.  
+- **Pedestrians and Cyclists**:  
+  - Two pedestrians are seated at outdoor tables near the white "Hood" structure on th...</p>
+            </div>
+            
+            <div style="margin: 15px 0;">
+                <h4 style="color: #667eea;">CAM_BACK</h4>
+                <p>CAM_BACK
+- **Vehicles**:  
+  - A white sedan is in the left lane, approximately 20 meters behind the camera.  
+  - A gray sedan is in the right lane, slightly behind the white sedan, approximately 25 ...</p>
+            </div>
+            
+            <div style="margin: 15px 0;">
+                <h4 style="color: #667eea;">CAM_BACK_LEFT</h4>
+                <p>CAM_BACK_LEFT
+- **Vehicles**:  
+  - No vehicles visible in this camera view.  
+- **Pedestrians and Cyclists**:  
+  - No pedestrians or cyclists are visible in this view.  
+- **Road Structure and Marki...</p>
+            </div>
+            
+
+                <button class="detail-toggle" onclick="toggleDetail('camera-full-1')">Show Full Response</button>
+                <div class="full-content" id="camera-full-1">### CAM_FRONT
+CAM_FRONT
+- **Vehicles**:  
+  - A black sedan is positioned in the middle lane, stationary or moving slowly, approximately 30 meters ahead.  
+  - A white sedan is in the right lane, slightly ahead of the black sedan, also stationary or moving slowly.  
+  - A dark-colored SUV is visible further ahead in the middle lane, about 50 meters away.  
+- **Pedestrians and Cyclists**:  
+  - Two pedestrians are standing on the sidewalk to the left near a tree, approximately 20 meters ahead.  
+  - A group of pedestrians is visible on the right-hand sidewalk, walking or standing near the brick building.  
+- **Road Structure and Markings**:  
+  - Two yellow solid lines divide the lanes in the center of the road.  
+  - Crosswalk markings are visible at the intersection ahead.  
+  - The road is straight and relatively narrow, bordered by sidewalks on both sides.  
+- **Traffic Signs and Signals**:  
+  - A traffic light is visible at the intersection ahead, currently showing a red light.  
+  - A "No Turn on Red" sign is mounted on the traffic light pole on the left.  
+- **Environmental Conditions**:  
+  - Partly cloudy skies with good visibility.  
+  - No precipitation or wet road surfaces.  
+- **Potential Hazards**:  
+  - Pedestrians near the crosswalk may enter the road unexpectedly.  
+  - Vehicles ahead may stop or accelerate suddenly as the light changes.
+
+---
+
+### Camera:
+
+### CAM_FRONT_RIGHT
+CAM_FRONT_RIGHT
+- **Vehicles**:  
+  - No vehicles visible in this camera view.  
+- **Pedestrians and Cyclists**:  
+  - No pedestrians or cyclists are visible in this view.  
+- **Road Structure and Markings**:  
+  - A metal guardrail runs parallel to the road on the right-hand side.  
+  - The road surface is not visible in this view.  
+- **Traffic Signs and Signals**:  
+  - A "No Parking Anytime" sign is mounted on a pole near the guardrail.  
+- **Environmental Conditions**:  
+  - Partly cloudy skies with reflections visible on the glass building.  
+  - No precipitation or wet surfaces.  
+- **Potential Hazards**:  
+  - None immediately visible in this view.  
+
+---
+
+### Camera:
+
+### CAM_FRONT_LEFT
+CAM_FRONT_LEFT
+- **Vehicles**:  
+  - No vehicles visible in this camera view.  
+- **Pedestrians and Cyclists**:  
+  - Two pedestrians are seated at outdoor tables near the white "Hood" structure on the left sidewalk.  
+  - Additional pedestrians are visible further left near the building entrance, approximately 30 meters away.  
+- **Road Structure and Markings**:  
+  - A metal guardrail is visible on the left side of the road.  
+  - The road surface is partially visible, with no specific markings in this view.  
+- **Traffic Signs and Signals**:  
+  - No traffic signs or signals are visible in this view.  
+- **Environmental Conditions**:  
+  - Partly cloudy skies with good visibility.  
+  - No precipitation or wet surfaces.  
+- **Potential Hazards**:  
+  - Pedestrians near the outdoor seating area may step onto the road unexpectedly.  
+
+---
+
+### Camera:
+
+### CAM_BACK
+CAM_BACK
+- **Vehicles**:  
+  - A white sedan is in the left lane, approximately 20 meters behind the camera.  
+  - A gray sedan is in the right lane, slightly behind the white sedan, approximately 25 meters away.  
+- **Pedestrians and Cyclists**:  
+  - No pedestrians or cyclists are visible in this view.  
+- **Road Structure and Markings**:  
+  - Two yellow solid lines divide the lanes in the center of the road.  
+  - The road is straight and elevated, with metal guardrails on both sides.  
+- **Traffic Signs and Signals**:  
+  - No traffic signs or signals are visible in this view.  
+- **Environmental Conditions**:  
+  - Partly cloudy skies with good visibility.  
+  - No precipitation or wet surfaces.  
+- **Potential Hazards**:  
+  - Vehicles behind may attempt to overtake or change lanes unexpectedly.  
+
+---
+
+### Camera:
+
+### CAM_BACK_LEFT
+CAM_BACK_LEFT
+- **Vehicles**:  
+  - No vehicles visible in this camera view.  
+- **Pedestrians and Cyclists**:  
+  - No pedestrians or cyclists are visible in this view.  
+- **Road Structure and Markings**:  
+  - A metal guardrail runs parallel to the road on the left-hand side.  
+  - A bridge structure is visible in the background, spanning a body of water.  
+- **Traffic Signs and Signals**:  
+  - No traffic signs or signals are visible in this view.  
+- **Environmental Conditions**:  
+  - Partly cloudy skies with good visibility.  
+  - No precipitation or wet surfaces.  
+- **Potential Hazards**:  
+  - None immediately visible in this view.  
+
+---
+
+### Camera:</div>
+            </div>
+        </div>
+        
+                
+        <div class="agent-section">
+            <div class="agent-header" onclick="toggleAgent('lidar-agent-1')">
+                <div>
+                    <span class="badge badge-lidar">LIDAR</span>
+                    <span class="agent-title">LiDARAgent</span>
+                </div>
+                <span class="toggle-icon" id="lidar-agent-1-icon">▼</span>
+            </div>
+            <div class="agent-content" id="lidar-agent-1">
+                <div class="summary">
+                    <strong>Summary:</strong> Detected 21 objects from LiDAR point cloud analysis.
+                </div>
+                
+                <h4>Analysis Highlights:</h4>
+                <ul>
+                    <li>Comprehensive object detection and classification</li>
+                    <li>Spatial distribution analysis across all directions</li>
+                    <li>Distance-based risk assessment</li>
+                </ul>
+
+                <button class="detail-toggle" onclick="toggleDetail('lidar-full-1')">Show Full Analysis</button>
+                <div class="full-content" id="lidar-full-1">=== LiDAR Scene Analysis ===
+
+Total detected objects: 21
+
+Object Distribution:
+  - 3 bicycle(s)
+  - 2 construction_vehicle(s)
+  - 3 pedestrian(s)
+  - 8 traffic_cone(s)
+  - 2 trailer(s)
+  - 3 truck(s)
+
+Spatial Distribution:
+  - front: 5 objects (bicycle, traffic_cone, pedestrian, trailer)
+  - back: 1 objects (truck)
+  - left: 2 objects (traffic_cone)
+  - right: 5 objects (bicycle, construction_vehicle, traffic_cone, pedestrian, truck)
+  - front_left: 2 objects (bicycle, truck)
+  - front_right: 3 objects (construction_vehicle, pedestrian, trailer)
+  - back_left: 3 objects (traffic_cone)
+
+Distance Distribution:
+  - Close (<10m): 6 objects
+  - Medium (10-30m): 15 objects
+  - Far (>30m): 0 objects
+
+Nearest Object:
+  - Type: trailer
+  - Distance: 4.7m
+  - Direction: front_right
+
+Scene Characteristics:
+  - Traffic density: light
+  - Object point ratio: 29.29%
+
+### High-Level Scene Interpretation
+
+1. **Overall Scene Context**:
+   - The scene appears to be in an urban environment, characterized by light traffic density. The presence of various detected objects suggests a mixed-use area, likely near construction or maintenance activities due to the presence of construction vehicles and numerous traffic cones.
+
+2. **Key Objects and Their Significance**:
+   - **Bicycles (3)**: Present both in the front and right areas, indicating potential interactions with cyclists, necessitating caution.
+   - **Pedestrians (3)**: Located in the right and front-right zones, highlighting the need for vigilance to avoid potential collisions.
+   - **Traffic Cones (8)**: Concentrated in the left and back-left areas, signaling ongoing construction or road work, which may affect navigation and require careful maneuvering.
+   - **Construction Vehicles (2)**: Positioned on the right, indicating active work zones which may pose risks to the ego vehicle and require adherence to traffic regulations.
+   - **Trailers (2)**: One located very close (4.7m) in the front-right, which could obstruct the path or require the ego vehicle to yield.
+
+3. **Potential Risks or Safety Concerns**:
+   - **Proximity of Objects**: With 6 objects within 10m, there is a heightened risk of collision, particularly with the nearby trailer and pedestrians.
+   - **Dynamic Environment**: The presence of construction vehicles and traffic cones suggests that the environment may change rapidly, requiring adaptive driving strategies.
+   - **Bicycles and Pedestrians**: The close proximity of bicycles and pedestrians necessitates careful monitoring to prevent accidents, especially in an urban setting where they may behave unpredictably.
+
+4. **Notable Spatial Patterns or Relationships**:
+   - **Front-Right Focus**: The concentration of objects (trailer, construction vehicle, pedestrian) in the front-right zone suggests a potential bottleneck or conflict point that the ego vehicle must navigate carefully.
+   - **Traffic Cone Clusters**: The significant number of traffic cones, especially on the left and back-left, indicates a need for lane management and awareness of potential detours or obstacles.
+   - **Light Traffic Density**: The overall light traffic allows for more maneuverability, but the close proximity of various objects requires the ego vehicle to maintain a cautious approach.
+
+### Actionable Insights:
+- **Adjust Speed**: Reduce speed to enhance reaction time to nearby objects, particularly in the front-right sector.
+- **Increase Awareness**: Continuously monitor the behavior of nearby bicycles and pedestrians, especially as the vehicle approaches the construction area.
+- **Plan Maneuvers**: Prepare for potential lane changes or stops due to the presence of construction vehicles and traffic cones, ensuring compliance with any temporary traffic regulations.</div>
+            </div>
+        </div>
+        
+                
+        <div class="agent-section">
+            <div class="agent-header" onclick="toggleAgent('scenegraph-agent-1')">
+                <div>
+                    <span class="badge badge-scene-graph">SCENE GRAPH</span>
+                    <span class="agent-title">SceneGraphAgent</span>
+                </div>
+                <span class="toggle-icon" id="scenegraph-agent-1-icon">▼</span>
+            </div>
+            <div class="agent-content" id="scenegraph-agent-1">
+                <div class="summary">
+                    <strong>Summary:</strong> Generated hierarchical scene graph with detailed road structure, traffic participants, and static infrastructure.
+                </div>
+                
+                <div class="safety-critical">
+                    <h4>⚠️ Safety Critical Elements:</h4>
+                    <ul>
+                        
+                    </ul>
+                </div>
+
+                <button class="detail-toggle" onclick="toggleDetail('scenegraph-full-1')">Show Full Scene Graph</button>
+                <div class="full-content" id="scenegraph-full-1">=== Hierarchical Scene Graph ===
+
+Scene: The scene consists of a total of 23 objects, including 4 stopped cars and 19 stopped adults. All objects are located at distances greater than 10 meters from the ego vehicle, with no cyclists or other road elements present.
+Total objects: 23
+
+Environment:
+  - Lighting: day
+  - Weather: clear
+  - Location: urban
+
+Road Structure:
+  - Type: urban street
+  - Lanes: 2 urban lanes
+  - Ego position: center lane
+Traffic Participants:
+  - Vehicles: 4
+  - Cyclists: 0
+  - Vulnerable road users: 5
+
+Sidewalk Areas (both):
+  - Pedestrians: 0
+  - Static objects: 0
+
+Spatial Zones:</div>
+            </div>
+        </div>
+        
+                
+        <div class="agent-section">
+            <div class="agent-header" onclick="toggleAgent('crossmodal-agent-1')">
+                <div>
+                    <span class="badge badge-cross-modal">CROSS-MODAL</span>
+                    <span class="agent-title">CrossModalAgent</span>
+                </div>
+                <span class="toggle-icon" id="crossmodal-agent-1-icon">▼</span>
+            </div>
+            <div class="agent-content" id="crossmodal-agent-1">
+                <div class="summary">
+                    <strong>Summary:</strong> Synthesized observations from Camera, LiDAR, and Scene Graph agents to create coordinated understanding.
+                </div>
+
+                <button class="detail-toggle" onclick="toggleDetail('crossmodal-full-1')">Show Full Coordination Summary</button>
+                <div class="full-content" id="crossmodal-full-1">### Coordinated Summary of Multi-Modal Understanding
+
+#### Scene Overview
+The scene is set in an urban environment characterized by light traffic density and clear weather conditions. The visibility is good with partly cloudy skies, and there are no signs of precipitation. The road is straight and relatively narrow, bordered by sidewalks on both sides. 
+
+#### Vehicles
+1. **Observed Vehicles**:
+   - **Black Sedan**: Positioned in the middle lane, approximately 30 meters ahead, stationary or moving slowly.
+   - **White Sedan**: Located in the right lane, slightly ahead of the black sedan, also stationary or moving slowly.
+   - **Dark-Colored SUV**: Visible further ahead in the middle lane, about 50 meters away.
+   - **Gray Sedan**: Detected in the right lane, approximately 25 meters behind the camera, slightly behind a white sedan.
+   - **White Sedan (Back View)**: Positioned in the left lane, about 20 meters behind the camera.
+   - **Construction Vehicles**: Two construction vehicles detected on the right side of the scene, indicating active work zones.
+
+2. **Count of Vehicles**: A total of 4 stopped cars are reported, with additional construction vehicles noted by the LiDARAgent.
+
+#### Pedestrians and Cyclists
+1. **Observed Pedestrians**:
+   - **Two Pedestrians**: Standing on the left sidewalk near a tree, approximately 20 meters ahead.
+   - **Group of Pedestrians**: Located on the right-hand sidewalk near a brick building, exact distance not specified.
+   - **Additional Pedestrians**: Two seated at outdoor tables near a white structure on the left sidewalk, and others are visible further left near a building entrance, approximately 30 meters away.
+   - **Two Pedestrians**: Walking on the sidewalk near the guardrail, approximately 5 meters away from the back-right camera view.
+
+2. **Count of Pedestrians**: A total of 19 stopped adults were reported, with the presence of 3 identified by the LiDARAgent.
+
+3. **Cyclists**: Three bicycles were detected in the front and right areas, indicating a potential for interaction.
+
+#### Road Structure and Markings
+- The road features two yellow solid lines dividing the lanes, with crosswalk markings visible at the intersection ahead. The presence of a metal guardrail runs parallel to the road on both the left and right sides.
+- Traffic cones (8) are concentrated in the left and back-left areas, signaling ongoing construction, which may affect navigation.
+
+#### Traffic Signs and Signals
+- A traffic light at the intersection ahead is currently showing a red light, accompanied by a "No Turn on Red" sign mounted on the pole to the left.
+- No other traffic signs or signals were reported in the other camera views.
+
+#### Environmental Conditions
+- The environmental conditions are stable with good visibility and no wet surfaces, contributing to a lower risk of accidents due to road conditions.
+
+#### Potential Hazards
+- **Pedestrian Hazards**: Pedestrians near the crosswalk and outdoor seating areas may enter the road unexpectedly.
+- **Vehicle Hazards**: Vehicles ahead may stop or accelerate suddenly as the light changes, and vehicles behind may attempt to overtake or change lanes unexpectedly.
+- **Construction Hazards**: The presence of construction vehicles and traffic cones necessitates heightened awareness and careful navigation.
+
+#### Discrepancies and Areas Needing Attention
+- The SceneGraphAgent reported a total of 23 objects, including 4 stopped cars and 19 stopped adults, which contrasts with the CameraAgent's detailed observations of specific vehicles and pedestrians, indicating a need to reconcile these counts.
+- The LiDARAgent highlighted the presence of construction vehicles and traffic cones, which were not explicitly mentioned in the CameraAgent's observations, suggesting a potential oversight in the visual data.
+- The CameraAgent noted specific distances for vehicles and pedestrians, while the SceneGraphAgent provided a more general count without specific distances, indicating a need for more precise spatial data integration.
+
+### Actionable Insights
+- **Adjust Speed**: Given the proximity of pedestrians and construction vehicles, reducing speed is recommended to enhance reaction time.
+- **Increase Awareness**: Continuous monitoring of nearby bicycles and pedestrians is crucial, especially as the vehicle approaches the construction area.
+- **Plan Maneuvers**: Prepare for potential lane changes or stops due to the presence of construction vehicles and traffic cones, ensuring compliance with any temporary traffic regulations.
+
+This synthesis provides a comprehensive understanding of the scene, highlighting both the observed elements and discrepancies that require further attention.</div>
+            </div>
+        </div>
+        
+            </div>
+            
+            <!-- Layer 2: Seed Features Generation -->
+            <div class="layer" id="layer2-1">
+                <div class="layer-header">Layer 2: Seed Features Generation</div>
+                
+            <div class="agent-section">
+                <div class="agent-header" onclick="toggleAgent('focus-scene_structure-1')">
+                    <div>
+                        <span class="badge" style="background: #d1ecf1; color: #0c5460;">FOCUSED</span>
+                        <span class="agent-title">FocusedCaption - Scene Structure</span>
+                    </div>
+                    <span class="toggle-icon" id="focus-scene_structure-1-icon">▼</span>
+                </div>
+                <div class="agent-content" id="focus-scene_structure-1">
+                    <div class="summary">
+                        <strong>Focus Area:</strong> Scene Structure
+                        <p style="margin-top: 10px;">The scene unfolds on an urban street characterized by light traffic density, where the road is straight and relatively narrow, flanked by sidewalks on both sides. The road surface appears dry and in g...</p>
+                    </div>
+
+                    <button class="detail-toggle" onclick="toggleDetail('focus-scene_structure-full-1')">Show Full Caption</button>
+                    <div class="full-content" id="focus-scene_structure-full-1">The scene unfolds on an urban street characterized by light traffic density, where the road is straight and relatively narrow, flanked by sidewalks on both sides. The road surface appears dry and in good condition, with no visible signs of precipitation affecting visibility. As we examine the structure of the road, we notice two yellow solid lines that distinctly divide the lanes in the center, ensuring clear demarcation of traffic flow. The ego vehicle is positioned in the middle lane, maintaining a safe distance from the vehicles ahead.
+
+Approximately 30 meters ahead, a black sedan is observed, either stationary or moving slowly in the middle lane, which is the same lane as the ego vehicle. Slightly ahead of the black sedan, in the right lane, is a white sedan that mirrors the behavior of the black sedan, also appearing stationary or moving at a slow pace. Further along in the middle lane, about 50 meters away, a dark-colored SUV can be seen, contributing to the light traffic observed in this area. 
+
+To the left of the ego vehicle, on the sidewalk, two pedestrians are standing near a tree, about 20 meters ahead, adding to the urban vibrancy of the scene. On the right-hand sidewalk, a group of pedestrians is either walking or standing near a brick building, though their exact distance from the ego vehicle is not specified. Additionally, two pedestrians are seated at outdoor tables near a white structure on the left sidewalk, while more pedestrians can be seen further left, near a building entrance, approximately 30 meters away. 
+
+As we shift our focus to the traffic control measures present in this urban environment, a traffic light is visible at the intersection ahead, currently displaying a red light, indicating that vehicles must stop. Accompanying this, a "No Turn on Red" sign is mounted on the traffic light pole on the left, guiding drivers about turning restrictions. The presence of crosswalk markings at the intersection ahead suggests pedestrian crossing points, which necessitate vigilance from the ego vehicle, especially with pedestrians in proximity.
+
+In terms of infrastructure, the road is bordered on both sides by metal guardrails, which serve as barriers that enhance safety and prevent vehicles from veering off the road. The right side of the road features a metal guardrail running parallel to it, while the left side has a similar guardrail, emphasizing the structured environment of this urban street. 
+
+Looking further into the environmental conditions, the skies are partly cloudy, providing good visibility for driving, and there are no precipitation or wet road surfaces that could compromise traction. The overall ambiance is calm, yet the presence of pedestrians near the crosswalk and the outdoor seating area raises potential hazards, as they may enter the roadway unexpectedly. Additionally, vehicles ahead may stop or accelerate suddenly as the traffic light changes, necessitating careful monitoring by the ego vehicle.
+
+In the rear view, approximately 20 meters behind the camera, a white sedan is positioned in the left lane, while a gray sedan is detected in the right lane, slightly behind the white sedan at a distance of around 25 meters. This further emphasizes the light traffic density of the area, as the vehicles are also stationary or moving slowly. 
+
+From the left and right side views, the metal guardrails remain consistent, reinforcing the safety structure of the road. However, in the right view, there are two pedestrians seen walking on the sidewalk near the guardrail, approximately 5 meters away from the camera, indicating that the potential for unexpected movements from pedestrians remains a concern.
+
+Overall, the scene is rich with detail, highlighting the interplay between vehicles, pedestrians, and the structured urban environment. The careful positioning of the ego vehicle in the middle lane, alongside the observed traffic control signals and the presence of pedestrians, outlines a dynamic yet manageable driving scenario that requires ongoing vigilance and adaptive driving strategies to navigate safely.</div>
+                </div>
+            </div>
+            
+            <div class="agent-section">
+                <div class="agent-header" onclick="toggleAgent('focus-objects-1')">
+                    <div>
+                        <span class="badge" style="background: #d1ecf1; color: #0c5460;">FOCUSED</span>
+                        <span class="agent-title">FocusedCaption - Objects</span>
+                    </div>
+                    <span class="toggle-icon" id="focus-objects-1-icon">▼</span>
+                </div>
+                <div class="agent-content" id="focus-objects-1">
+                    <div class="summary">
+                        <strong>Focus Area:</strong> Objects
+                        <p style="margin-top: 10px;">In this urban scene, the environment is characterized by partly cloudy skies and good visibility, with no precipitation affecting road conditions. The road itself is straight and relatively narrow, bo...</p>
+                    </div>
+
+                    <button class="detail-toggle" onclick="toggleDetail('focus-objects-full-1')">Show Full Caption</button>
+                    <div class="full-content" id="focus-objects-full-1">In this urban scene, the environment is characterized by partly cloudy skies and good visibility, with no precipitation affecting road conditions. The road itself is straight and relatively narrow, bordered by sidewalks on both sides, and features two yellow solid lines that divide the lanes in the center. 
+
+In the middle lane, approximately 30 meters ahead of the ego vehicle, a black sedan is detected, which appears to be either stationary or moving slowly. Slightly ahead of this black sedan, in the right lane, is a white sedan that is also either stopped or moving at a slow pace. Further along in the middle lane, about 50 meters ahead, a dark-colored SUV is visible, contributing to the light traffic density in the area. 
+
+Moving to the rear view of the scene, approximately 20 meters behind the ego vehicle, a white sedan is located in the left lane, while a gray sedan is positioned slightly behind it in the right lane, about 25 meters away. This indicates that the traffic behind the ego vehicle is also relatively light, with no immediate threats from vehicles attempting to overtake or change lanes.
+
+On the sidewalks, two pedestrians are standing on the left side near a tree, approximately 20 meters ahead of the ego vehicle. On the right-hand sidewalk, there is a group of pedestrians who appear to be either walking or standing near a brick building, although their exact distance from the ego vehicle is not specified. Additionally, two pedestrians are seated at outdoor tables near a white structure on the left sidewalk, while more pedestrians are seen further left near the entrance of a building, which is approximately 30 meters away. In the back-right camera view, two pedestrians are walking on the sidewalk near a metal guardrail, approximately 5 meters away, highlighting the presence of vulnerable road users in close proximity to the ego vehicle.
+
+The scene also includes several notable road structures and markings. Crosswalk markings are evident at the intersection ahead, suggesting a designated pedestrian crossing that may require the ego vehicle to yield to pedestrians. The presence of a traffic light at the intersection indicates that it is currently showing a red light, and a "No Turn on Red" sign is mounted on the traffic light pole on the left side of the road, further emphasizing the need for caution as the light may change.
+
+In addition to the vehicles and pedestrians, the scene is marked by the presence of construction elements. There are eight traffic cones concentrated in the left and back-left areas, signaling ongoing construction or road work, which may affect navigation and necessitate careful maneuvering. Furthermore, two construction vehicles are detected on the right side of the scene, indicating active work zones that could pose risks to the ego vehicle as it navigates through this environment.
+
+The overall light traffic density allows for some maneuverability, but the close proximity of various objects, including the nearby trailer and pedestrians, necessitates heightened vigilance. The spatial arrangement of objects, especially the concentration of pedestrians near the crosswalk and the presence of construction vehicles, suggests potential conflict points that the ego vehicle must navigate carefully. 
+
+As the ego vehicle approaches the scene, it is crucial to adjust speed to enhance reaction time to the nearby objects, particularly the pedestrians and construction vehicles. Continuous monitoring of the behavior of nearby bicycles and pedestrians is essential, especially in this urban setting where they may behave unpredictably. The presence of construction vehicles and traffic cones indicates a need for lane management and awareness of potential detours or obstacles, ensuring compliance with any temporary traffic regulations. 
+
+Overall, this scene presents a dynamic environment filled with multiple objects, both stationary and moving, that require the ego vehicle to maintain a cautious approach to ensure safety for all road users.</div>
+                </div>
+            </div>
+            
+            <div class="agent-section">
+                <div class="agent-header" onclick="toggleAgent('focus-spatial_relations-1')">
+                    <div>
+                        <span class="badge" style="background: #d1ecf1; color: #0c5460;">FOCUSED</span>
+                        <span class="agent-title">FocusedCaption - Spatial Relations</span>
+                    </div>
+                    <span class="toggle-icon" id="focus-spatial_relations-1-icon">▼</span>
+                </div>
+                <div class="agent-content" id="focus-spatial_relations-1">
+                    <div class="summary">
+                        <strong>Focus Area:</strong> Spatial Relations
+                        <p style="margin-top: 10px;">In this urban driving scene, the ego vehicle is positioned in the center lane of a straight road that is bordered by sidewalks on both sides. Approximately 30 meters ahead, there is a black sedan loca...</p>
+                    </div>
+
+                    <button class="detail-toggle" onclick="toggleDetail('focus-spatial_relations-full-1')">Show Full Caption</button>
+                    <div class="full-content" id="focus-spatial_relations-full-1">In this urban driving scene, the ego vehicle is positioned in the center lane of a straight road that is bordered by sidewalks on both sides. Approximately 30 meters ahead, there is a black sedan located in the middle lane, which is either stationary or moving slowly. Slightly ahead of the black sedan, in the right lane, a white sedan is also observed, similarly stationary or moving at a slow pace. Further along in the middle lane, about 50 meters ahead, a dark-colored SUV is visible, indicating that the traffic flow is relatively light but presents potential interactions with these vehicles as the ego vehicle approaches.
+
+To the left of the ego vehicle, approximately 20 meters ahead, two pedestrians are standing on the sidewalk near a tree, which indicates a potential hazard as they may unexpectedly enter the crosswalk or roadway. On the right-hand sidewalk near a brick building, there is a group of pedestrians, though their exact distance from the ego vehicle is not specified; however, their presence adds to the need for vigilance as the ego vehicle navigates through this area. Additionally, on the left sidewalk, there are two pedestrians seated at outdoor tables near a white structure, with others further left near the entrance of a building, approximately 30 meters away from the ego vehicle, creating a cluster of individuals who could pose a risk if they decide to step onto the road.
+
+The road is marked by two solid yellow lines that divide the lanes, and crosswalk markings are visible at the intersection ahead, which is also marked by a traffic light that is currently displaying a red signal. Mounted on the traffic light pole to the left is a "No Turn on Red" sign, emphasizing the need for the ego vehicle to stop and remain cautious of any pedestrians approaching the crosswalk. 
+
+From the back view, approximately 20 meters behind the ego vehicle in the left lane is a white sedan, while a gray sedan is located slightly behind it in the right lane, about 25 meters away. This positioning of the white sedan and gray sedan suggests that the traffic behind the ego vehicle is also moving slowly, though there is a potential for sudden stops or accelerations as the traffic light changes.
+
+On the right-hand side of the road, a metal guardrail runs parallel to the roadway, providing a barrier between the road and the adjacent area. In the back-right camera view, two pedestrians are walking on the sidewalk, approximately 5 meters away from the ego vehicle, highlighting the proximity of vulnerable road users. The left side of the road also features a metal guardrail, ensuring that the ego vehicle remains within the defined roadway and away from any potential hazards beyond the guardrail.
+
+As the environment presents partly cloudy skies with good visibility and no precipitation, the overall conditions are conducive to safe driving; however, the presence of pedestrians near the crosswalk and outdoor seating areas, as well as the vehicles positioned ahead, necessitates careful monitoring and potential adjustments in speed. The concentration of pedestrians, particularly near the crosswalk, suggests a heightened risk of unexpected movement into the roadway, which the ego vehicle must account for as it approaches the intersection. 
+
+In summary, this scene is characterized by a careful interplay of stationary vehicles positioned at various distances ahead, pedestrians clustered on both sidewalks, and the presence of traffic control signals that dictate the flow of movement. The spatial relationships between these elements create a dynamic environment where the ego vehicle must navigate with caution and readiness to react to both vehicles and pedestrians that may engage in unpredictable behaviors as the traffic light changes.</div>
+                </div>
+            </div>
+            
+            <div class="agent-section">
+                <div class="agent-header" onclick="toggleAgent('focus-dynamics-1')">
+                    <div>
+                        <span class="badge" style="background: #d1ecf1; color: #0c5460;">FOCUSED</span>
+                        <span class="agent-title">FocusedCaption - Dynamics</span>
+                    </div>
+                    <span class="toggle-icon" id="focus-dynamics-1-icon">▼</span>
+                </div>
+                <div class="agent-content" id="focus-dynamics-1">
+                    <div class="summary">
+                        <strong>Focus Area:</strong> Dynamics
+                        <p style="margin-top: 10px;">In this urban scene, the dynamics are characterized by a mix of stationary and slowly moving vehicles, as well as pedestrians that are either standing or walking in various areas. Positioned approxima...</p>
+                    </div>
+
+                    <button class="detail-toggle" onclick="toggleDetail('focus-dynamics-full-1')">Show Full Caption</button>
+                    <div class="full-content" id="focus-dynamics-full-1">In this urban scene, the dynamics are characterized by a mix of stationary and slowly moving vehicles, as well as pedestrians that are either standing or walking in various areas. Positioned approximately 30 meters ahead in the middle lane is a black sedan, which is currently stationary or moving at a slow speed, suggesting that it is either waiting at a traffic signal or preparing to proceed. Slightly ahead of this black sedan, in the right lane, is a white sedan that is also either stationary or moving slowly, maintaining a similar pace as the black sedan. Further along the middle lane, about 50 meters ahead, a dark-colored SUV is visible, contributing to the overall scene of vehicles that are either halted or progressing at a minimal pace.
+
+On the left-hand sidewalk, approximately 20 meters ahead of the ego vehicle, two pedestrians are standing near a tree, seemingly engaged in conversation or waiting for something. Their position close to the road indicates a potential risk, as they may enter the roadway unexpectedly. On the right-hand sidewalk, a group of pedestrians is present, positioned near a brick building, although their exact distance from the ego vehicle isn't specified. Additionally, two pedestrians are seated at outdoor tables near a white "Hood" structure on the left sidewalk, while more pedestrians can be seen further left near the entrance of a building, approximately 30 meters away from the ego vehicle. In the back-right view, two more pedestrians are walking on the sidewalk near a guardrail, which is about 5 meters away, adding to the dynamic complexity of the scene.
+
+The road itself is straightforward and relatively narrow, with two yellow solid lines dividing the lanes in the center. The presence of crosswalk markings at the intersection ahead indicates a designated area for pedestrian crossing, which could become a focal point for pedestrian movement as the traffic light changes. Currently, the traffic light at the intersection is showing a red signal, accompanied by a "No Turn on Red" sign mounted on the pole to the left, further influencing the behavior of the vehicles in the vicinity. 
+
+The environment is characterized by partly cloudy skies that provide good visibility, and there are no signs of precipitation or wet road surfaces, making for safe driving conditions. However, the presence of pedestrians near the crosswalk and seated at outdoor tables poses a risk of unexpected entries into the road. Additionally, the vehicles ahead may stop or accelerate suddenly as the traffic light changes, necessitating careful observation and readiness to react.
+
+From the back view, a white sedan is detected in the left lane, approximately 20 meters behind the camera, while a gray sedan is positioned slightly behind it in the right lane, about 25 meters away. This suggests that there is a moderate amount of traffic behind the ego vehicle, which could lead to potential lane changes or overtaking maneuvers by those vehicles.
+
+Overall, the scene is marked by a careful interplay of stationary and slowly moving vehicles, along with pedestrians who are either standing still or walking. The dynamic elements and interactions among these participants create a complex environment that requires constant vigilance and adaptive driving strategies to navigate safely. The presence of construction vehicles and traffic cones in the surrounding area further emphasizes the need for caution, as they may alter the driving path and necessitate adjustments in speed and lane positioning. Each element in this scene plays a critical role in shaping the ego vehicle's response and strategy as it approaches the intersection and navigates through potential hazards.</div>
+                </div>
+            </div>
+            
+            <div class="agent-section">
+                <div class="agent-header" onclick="toggleAgent('focus-safety-1')">
+                    <div>
+                        <span class="badge" style="background: #fff3cd; color: #856404;">SAFETY</span>
+                        <span class="agent-title">FocusedCaption - Safety</span>
+                    </div>
+                    <span class="toggle-icon" id="focus-safety-1-icon">▼</span>
+                </div>
+                <div class="agent-content" id="focus-safety-1">
+                    <div class="summary">
+                        <strong>Focus Area:</strong> Safety
+                        <p style="margin-top: 10px;">In this urban scene, the environment is characterized by partly cloudy skies, contributing to good visibility and a clear road surface, free of any precipitation. The road is straight and relatively n...</p>
+                    </div>
+
+                    <button class="detail-toggle" onclick="toggleDetail('focus-safety-full-1')">Show Full Caption</button>
+                    <div class="full-content" id="focus-safety-full-1">In this urban scene, the environment is characterized by partly cloudy skies, contributing to good visibility and a clear road surface, free of any precipitation. The road is straight and relatively narrow, bordered by sidewalks on both sides, and features two yellow solid lines that delineate the lanes. The ego vehicle is currently positioned in the center lane, facing a traffic light at the intersection ahead, which is displaying a red signal. A "No Turn on Red" sign is mounted on the traffic light pole to the left, indicating that turning right at this intersection is prohibited while the light is red.
+
+Approximately 30 meters ahead, a black sedan is positioned in the middle lane, either stationary or moving slowly, while a white sedan is located in the right lane, slightly ahead of the black sedan and also stationary or moving slowly. Further ahead in the middle lane, approximately 50 meters away, a dark-colored SUV is visible, which may be a potential obstacle as it could change speed or direction unexpectedly. In the back view, a white sedan is detected in the left lane about 20 meters behind the camera, with a gray sedan slightly behind it in the right lane, approximately 25 meters away. This configuration creates a dynamic environment where vehicles may stop or accelerate suddenly as the traffic light changes, necessitating heightened awareness and caution from the autonomous driving system.
+
+On the left sidewalk, approximately 20 meters ahead, two pedestrians are standing near a tree, posing a potential risk as they might move towards the road unexpectedly. On the right sidewalk, a group of pedestrians is either walking or standing near a brick building, further increasing the likelihood of unpredictable movements. Additionally, two more pedestrians can be seen seated at outdoor tables near a white structure on the left sidewalk, with others visible further left near the entrance of a building, approximately 30 meters away. These pedestrians, particularly those near the crosswalk marked at the intersection, require careful monitoring as they may enter the roadway without warning.
+
+In the back-right view, two pedestrians are walking on the sidewalk near the guardrail, approximately 5 meters away from the vehicle. This proximity heightens the need for vigilance, as they may step onto the road unexpectedly. The presence of bicycles, with three detected in the front and right areas of the scene, further complicates the situation, as cyclists often have unpredictable behaviors and may merge into traffic or change lanes without signaling.
+
+The road structure is complemented by the presence of metal guardrails running parallel to both the left and right sides of the road, which serve to protect the vehicle from potential hazards beyond the road's edge but also indicate that any errant movements could result in serious consequences. In addition, eight traffic cones are concentrated in the left and back-left areas, signaling ongoing construction or road work, which may require the ego vehicle to navigate carefully around these obstacles and remain compliant with any temporary traffic regulations that may be in place. 
+
+The combination of stopped vehicles, pedestrians, and construction-related elements presents multiple potential hazards. The pedestrians near the crosswalk could enter the road unexpectedly, and the vehicles ahead may stop or accelerate suddenly, particularly with the traffic light poised to change. Furthermore, vehicles behind the ego vehicle may attempt to overtake or change lanes unexpectedly, adding to the complexity of the traffic environment.
+
+Overall, the scene is bustling with multiple safety-critical elements that the autonomous driving system must continuously assess. The presence of stationary and moving vehicles, pedestrians in close proximity to the road, and construction obstacles requires a proactive approach to safety, including adjusting speed to enhance reaction time and maintaining constant awareness of the behavior of nearby road users. The system must be prepared to plan maneuvers that ensure compliance with traffic regulations while navigating through this dynamic urban landscape, all while prioritizing the safety of vulnerable road users and avoiding any unexpected obstacles that could compromise the integrity of the driving experience.</div>
+                </div>
+            </div>
+            
+                
+        <div class="agent-section">
+            <div class="agent-header" onclick="toggleAgent('seed-agent-1')">
+                <div>
+                    <span class="agent-title">SeedFeatureAgent - Integrated Caption</span>
+                </div>
+                <span class="toggle-icon" id="seed-agent-1-icon">▼</span>
+            </div>
+            <div class="agent-content" id="seed-agent-1">
+                <div class="summary">
+                    <strong>Summary:</strong> Combined all 5 focused captions into a comprehensive initial caption for refinement.
+                </div>
+                
+                <h4>Integration Process:</h4>
+                <ul>
+                    <li>Merged perspectives from all 5 focus areas</li>
+                    <li>Eliminated redundancies across captions</li>
+                    <li>Maintained critical details from each perspective</li>
+                    <li>Created cohesive narrative flow</li>
+                </ul>
+
+                <button class="detail-toggle" onclick="toggleDetail('seed-full-1')">Show Initial Caption</button>
+                <div class="full-content" id="seed-full-1">The scene unfolds on a straight and relatively narrow urban street, where the road surface is dry and well-maintained, providing good traction and visibility under partly cloudy skies. The road is flanked by sidewalks on both sides, marked by two solid yellow lines that clearly delineate the lanes for traffic flow. The ego vehicle is positioned in the center lane, maintaining a safe distance from the vehicles ahead. Approximately 30 meters in front, a black sedan is either stationary or moving slowly in the same middle lane, while slightly ahead in the right lane, a white sedan mirrors this behavior, also appearing to be at a standstill or creeping along. Further down the middle lane, about 50 meters ahead, a dark-colored SUV contributes to the light traffic density, creating a scene where vehicles are either halted or progressing at a minimal pace.
+
+As we observe the surrounding environment, we note the presence of pedestrians that add vibrancy to this urban setting. On the left sidewalk, about 20 meters ahead of the ego vehicle, two pedestrians stand near a tree, engaged in conversation or waiting for something, posing a potential hazard as they might unexpectedly enter the crosswalk or roadway. On the right-hand sidewalk, a group of pedestrians is gathered near a brick building, their exact distance from the ego vehicle unspecified, yet their presence necessitates vigilance as the ego vehicle navigates through this area. Nearby, two pedestrians are seated at outdoor tables near a white structure on the left sidewalk, while others can be seen further left, approximately 30 meters away, near the entrance of a building. This clustering of individuals near the road heightens the risk of unexpected movements that the ego vehicle must be prepared to respond to.
+
+At the intersection ahead, a traffic light is currently displaying a red signal, accompanied by a "No Turn on Red" sign mounted on the pole to the left, indicating that vehicles must stop and cannot turn right at this juncture. Crosswalk markings are evident, highlighting designated pedestrian crossing points that require the ego vehicle to remain alert to the potential for pedestrians to enter the roadway. The road is bordered by metal guardrails on both sides, which serve as safety barriers to prevent vehicles from veering off the road, further emphasizing the structured environment of this urban street.
+
+Looking behind the ego vehicle, approximately 20 meters away in the left lane is a white sedan, with a gray sedan positioned slightly behind it in the right lane, about 25 meters away. This configuration indicates that the traffic behind the ego vehicle is also light, with vehicles either stationary or moving slowly, reducing the risk of sudden lane changes or overtaking maneuvers. However, as the traffic light changes, the vehicles ahead may stop or accelerate unexpectedly, necessitating continuous monitoring by the ego vehicle.
+
+In the back-right view, two pedestrians are detected walking on the sidewalk near a guardrail, approximately 5 meters away, reinforcing the need for heightened vigilance as they could step onto the road without warning. The environment is further complicated by the presence of construction elements; eight traffic cones are concentrated in the left and back-left areas, signaling ongoing road work that may affect navigation. Additionally, two construction vehicles are positioned on the right side of the scene, indicating active work zones that could pose risks to the ego vehicle as it maneuvers through this bustling urban landscape.
+
+The overall ambiance of the scene is calm, yet the presence of pedestrians near the crosswalk, those seated at outdoor tables, and the vehicles positioned ahead create a dynamic environment filled with potential hazards. The ego vehicle must navigate carefully, adjusting its speed to enhance reaction time to the nearby pedestrians and construction vehicles. The combination of stationary vehicles, pedestrians, and construction-related elements presents multiple safety-critical scenarios that the autonomous driving system must continuously assess. The need for compliance with traffic regulations while ensuring the safety of vulnerable road users is paramount, as the system prepares to respond to any unexpected movements or obstacles that may arise in this lively urban setting.</div>
+            </div>
+        </div>
+        
+            </div>
+            
+            <!-- Layer 3: Iterative Refinement -->
+            
+        <div class="layer" id="layer3-1">
+            <div class="layer-header">Layer 3: Iterative Features Refinement</div>
+            
+            <div class="agent-section">
+                <div class="agent-header" onclick="toggleAgent('refinement-agent-1')">
+                    <div>
+                        <span class="agent-title">Refinement Process (1 Iterations)</span>
+                    </div>
+                    <span class="toggle-icon" id="refinement-agent-1-icon">▼</span>
+                </div>
+                <div class="agent-content" id="refinement-agent-1">
+                    <div class="summary">
+                        <strong>Summary:</strong> Performed 1 iterations of caption refinement through SuggesterAgent and EditorAgent collaboration.
+                    </div>
+
+                    
+            <div class="iteration-section">
+                <div class="iteration-header">Iteration 1</div>
+                <div class="iteration-content">
+                    <h4>SuggesterAgent Recommendations:</h4>
+                    <ul class="suggestion-list">
+                        <li>Specify the exact distance of pedestrians gathered near the brick building to enhance situational awareness.</li><li>Clarify the condition of the vehicles (stationary vs. moving) to avoid ambiguity and improve clarity.</li><li>Include information about the time of day to provide context for visibility and potential pedestrian activity.</li><li>Elaborate on the implications of the traffic cones and construction vehicles for the ego vehicle's navigation strategy.</li>
+                    </ul>
+                    <button class="detail-toggle" onclick="toggleDetail('iter1-full-1')">Show Refined Caption</button>
+                    <div class="full-content" id="iter1-full-1">The scene unfolds on a straight and relatively narrow urban street, where the dry and well-maintained road surface provides excellent traction and visibility under partly cloudy skies during the day. The road is flanked by sidewalks on both sides, with two solid yellow lines clearly delineating the lanes for traffic flow. The ego vehicle is positioned in the center lane, maintaining a safe distance from the vehicles ahead. Approximately 30 meters in front, a black sedan is stationary, while slightly ahead in the right lane, a white sedan mirrors this behavior, also appearing to be at a standstill. Further down the middle lane, about 50 meters ahead, a dark-colored SUV contributes to the light traffic density, creating a scene where vehicles are either halted or progressing at a minimal pace.
+
+In the surrounding environment, pedestrians add vibrancy to this urban setting. On the left sidewalk, about 20 meters ahead of the ego vehicle, two pedestrians stand near a tree, engaged in conversation, posing a potential hazard as they might unexpectedly enter the crosswalk or roadway. On the right-hand sidewalk, a group of five pedestrians is gathered near a brick building, approximately 25 meters away from the ego vehicle, their presence necessitating vigilance as the ego vehicle navigates through this area. Nearby, two pedestrians are seated at outdoor tables near a white structure on the left sidewalk, while others can be seen further left, approximately 30 meters away, near the entrance of a building. This clustering of individuals near the road heightens the risk of unexpected movements that the ego vehicle must be prepared to respond to.
+
+At the intersection ahead, a traffic light is currently displaying a red signal, accompanied by a "No Turn on Red" sign mounted on the pole to the left, indicating that vehicles must stop and cannot turn right at this juncture. Crosswalk markings are evident, highlighting designated pedestrian crossing points that require the ego vehicle to remain alert to the potential for pedestrians to enter the roadway. The road is bordered by metal guardrails on both sides, which serve as safety barriers to prevent vehicles from veering off the road, further emphasizing the structured environment of this urban street.
+
+Looking behind the ego vehicle, approximately 20 meters away in the left lane is a white sedan, with a gray sedan positioned slightly behind it in the right lane, about 25 meters away. This configuration indicates that the traffic behind the ego vehicle is also light, with vehicles either stationary or moving slowly, reducing the risk of sudden lane changes or overtaking maneuvers. However, as the traffic light changes, the vehicles ahead may stop or accelerate unexpectedly, necessitating continuous monitoring by the ego vehicle.
+
+In the back-right view, two pedestrians are detected walking on the sidewalk near a guardrail, approximately 5 meters away, reinforcing the need for heightened vigilance as they could step onto the road without warning. The environment is further complicated by the presence of construction elements; eight traffic cones are concentrated in the left and back-left areas, signaling ongoing road work that may affect navigation. Additionally, two construction vehicles are positioned on the right side of the scene, indicating active work zones that could pose risks to the ego vehicle as it maneuvers through this bustling urban landscape.
+
+The overall ambiance of the scene is calm, yet the presence of pedestrians near the crosswalk, those seated at outdoor tables, and the vehicles positioned ahead create a dynamic environment filled with potential hazards. The ego vehicle must navigate carefully, adjusting its speed to enhance reaction time to the nearby pedestrians and construction vehicles. The combination of stationary vehicles, pedestrians, and construction-related elements presents multiple safety-critical scenarios that the autonomous driving system must continuously assess. Compliance with traffic regulations while ensuring the safety of vulnerable road users is paramount, as the system prepares to respond to any unexpected movements or obstacles that may arise in this lively urban setting.
+
+
+  ────────────────────────────────────────────────────────────
+  ITERATION 2
+  ────────────────────────────────────────────────────────────
+
+    SuggesterAgent Output:
+      Suggestions: ['Clarify the distance measurements for better precision, e.g., specify if they are approximate or exact.', "Add more context about the time of day and its impact on visibility and pedestrian behavior, such as whether it's rush hour.", 'Include information about the weather conditions that might affect driving, like rain or fog, despite it being partly cloudy.', 'Specify the behavior of the ego vehicle in response to the red light and pedestrians, enhancing the understanding of its decision-making process.', 'Highlight the implications of the construction work on the traffic flow and pedestrian safety, as it adds complexity to the scene.']
+
+    EditorAgent Output:
+      Refined Caption:
+      The scene unfolds on a straight and relatively narrow urban street during the daytime, characterized by partly cloudy skies that provide good visibility. The road surface is dry and well-maintained, ensuring excellent traction for vehicles. Sidewalks flank both sides of the road, with two solid yellow lines clearly marking the lanes for traffic flow. The ego vehicle is situated in the center lane, maintaining a safe distance from the vehicles ahead. Approximately 30 meters in front, a black sedan is stationary, while slightly ahead in the right lane, a white sedan mirrors this behavior, also appearing to be at a standstill. Further down the middle lane, about 50 meters ahead, a dark-colored SUV contributes to the light traffic density, creating a scene where vehicles are either halted or progressing at a minimal pace.
+
+In the surrounding environment, pedestrians add vibrancy to this urban setting. On the left sidewalk, about 20 meters ahead of the ego vehicle, two pedestrians stand near a tree, engaged in conversation, posing a potential hazard as they might unexpectedly enter the crosswalk or roadway. On the right-hand sidewalk, a group of five pedestrians is gathered near a brick building, approximately 25 meters away from the ego vehicle, necessitating vigilance as the ego vehicle navigates through this area. Nearby, two pedestrians are seated at outdoor tables near a white structure on the left sidewalk, while others can be seen further left, approximately 30 meters away, near the entrance of a building. This clustering of individuals near the road heightens the risk of unexpected movements that the ego vehicle must be prepared to respond to.
+
+At the intersection ahead, a traffic light is currently displaying a red signal, accompanied by a “No Turn on Red” sign mounted on the pole to the left, indicating that vehicles must stop and cannot turn right at this juncture. Crosswalk markings are evident, highlighting designated pedestrian crossing points that require the ego vehicle to remain alert to the potential for pedestrians to enter the roadway. The road is bordered by metal guardrails on both sides, which serve as safety barriers to prevent vehicles from veering off the road, further emphasizing the structured environment of this urban street.
+
+Looking behind the ego vehicle, approximately 20 meters away in the left lane is a white sedan, with a gray sedan positioned slightly behind it in the right lane, about 25 meters away. This configuration indicates that the traffic behind the ego vehicle is also light, with vehicles either stationary or moving slowly, reducing the risk of sudden lane changes or overtaking maneuvers. However, as the traffic light changes, the vehicles ahead may stop or accelerate unexpectedly, necessitating continuous monitoring by the ego vehicle.
+
+In the back-right view, two pedestrians are detected walking on the sidewalk near a guardrail, approximately 5 meters away, reinforcing the need for heightened vigilance as they could step onto the road without warning. The environment is further complicated by the presence of construction elements; eight traffic cones are concentrated in the left and back-left areas, signaling ongoing road work that may affect navigation. Additionally, two construction vehicles are positioned on the right side of the scene, indicating active work zones that could pose risks to the ego vehicle as it maneuvers through this bustling urban landscape.
+
+The overall ambiance of the scene is calm, yet the presence of pedestrians near the crosswalk, those seated at outdoor tables, and the vehicles positioned ahead create a dynamic environment filled with potential hazards. The ego vehicle must navigate carefully, adjusting its speed to enhance reaction time to the nearby pedestrians and construction vehicles. The combination of stationary vehicles, pedestrians, and construction-related elements presents multiple safety-critical scenarios that the autonomous driving system must continuously assess. Compliance with traffic regulations while ensuring the safety of vulnerable road users is paramount, as the system prepares to respond to any unexpected movements or obstacles that may arise in this lively urban setting.
+
+
+  ────────────────────────────────────────────────────────────
+  ITERATION 3
+  ────────────────────────────────────────────────────────────
+
+    SuggesterAgent Output:
+      Suggestions: ['Specify the exact location of the ego vehicle in relation to the intersection and traffic light for clarity.', 'Provide more detail about the behavior of pedestrians, such as their direction of movement or any potential interactions with the ego vehicle.', 'Clarify the distance of the construction elements from the ego vehicle to better assess their impact on navigation.']
+
+    EditorAgent Output:
+      Refined Caption:
+      The scene is set on a straight, relatively narrow urban street during the daytime, characterized by partly cloudy skies that ensure good visibility. The road surface is dry and well-maintained, providing excellent traction for vehicles. Sidewalks are present on both sides of the road, with two solid yellow lines clearly marking the lanes for traffic flow. The ego vehicle is positioned in the center lane, approximately 30 meters from a stationary black sedan located in the middle lane ahead. Slightly ahead in the right lane, about 28 meters from the ego vehicle, a white sedan is also stationary. Further down the middle lane, approximately 50 meters ahead, a dark-colored SUV contributes to the light traffic density, indicating that vehicles around the ego vehicle are either halted or moving at a minimal pace.
+
+In the surrounding environment, pedestrians add vibrancy to this urban setting. On the left sidewalk, about 20 meters ahead of the ego vehicle, two pedestrians are standing near a tree, engaged in conversation, posing a potential hazard as they might unexpectedly enter the crosswalk or roadway. On the right-hand sidewalk, a group of five pedestrians is gathered near a brick building, approximately 25 meters away from the ego vehicle, necessitating vigilance as the ego vehicle navigates through this area. Additionally, two pedestrians are seated at outdoor tables near a white structure on the left sidewalk, while others can be seen further left, approximately 30 meters away, near the entrance of a building. This clustering of individuals near the road heightens the risk of unexpected movements that the ego vehicle must be prepared to respond to.
+
+At the intersection ahead, a traffic light is currently displaying a red signal, accompanied by a "No Turn on Red" sign mounted on the pole to the left, indicating that vehicles must stop and cannot turn right at this juncture. Crosswalk markings are evident, highlighting designated pedestrian crossing points that require the ego vehicle to remain alert to the potential for pedestrians to enter the roadway. The road is bordered by metal guardrails on both sides, which serve as safety barriers to prevent vehicles from veering off the road, further emphasizing the structured environment of this urban street.
+
+Looking behind the ego vehicle, approximately 20 meters away in the left lane is a white sedan, with a gray sedan positioned slightly behind it in the right lane, about 25 meters away. This configuration indicates that the traffic behind the ego vehicle is also light, with vehicles either stationary or moving slowly, reducing the risk of sudden lane changes or overtaking maneuvers. However, as the traffic light changes, the vehicles ahead may stop or accelerate unexpectedly, necessitating continuous monitoring by the ego vehicle.
+
+In the back-right view, two pedestrians are detected walking on the sidewalk near a guardrail, approximately 5 meters away, reinforcing the need for heightened vigilance as they could step onto the road without warning. The environment is further complicated by the presence of construction elements; eight traffic cones are concentrated in the left and back-left areas, signaling ongoing road work that may affect navigation. Additionally, two construction vehicles are positioned on the right side of the scene, indicating active work zones that could pose risks to the ego vehicle as it maneuvers through this bustling urban landscape.
+
+The overall ambiance of the scene is calm, yet the presence of pedestrians near the crosswalk, those seated at outdoor tables, and the vehicles positioned ahead create a dynamic environment filled with potential hazards. The ego vehicle must navigate carefully, adjusting its speed to enhance reaction time to the nearby pedestrians and construction vehicles. The combination of stationary vehicles, pedestrians, and construction-related elements presents multiple safety-critical scenarios that the autonomous driving system must continuously assess. Compliance with traffic regulations while ensuring the safety of vulnerable road users is paramount, as the system prepares to respond to any unexpected movements or obstacles that may arise in this lively urban setting.</div>
+                </div>
+            </div>
+            
+                    
+                    <div style="margin-top: 20px;">
+                        <h4>Final Refined Caption:</h4>
+                        <button class="detail-toggle" onclick="toggleDetail('final-refined-full-1')">Show Final Caption</button>
+                        <div class="full-content" id="final-refined-full-1">The scene is set on a straight, relatively narrow urban street during the daytime, characterized by partly cloudy skies that ensure good visibility. The road surface is dry and well-maintained, providing excellent traction for vehicles. Sidewalks are present on both sides of the road, with two solid yellow lines clearly marking the lanes for traffic flow. The ego vehicle is positioned in the center lane, approximately 30 meters from a stationary black sedan located in the middle lane ahead. Slightly ahead in the right lane, about 28 meters from the ego vehicle, a white sedan is also stationary. Further down the middle lane, approximately 50 meters ahead, a dark-colored SUV contributes to the light traffic density, indicating that vehicles around the ego vehicle are either halted or moving at a minimal pace.
+
+In the surrounding environment, pedestrians add vibrancy to this urban setting. On the left sidewalk, about 20 meters ahead of the ego vehicle, two pedestrians are standing near a tree, engaged in conversation, posing a potential hazard as they might unexpectedly enter the crosswalk or roadway. On the right-hand sidewalk, a group of five pedestrians is gathered near a brick building, approximately 25 meters away from the ego vehicle, necessitating vigilance as the ego vehicle navigates through this area. Additionally, two pedestrians are seated at outdoor tables near a white structure on the left sidewalk, while others can be seen further left, approximately 30 meters away, near the entrance of a building. This clustering of individuals near the road heightens the risk of unexpected movements that the ego vehicle must be prepared to respond to.
+
+At the intersection ahead, a traffic light is currently displaying a red signal, accompanied by a "No Turn on Red" sign mounted on the pole to the left, indicating that vehicles must stop and cannot turn right at this juncture. Crosswalk markings are evident, highlighting designated pedestrian crossing points that require the ego vehicle to remain alert to the potential for pedestrians to enter the roadway. The road is bordered by metal guardrails on both sides, which serve as safety barriers to prevent vehicles from veering off the road, further emphasizing the structured environment of this urban street.
+
+Looking behind the ego vehicle, approximately 20 meters away in the left lane is a white sedan, with a gray sedan positioned slightly behind it in the right lane, about 25 meters away. This configuration indicates that the traffic behind the ego vehicle is also light, with vehicles either stationary or moving slowly, reducing the risk of sudden lane changes or overtaking maneuvers. However, as the traffic light changes, the vehicles ahead may stop or accelerate unexpectedly, necessitating continuous monitoring by the ego vehicle.
+
+In the back-right view, two pedestrians are detected walking on the sidewalk near a guardrail, approximately 5 meters away, reinforcing the need for heightened vigilance as they could step onto the road without warning. The environment is further complicated by the presence of construction elements; eight traffic cones are concentrated in the left and back-left areas, signaling ongoing road work that may affect navigation. Additionally, two construction vehicles are positioned on the right side of the scene, indicating active work zones that could pose risks to the ego vehicle as it maneuvers through this bustling urban landscape.
+
+The overall ambiance of the scene is calm, yet the presence of pedestrians near the crosswalk, those seated at outdoor tables, and the vehicles positioned ahead create a dynamic environment filled with potential hazards. The ego vehicle must navigate carefully, adjusting its speed to enhance reaction time to the nearby pedestrians and construction vehicles. The combination of stationary vehicles, pedestrians, and construction-related elements presents multiple safety-critical scenarios that the autonomous driving system must continuously assess. Compliance with traffic regulations while ensuring the safety of vulnerable road users is paramount, as the system prepares to respond to any unexpected movements or obstacles that may arise in this lively urban setting.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        </div>
+            
+        <!-- Scene 3 Layers -->
+        <div class="scene-layers" id="scene-layers-3" style="display: none;">
+            <!-- Layer 1: Content Transformation -->
+            <div class="layer" id="layer1-2">
+                <div class="layer-header">Layer 1: Content Transformation</div>
+                
+        <div class="agent-section">
+            <div class="agent-header" onclick="toggleAgent('camera-agent-2')">
+                <div>
+                    <span class="badge badge-camera">CAMERA</span>
+                    <span class="agent-title">CameraAgent</span>
+                </div>
+                <span class="toggle-icon" id="camera-agent-2-icon">▼</span>
+            </div>
+            <div class="agent-content" id="camera-agent-2">
+                <div class="summary">
+                    <strong>Summary:</strong> Analyzed 6 camera views to extract visual observations including vehicles, pedestrians, road structure, traffic signs, and environmental conditions.
+                </div>
+                
+                <h4>Key Observations by View:</h4>
+                
+            <div style="margin: 15px 0;">
+                <h4 style="color: #667eea;">CAM_FRONT</h4>
+                <p>CAM_FRONT
+- **Vehicles**: No vehicles are visible in the immediate foreground or intersection. A distant vehicle is visible on the right side of the road, approximately 150 meters ahead, stationary at...</p>
+            </div>
+            
+            <div style="margin: 15px 0;">
+                <h4 style="color: #667eea;">CAM_FRONT_RIGHT</h4>
+                <p>CAM_FRONT_RIGHT
+- **Vehicles**: No vehicles are visible in this frame.
+- **Pedestrians and Cyclists**: No pedestrians or cyclists are visible.
+- **Road Structure and Markings**: The road curves slight...</p>
+            </div>
+            
+            <div style="margin: 15px 0;">
+                <h4 style="color: #667eea;">CAM_FRONT_LEFT</h4>
+                <p>CAM_FRONT_LEFT
+- **Vehicles**: A black sedan is visible in the bottom left corner of the frame, partially obstructing the view of the intersection. Another vehicle is faintly visible in the background...</p>
+            </div>
+            
+            <div style="margin: 15px 0;">
+                <h4 style="color: #667eea;">CAM_BACK</h4>
+                <p>CAM_BACK
+- **Vehicles**: A white pickup truck is directly behind the vehicle, approximately 3 meters away, stationary. To the right of the pickup truck, a large yellow and black semi-truck is visible,...</p>
+            </div>
+            
+            <div style="margin: 15px 0;">
+                <h4 style="color: #667eea;">CAM_BACK_LEFT</h4>
+                <p>CAM_BACK_LEFT
+- **Vehicles**: A black sedan is visible in the foreground, occupying the adjacent lane to the left of the vehicle. It is stationary and approximately 2 meters away.
+- **Pedestrians and ...</p>
+            </div>
+            
+
+                <button class="detail-toggle" onclick="toggleDetail('camera-full-2')">Show Full Response</button>
+                <div class="full-content" id="camera-full-2">### CAM_FRONT
+CAM_FRONT
+- **Vehicles**: No vehicles are visible in the immediate foreground or intersection. A distant vehicle is visible on the right side of the road, approximately 150 meters ahead, stationary at a red light.
+- **Pedestrians and Cyclists**: A cyclist is visible on the far right side of the frame, riding on the sidewalk near the traffic light pole. No pedestrians are visible in the crosswalk or nearby.
+- **Road Structure and Markings**: The road has clear white lane markings, including a pedestrian crosswalk in the foreground and a straight arrow lane marking indicating forward movement. The intersection is wide and well-marked.
+- **Traffic Signs and Signals**: Three traffic lights are visible, all showing red signals. A "No Turn on Red" sign is mounted on the traffic light pole on the right side.
+- **Environmental Conditions**: The sky is clear, with good visibility and no signs of adverse weather. Lighting conditions suggest it is daytime with sunlight present.
+- **Potential Hazards**: The cyclist on the sidewalk could potentially enter the roadway unpredictably.
+
+---
+
+### Camera:
+
+### CAM_FRONT_RIGHT
+CAM_FRONT_RIGHT
+- **Vehicles**: No vehicles are visible in this frame.
+- **Pedestrians and Cyclists**: No pedestrians or cyclists are visible.
+- **Road Structure and Markings**: The road curves slightly to the right and has a clear pedestrian crosswalk in the foreground. A yellow diamond-shaped warning sign is mounted on a pole in the center-right of the frame, partially obstructing the view of the road.
+- **Traffic Signs and Signals**: Two traffic lights are visible in the distance, both showing red signals. No other traffic signs are visible.
+- **Environmental Conditions**: The sky is clear, and sunlight is present. Visibility is good, with no obstructions apart from the warning sign.
+- **Potential Hazards**: The yellow warning sign partially obstructs the view of the road ahead, which could obscure smaller objects or pedestrians.
+
+---
+
+### Camera:
+
+### CAM_FRONT_LEFT
+CAM_FRONT_LEFT
+- **Vehicles**: A black sedan is visible in the bottom left corner of the frame, partially obstructing the view of the intersection. Another vehicle is faintly visible in the background, approximately 50 meters away.
+- **Pedestrians and Cyclists**: A group of three pedestrians is visible in the center of the frame, standing on the sidewalk near the corner of the intersection. They appear stationary and are not in the roadway.
+- **Road Structure and Markings**: The intersection is visible, with clear pedestrian crosswalk markings. The road is wide and well-maintained.
+- **Traffic Signs and Signals**: A traffic light is visible in the upper center of the frame, showing a red signal. No other signs are visible.
+- **Environmental Conditions**: The sky is clear, with direct sunlight causing glare in the upper center of the frame. Visibility is slightly reduced due to the glare.
+- **Potential Hazards**: The glare from the sunlight could obscure visibility of smaller objects or pedestrians. The black sedan partially obstructs the view of the intersection.
+
+---
+
+### Camera:
+
+### CAM_BACK
+CAM_BACK
+- **Vehicles**: A white pickup truck is directly behind the vehicle, approximately 3 meters away, stationary. To the right of the pickup truck, a large yellow and black semi-truck is visible, also stationary, occupying the adjacent lane.
+- **Pedestrians and Cyclists**: No pedestrians or cyclists are visible.
+- **Road Structure and Markings**: The road has clear white lane markings, including a dashed line separating the two lanes. The road appears to be a two-lane one-way street.
+- **Traffic Signs and Signals**: No traffic signs or signals are visible in this frame.
+- **Environmental Conditions**: The sky is clear, with good visibility and no adverse weather conditions.
+- **Potential Hazards**: The proximity of the semi-truck to the vehicle could pose a hazard if it begins to move unpredictably.
+
+---
+
+### Camera:
+
+### CAM_BACK_LEFT
+CAM_BACK_LEFT
+- **Vehicles**: A black sedan is visible in the foreground, occupying the adjacent lane to the left of the vehicle. It is stationary and approximately 2 meters away.
+- **Pedestrians and Cyclists**: No pedestrians or cyclists are visible.
+- **Road Structure and Markings**: The road has clear white lane markings. The building on the left side of the frame suggests this is an urban area.
+- **Traffic Signs and Signals**: No traffic signs or signals are visible in this frame.
+- **Environmental Conditions**: The sky is clear, with good visibility. Lighting conditions are favorable.
+- **Potential Hazards**: The proximity of the black sedan could pose a hazard if it begins to move unpredictably.
+
+---
+
+### Camera:</div>
+            </div>
+        </div>
+        
+                
+        <div class="agent-section">
+            <div class="agent-header" onclick="toggleAgent('lidar-agent-2')">
+                <div>
+                    <span class="badge badge-lidar">LIDAR</span>
+                    <span class="agent-title">LiDARAgent</span>
+                </div>
+                <span class="toggle-icon" id="lidar-agent-2-icon">▼</span>
+            </div>
+            <div class="agent-content" id="lidar-agent-2">
+                <div class="summary">
+                    <strong>Summary:</strong> Detected 26 objects from LiDAR point cloud analysis.
+                </div>
+                
+                <h4>Analysis Highlights:</h4>
+                <ul>
+                    <li>Comprehensive object detection and classification</li>
+                    <li>Spatial distribution analysis across all directions</li>
+                    <li>Distance-based risk assessment</li>
+                </ul>
+
+                <button class="detail-toggle" onclick="toggleDetail('lidar-full-2')">Show Full Analysis</button>
+                <div class="full-content" id="lidar-full-2">=== LiDAR Scene Analysis ===
+
+Total detected objects: 26
+
+Object Distribution:
+  - 3 barrier(s)
+  - 1 bicycle(s)
+  - 2 car(s)
+  - 1 construction_vehicle(s)
+  - 8 pedestrian(s)
+  - 9 traffic_cone(s)
+  - 1 trailer(s)
+  - 1 truck(s)
+
+Spatial Distribution:
+  - front: 11 objects (bicycle, barrier, trailer, car, traffic_cone, pedestrian)
+  - back: 1 objects (truck)
+  - left: 2 objects (pedestrian)
+  - right: 3 objects (traffic_cone, pedestrian)
+  - front_left: 3 objects (traffic_cone, barrier)
+  - back_left: 1 objects (car)
+  - back_right: 5 objects (pedestrian, traffic_cone, barrier, construction_vehicle)
+
+Distance Distribution:
+  - Close (<10m): 15 objects
+  - Medium (10-30m): 11 objects
+  - Far (>30m): 0 objects
+
+Nearest Object:
+  - Type: traffic_cone
+  - Distance: 0.9m
+  - Direction: front_left
+
+Scene Characteristics:
+  - Traffic density: light
+  - Object point ratio: 46.21%
+
+### High-Level Scene Interpretation
+
+1. **Overall Scene Context**:
+   - The scene appears to be in an urban environment, characterized by light traffic density and the presence of various objects typically found in city settings, such as pedestrians and construction vehicles. The distribution of objects indicates a potentially busy area, likely near construction or roadwork, given the presence of multiple traffic cones and barriers.
+
+2. **Key Objects and Their Significance**:
+   - **Pedestrians (8)**: A significant number of pedestrians are present, particularly on the left and right sides of the ego vehicle, indicating potential interactions or conflicts. This requires heightened awareness for safe navigation.
+   - **Traffic Cones (9)**: The high count of traffic cones suggests active construction or road management, indicating altered road conditions and potential hazards.
+   - **Barriers (3)**: Barriers in the scene may indicate restricted areas or lane changes, necessitating careful maneuvering.
+   - **Bicycle (1)**: The presence of a bicycle adds to the complexity of the scene, as cyclists can be unpredictable and require special consideration.
+   - **Truck (1) and Construction Vehicle (1)**: These larger vehicles may be involved in construction activities, posing additional risks due to their size and potential for obstructing visibility.
+
+3. **Potential Risks or Safety Concerns**:
+   - **Proximity of Objects**: The nearest object, a traffic cone, is only 0.9m away, indicating a very close proximity to obstacles that could lead to collisions if not navigated carefully.
+   - **High Density of Pedestrians**: With 8 pedestrians detected, there is a risk of sudden movements or crossings, especially in a construction zone where pedestrians may be navigating around obstacles.
+   - **Dynamic Environment**: The presence of construction vehicles and barriers suggests that the environment may change rapidly, requiring the ego vehicle to adapt quickly to new conditions.
+
+4. **Notable Spatial Patterns or Relationships**:
+   - **Front Concentration**: Most objects (11) are located in front of the ego vehicle, indicating that immediate navigation decisions will be critical. This includes managing the close proximity of pedestrians and traffic cones.
+   - **Side Distribution**: The presence of pedestrians on both sides (left and right) alongside traffic cones suggests a narrow passage or constrained roadway, requiring careful lateral movement.
+   - **Back Objects**: The single truck located in the back may not pose an immediate risk but could become relevant if the ego vehicle needs to reverse or maneuver in reverse.
+
+### Actionable Insights for Autonomous Driving:
+- **Increase Awareness**: Implement heightened vigilance for pedestrians, especially in close proximity.
+- **Adjust Navigation**: Prepare for potential lane changes or detours due to construction, maintaining a safe distance from barriers and traffic cones.
+- **Monitor Surroundings**: Continuously assess the movement of nearby objects, particularly pedestrians and cyclists, to ensure safe navigation through this dynamic environment.</div>
+            </div>
+        </div>
+        
+                
+        <div class="agent-section">
+            <div class="agent-header" onclick="toggleAgent('scenegraph-agent-2')">
+                <div>
+                    <span class="badge badge-scene-graph">SCENE GRAPH</span>
+                    <span class="agent-title">SceneGraphAgent</span>
+                </div>
+                <span class="toggle-icon" id="scenegraph-agent-2-icon">▼</span>
+            </div>
+            <div class="agent-content" id="scenegraph-agent-2">
+                <div class="summary">
+                    <strong>Summary:</strong> Generated hierarchical scene graph with detailed road structure, traffic participants, and static infrastructure.
+                </div>
+                
+                <div class="safety-critical">
+                    <h4>⚠️ Safety Critical Elements:</h4>
+                    <ul>
+                        <li>High density of stopped vehicles on the right side of the road.</li><li>Presence of pedestrians near the road.</li><li>Visibility is good, but caution is advised due to stopped traffic.</li>
+                    </ul>
+                </div>
+
+                <button class="detail-toggle" onclick="toggleDetail('scenegraph-full-2')">Show Full Scene Graph</button>
+                <div class="full-content" id="scenegraph-full-2">=== Hierarchical Scene Graph ===
+
+Scene: The scene depicts a driving environment with multiple stopped vehicles and pedestrians, primarily located on the right side of the road. The visibility is generally high, with the majority of objects being at a significant distance from the ego vehicle.
+Total objects: 40
+
+Environment:
+  - Lighting: day
+  - Weather: clear
+  - Location: urban
+
+Road Structure:
+  - Type: urban street
+  - Lanes: 3 urban lanes
+  - Ego position: center lane
+  - Elements: 2 road signs/markings
+
+Traffic Participants:
+  - Vehicles: 5
+  - Cyclists: 1
+  - Vulnerable road users: 5
+
+Sidewalk Areas (right):
+  - Pedestrians: 5
+  - Static objects: 0
+
+Static Infrastructure:
+  - Barriers: 12
+Spatial Zones:
+  - front_far: 5 objects (criticality: high)
+  - right_far: 5 objects (criticality: high)
+
+Safety Critical Elements:
+  - High density of stopped vehicles on the right side of the road.
+  - Presence of pedestrians near the road.
+  - Visibility is good, but caution is advised due to stopped traffic.</div>
+            </div>
+        </div>
+        
+                
+        <div class="agent-section">
+            <div class="agent-header" onclick="toggleAgent('crossmodal-agent-2')">
+                <div>
+                    <span class="badge badge-cross-modal">CROSS-MODAL</span>
+                    <span class="agent-title">CrossModalAgent</span>
+                </div>
+                <span class="toggle-icon" id="crossmodal-agent-2-icon">▼</span>
+            </div>
+            <div class="agent-content" id="crossmodal-agent-2">
+                <div class="summary">
+                    <strong>Summary:</strong> Synthesized observations from Camera, LiDAR, and Scene Graph agents to create coordinated understanding.
+                </div>
+
+                <button class="detail-toggle" onclick="toggleDetail('crossmodal-full-2')">Show Full Coordination Summary</button>
+                <div class="full-content" id="crossmodal-full-2">### Coordinated Summary of Multi-Modal Understanding
+
+#### Overall Scene Context
+The scene depicts an urban driving environment characterized by clear weather conditions, good visibility, and a daytime setting. The area appears to be experiencing light traffic density with multiple stopped vehicles, pedestrians, and indications of construction activity. 
+
+#### Key Observations
+1. **Vehicles**:
+   - **Stationary Vehicles**: A total of 5 vehicles are reported, including:
+     - A **black sedan** partially obstructing the view in the bottom left corner (Camera Front Left).
+     - A **white pickup truck** directly behind the ego vehicle, approximately **3 meters away** (Camera Back).
+     - A **large yellow and black semi-truck** adjacent to the pickup truck, also stationary (Camera Back).
+     - Another vehicle faintly visible in the background, approximately **50 meters away** (Camera Front Left).
+   - **Distant Vehicle**: A vehicle is noted to be approximately **150 meters ahead**, stationary at a red light (Camera Front).
+
+2. **Pedestrians and Cyclists**:
+   - **Total Pedestrians**: 8 pedestrians are detected, with 5 noted to be on the right side of the road (SceneGraphAgent) and 3 standing on the sidewalk near the intersection (Camera Front Left). This indicates a potential for interactions or conflicts as they are near the roadway.
+   - **Cyclist**: One cyclist is observed riding on the sidewalk near the traffic light pole (Camera Front), which raises concerns about unpredictable movements into the roadway.
+
+3. **Traffic Signs and Signals**:
+   - All traffic lights in view are showing red signals, indicating a halt in traffic flow.
+   - A "No Turn on Red" sign is mounted on the traffic light pole on the right side (Camera Front).
+   - Additional traffic signs include a yellow diamond-shaped warning sign (Camera Front Right) and various road markings indicating pedestrian crossings.
+
+4. **Road Structure and Markings**:
+   - The road has clear white lane markings and is described as wide and well-maintained, with three lanes observed (SceneGraphAgent).
+   - The presence of **12 barriers** and **9 traffic cones** suggests ongoing construction or road management, indicating altered road conditions that necessitate cautious navigation (LiDARAgent).
+
+5. **Environmental Conditions**:
+   - The sky is clear with good visibility, and the lighting conditions are favorable, although glare from the sun is noted in some frames (Camera Front Left).
+
+#### Potential Hazards
+- The proximity of the **semi-truck** and **black sedan** could pose hazards if either vehicle begins to move unpredictably.
+- The **traffic cones** and **barriers** indicate a dynamic environment that may change rapidly, requiring the ego vehicle to adjust navigation strategies.
+- The **high density of pedestrians** and the cyclist on the sidewalk necessitate heightened awareness for potential interactions.
+
+#### Discrepancies and Areas Needing Attention
+- While the CameraAgent reports a cyclist and a few pedestrians, the LiDARAgent indicates a higher total of 8 pedestrians, suggesting that some may have been missed in the camera observations.
+- The SceneGraphAgent mentions a total of 40 objects, which includes vehicles, cyclists, and pedestrians, but does not specify the exact count of each category, leading to potential confusion regarding the total number of traffic participants.
+- The **construction activity** indicated by the presence of cones and barriers should be monitored closely, as it may lead to sudden changes in the road layout or traffic patterns.
+
+### Cross-Modal Insights
+- The combination of observations from the CameraAgent and LiDARAgent highlights the importance of integrating visual and spatial data to create a comprehensive understanding of the scene. The presence of both pedestrians and cyclists in proximity to stationary vehicles emphasizes the need for cautious navigation.
+- The clear identification of traffic signals and road markings across the observations reinforces the importance of adhering to traffic regulations in this urban setting.
+
+In summary, the scene presents a complex urban driving environment where careful monitoring of pedestrians, cyclists, and construction-related obstacles is crucial for safe navigation.</div>
+            </div>
+        </div>
+        
+            </div>
+            
+            <!-- Layer 2: Seed Features Generation -->
+            <div class="layer" id="layer2-2">
+                <div class="layer-header">Layer 2: Seed Features Generation</div>
+                
+            <div class="agent-section">
+                <div class="agent-header" onclick="toggleAgent('focus-scene_structure-2')">
+                    <div>
+                        <span class="badge" style="background: #d1ecf1; color: #0c5460;">FOCUSED</span>
+                        <span class="agent-title">FocusedCaption - Scene Structure</span>
+                    </div>
+                    <span class="toggle-icon" id="focus-scene_structure-2-icon">▼</span>
+                </div>
+                <div class="agent-content" id="focus-scene_structure-2">
+                    <div class="summary">
+                        <strong>Focus Area:</strong> Scene Structure
+                        <p style="margin-top: 10px;">The scene unfolds in an urban environment characterized by a well-defined road structure, where the ego vehicle is positioned in the center lane of a wide, three-lane street. The road surface is well-...</p>
+                    </div>
+
+                    <button class="detail-toggle" onclick="toggleDetail('focus-scene_structure-full-2')">Show Full Caption</button>
+                    <div class="full-content" id="focus-scene_structure-full-2">The scene unfolds in an urban environment characterized by a well-defined road structure, where the ego vehicle is positioned in the center lane of a wide, three-lane street. The road surface is well-maintained, exhibiting clear white lane markings that delineate the lanes and indicate the direction of travel. In the foreground, there is a pedestrian crosswalk marked with bold white lines, providing a clear indication for pedestrian crossings. The intersection ahead is spacious and well-marked, allowing for ample visibility and maneuverability.
+
+In front of the ego vehicle, approximately 150 meters ahead on the right side of the road, a distant vehicle is stationary, waiting at a red traffic light. This vehicle is the only one within the immediate foreground of the intersection, highlighting the light traffic density at this moment. The traffic lights themselves are positioned prominently at the intersection, with all three lights currently displaying red signals, indicating a stop for all vehicles. Additionally, a "No Turn on Red" sign is mounted on the pole of the traffic light on the right side, further reinforcing the traffic regulations at this intersection.
+
+To the right of the ego vehicle, a cyclist is observed riding on the sidewalk near a traffic light pole. This cyclist is stationary, yet their proximity to the road introduces a potential hazard, as they may unpredictably enter the roadway. There are no pedestrians visible in the crosswalk or nearby, which suggests that the area is currently devoid of foot traffic, apart from the cyclist.
+
+As the camera pans to the left, a black sedan comes into view, located in the bottom left corner of the frame. This sedan is partially obstructing the view of the intersection and is stationary. In the background, approximately 50 meters away, another vehicle is faintly visible, contributing to the overall light traffic in this urban setting. Additionally, a group of three pedestrians is standing on the sidewalk near the corner of the intersection, appearing stationary and not encroaching upon the roadway, which further indicates a moment of calm in this area.
+
+Looking at the camera's perspective from the back, there is a white pickup truck positioned directly behind the ego vehicle, approximately 3 meters away, and it is also stationary. Adjacent to this pickup truck, a large yellow and black semi-truck is visible, occupying the adjacent lane to the right and similarly stationary. The road behind the ego vehicle is two-lane, one-way, with clear white lane markings, including a dashed line separating the lanes. No traffic signs or signals are visible in this rear view, providing a clear sight of the vehicles behind.
+
+From the back left perspective, the black sedan remains in view, occupying the adjacent lane to the left of the ego vehicle and located about 2 meters away. This proximity raises the potential for hazard should this vehicle begin to move unexpectedly. The urban setting is further emphasized by the presence of buildings lining the left side of the road, suggesting a densely populated area.
+
+In the back right perspective, the road continues to show clear white lane markings, including the pedestrian crosswalk visible in the foreground. A sidewalk runs parallel to the right side of the road, separated by a curb, indicating a safe space for pedestrians. A green street sign is visible mounted on a pole in the upper right corner of the frame, although no other traffic signs or signals are present in this view. 
+
+Overall, the environmental conditions in this scene are optimal for driving, with a clear sky and good visibility, indicating daytime with sunlight illuminating the area. The absence of adverse weather conditions further enhances the safety of navigation through this urban landscape. However, the presence of the cyclist on the sidewalk and the potential for pedestrians to enter the roadway unexpectedly necessitate a vigilant approach to ensure safe passage through this intersection. 
+
+The overall configuration of the scene, with its wide lanes, well-marked road structure, and the stationary nature of nearby vehicles, suggests a moment of pause in the urban flow, creating an environment where the ego vehicle can assess its surroundings carefully before proceeding.</div>
+                </div>
+            </div>
+            
+            <div class="agent-section">
+                <div class="agent-header" onclick="toggleAgent('focus-objects-2')">
+                    <div>
+                        <span class="badge" style="background: #d1ecf1; color: #0c5460;">FOCUSED</span>
+                        <span class="agent-title">FocusedCaption - Objects</span>
+                    </div>
+                    <span class="toggle-icon" id="focus-objects-2-icon">▼</span>
+                </div>
+                <div class="agent-content" id="focus-objects-2">
+                    <div class="summary">
+                        <strong>Focus Area:</strong> Objects
+                        <p style="margin-top: 10px;">In this urban driving scene captured from multiple camera perspectives, the environment is characterized by clear weather and good visibility, indicative of a daytime setting where sunlight illuminate...</p>
+                    </div>
+
+                    <button class="detail-toggle" onclick="toggleDetail('focus-objects-full-2')">Show Full Caption</button>
+                    <div class="full-content" id="focus-objects-full-2">In this urban driving scene captured from multiple camera perspectives, the environment is characterized by clear weather and good visibility, indicative of a daytime setting where sunlight illuminates the area. The road is well-marked with clear white lane markings, including a pedestrian crosswalk in the foreground. The driving context reveals a wide intersection that is currently experiencing light traffic density, with a notable concentration of various objects that require careful navigation.
+
+From the front camera view, there are no vehicles immediately visible in the foreground or intersection, but a distant vehicle can be seen on the right side of the road, approximately 150 meters ahead. This vehicle is stationary, having come to a halt at a red traffic light. On the far right side of the frame, a cyclist is riding on the sidewalk near a traffic light pole, which poses a potential hazard as they could unpredictably enter the roadway. No pedestrians are present in the crosswalk or nearby, indicating a relatively clear path for the moment.
+
+Switching to the front-right camera perspective, there are still no vehicles visible in this frame. The road curves slightly to the right, and a clear pedestrian crosswalk is again noted in the foreground. A yellow diamond-shaped warning sign is mounted on a pole in the center-right of the frame, partially obstructing the view of the road ahead. In the distance, two traffic lights are visible, both displaying red signals, reinforcing the need for caution in this area. The environmental conditions remain clear, with sunlight enhancing visibility, though the warning sign\u2019s obstruction could potentially hide smaller objects or pedestrians.
+
+From the front-left camera perspective, a black sedan is detected in the bottom left corner of the frame, partially obstructing the view of the intersection. This sedan is stationary and is positioned quite close to the ego vehicle. In the background, another vehicle is faintly visible, approximately 50 meters away, also at rest. A group of three pedestrians is located in the center of the frame, standing on the sidewalk near the intersection corner. These individuals appear stationary and are not encroaching upon the roadway, yet their presence increases the potential for interaction as the ego vehicle proceeds. A traffic light is visible in the upper center of the frame, displaying a red signal, while glare from the sunlight in this area slightly reduces visibility.
+
+The back camera view reveals a white pickup truck directly behind the ego vehicle, approximately 3 meters away, which is also stationary. To the right of the pickup truck, a large yellow and black semi-truck is visible, occupying the adjacent lane and also at rest. No pedestrians or cyclists are visible from this angle. The road structure maintains clear white lane markings, including a dashed line separating the two lanes, indicating that this is a two-lane one-way street. There are no traffic signs or signals visible in this frame, and the environmental conditions continue to suggest a clear sky and good visibility.
+
+In the back-left camera view, a black sedan is noted in the foreground, occupying the adjacent lane to the left of the ego vehicle, approximately 2 meters away. This vehicle is stationary as well, contributing to the overall density of stopped vehicles nearby. No pedestrians or cyclists are present in this frame, and the road continues to exhibit clear white lane markings, indicative of an urban area with well-maintained infrastructure. Again, no traffic signs or signals are visible in this perspective, and the lighting conditions remain favorable.
+
+The back-right camera perspective shows no vehicles, pedestrians, or cyclists within the frame. The road structure is consistent with previous views, featuring clear white lane markings, including a pedestrian crosswalk in the foreground. A sidewalk runs parallel to the road on the right, separated by a curb, providing a safe area for pedestrians. A green street sign is visible in the upper right corner of the frame, mounted on a pole, but no other traffic signs or signals are present. The environmental conditions maintain clarity, with good visibility and favorable lighting.
+
+Overall, the scene is rich with various objects that require careful attention. A total of five vehicles are identified, including the stationary black sedan, white pickup truck, and the large yellow and black semi-truck. The presence of eight pedestrians, including a group of three on the sidewalk near the intersection and five on the right side of the road, highlights the need for heightened awareness due to the potential for sudden movements. Additionally, the presence of one cyclist on the sidewalk adds complexity to the navigation as cyclists can be unpredictable. There are numerous static elements present, such as twelve barriers and nine traffic cones, suggesting active construction or road management that may alter the usual traffic patterns and necessitate caution in maneuvering through this densely populated and potentially hazardous urban environment. The combination of all these factors\u2014vehicles, pedestrians, cyclists, and construction-related obstacles\u2014underscores the dynamic nature of the scene, requiring constant monitoring and adaptive navigation strategies to ensure safety.</div>
+                </div>
+            </div>
+            
+            <div class="agent-section">
+                <div class="agent-header" onclick="toggleAgent('focus-spatial_relations-2')">
+                    <div>
+                        <span class="badge" style="background: #d1ecf1; color: #0c5460;">FOCUSED</span>
+                        <span class="agent-title">FocusedCaption - Spatial Relations</span>
+                    </div>
+                    <span class="toggle-icon" id="focus-spatial_relations-2-icon">▼</span>
+                </div>
+                <div class="agent-content" id="focus-spatial_relations-2">
+                    <div class="summary">
+                        <strong>Focus Area:</strong> Spatial Relations
+                        <p style="margin-top: 10px;">In this urban driving scene, the ego vehicle is positioned in the center lane of a wide, well-maintained road during daylight hours, with clear weather conditions and good visibility. The surrounding ...</p>
+                    </div>
+
+                    <button class="detail-toggle" onclick="toggleDetail('focus-spatial_relations-full-2')">Show Full Caption</button>
+                    <div class="full-content" id="focus-spatial_relations-full-2">In this urban driving scene, the ego vehicle is positioned in the center lane of a wide, well-maintained road during daylight hours, with clear weather conditions and good visibility. The surrounding environment features multiple traffic elements and objects that require careful navigation. Approximately 150 meters ahead, on the right side of the road, there is a distant, stationary vehicle, which is waiting at a red traffic light. This vehicle is the only one visible in the immediate foreground and intersection area, indicating a relatively low traffic density at this moment.
+
+To the far right of the frame, a cyclist is seen riding on the sidewalk adjacent to a traffic light pole. This cyclist is positioned approximately 10 meters away from the ego vehicle, creating a potential hazard as they may unpredictably enter the roadway. No pedestrians are currently visible in the crosswalk or nearby, which suggests that the immediate area is clear of foot traffic, although the presence of the cyclist indicates the need for caution.
+
+The road features clear white lane markings, including a pedestrian crosswalk visible in the foreground, indicating designated crossing areas for pedestrians. A straight arrow lane marking is also present, guiding forward movement. The intersection is wide, providing ample space for vehicles to maneuver. Three traffic lights are visible in the scene, all displaying red signals, which further emphasizes the halted state of traffic in this area. Specifically, a "No Turn on Red" sign is mounted on the traffic light pole to the right of the cyclist, reinforcing the traffic regulations in effect.
+
+From the perspective of the rear cameras, a white pickup truck is directly behind the ego vehicle, positioned approximately 3 meters away and stationary. Adjacent to the pickup truck, occupying the right lane, is a large yellow and black semi-truck, also stationary. This semi-truck's presence indicates a potential obstacle, as it could pose a hazard if it begins to move unexpectedly. 
+
+Looking towards the left side of the frame, a black sedan is observed in the bottom left corner, partially obstructing the view of the intersection. This black sedan is approximately 2 meters away from the ego vehicle and is also stationary. In the background, about 50 meters away, another vehicle is faintly visible, suggesting that while the immediate area is relatively clear, there are additional vehicles in the distance that may influence the driving dynamics.
+
+In terms of spatial relationships, the majority of objects are positioned in front of the ego vehicle, with a total of 11 objects identified in this area, which includes the stationary vehicles and the cyclist. The presence of a group of three pedestrians is noted in the center of the frame, standing on the sidewalk near the corner of the intersection, indicating that they are not currently in the roadway but are close enough to pose a potential risk for interaction as they may decide to cross at any moment.
+
+The road structure is characterized by clear white lane markings, which help define the traffic flow, and the presence of barriers and traffic cones suggests that there may be ongoing construction or road management activities nearby. This construction activity creates additional hazards, particularly with the proximity of the traffic cones, which can be as close as 0.9 meters to the ego vehicle, emphasizing the need for heightened awareness during navigation.
+
+Overall, the spatial relationships in this scene depict a complex urban environment where the ego vehicle must navigate carefully among stationary vehicles, a cyclist, and potential pedestrians, all while being mindful of the clear traffic signals and road markings that guide movement. The clear weather and daylight provide good visibility, but the presence of the cyclist and the nearby pedestrians necessitate a cautious approach to ensure safe navigation through this dynamic setting.</div>
+                </div>
+            </div>
+            
+            <div class="agent-section">
+                <div class="agent-header" onclick="toggleAgent('focus-dynamics-2')">
+                    <div>
+                        <span class="badge" style="background: #d1ecf1; color: #0c5460;">FOCUSED</span>
+                        <span class="agent-title">FocusedCaption - Dynamics</span>
+                    </div>
+                    <span class="toggle-icon" id="focus-dynamics-2-icon">▼</span>
+                </div>
+                <div class="agent-content" id="focus-dynamics-2">
+                    <div class="summary">
+                        <strong>Focus Area:</strong> Dynamics
+                        <p style="margin-top: 10px;">In the scene presented, the environment is characterized by an urban setting during daylight hours, with the sky clear and visibility unobstructed, creating favorable conditions for driving. The ego v...</p>
+                    </div>
+
+                    <button class="detail-toggle" onclick="toggleDetail('focus-dynamics-full-2')">Show Full Caption</button>
+                    <div class="full-content" id="focus-dynamics-full-2">In the scene presented, the environment is characterized by an urban setting during daylight hours, with the sky clear and visibility unobstructed, creating favorable conditions for driving. The ego vehicle is situated in the center lane of a wide, three-lane road. Notably, there are no vehicles in the immediate foreground or within the intersection, which allows for an unobstructed view ahead. However, a distant vehicle is visible on the right side of the road, approximately 150 meters away, where it is stationary at a red traffic light, contributing to a pause in the flow of traffic in that direction.
+
+On the far right side of the frame, a cyclist is observed riding along the sidewalk near a traffic light pole. This cyclist appears to be moving at a moderate pace, indicative of casual riding, but their position on the sidewalk raises concerns about potential unpredictability, as they could enter the roadway without warning. No pedestrians are currently visible in the crosswalk or nearby, suggesting a moment of relative calm in pedestrian activity at this intersection.
+
+The road features clear white lane markings, which include a pedestrian crosswalk in the foreground. The presence of a straight arrow lane marking indicates that the primary direction of movement for vehicles is forward, reinforcing that there are no immediate intentions to turn. The intersection itself is wide and well-marked, facilitating the flow of traffic once the signals change.
+
+Three traffic lights are visible in the scene, all displaying red signals, which clearly indicates that vehicles are required to stop. A "No Turn on Red" sign is mounted on the traffic light pole on the right side, further emphasizing the need for caution and compliance with traffic regulations. This setup creates a static environment for vehicular movement, as all vehicles must remain stationary until the lights change.
+
+In the background, approximately 50 meters away, another vehicle is faintly visible, maintaining a stationary position. Meanwhile, the back view reveals a white pickup truck directly behind the ego vehicle, positioned only 3 meters away and completely stationary. Adjacent to the pickup truck, a large yellow and black semi-truck is also visible, occupying the adjacent lane and remaining stationary. Both vehicles pose a potential hazard should they begin to move unexpectedly, particularly in the context of the ego vehicle's navigation.
+
+On the left side of the frame, a black sedan occupies the foreground, also stationary and approximately 2 meters away from the ego vehicle. This vehicle partially obstructs the view of the intersection, which could limit the ego vehicle\u2019s ability to assess the movements of other objects in its vicinity. Additionally, a group of three pedestrians is visible in the center of the frame, standing on the sidewalk near the corner of the intersection. These pedestrians appear stationary and are not in the roadway, but their presence indicates potential interactions as they may decide to cross when the light changes.
+
+The road structure is further defined by clear white lane markings and the presence of barriers and traffic cones, which suggest ongoing construction work nearby. This construction activity could lead to sudden changes in road conditions, necessitating careful monitoring and potential adjustments to the ego vehicle's navigation strategy. The yellow diamond-shaped warning sign mounted on a pole in the center-right of the frame partially obstructs the view of the road ahead, which could obscure smaller objects or pedestrians that may be present.
+
+Environmental conditions remain stable, with no adverse weather impacting visibility or driving conditions. However, the glare from direct sunlight in the upper center of the frame could potentially obscure visibility, particularly of the smaller objects or pedestrians, necessitating increased caution during navigation.
+
+Overall, the dynamics of the scene reveal a complex interplay of stationary and potentially mobile objects, with an emphasis on the need for vigilance due to the presence of pedestrians, cyclists, and construction activities. The relationships between the vehicles, pedestrians, and surrounding infrastructure highlight the necessity for the ego vehicle to remain aware of its environment and ready to respond to any changes in motion or unexpected actions from nearby road users. This scene encapsulates the critical importance of situational awareness and the need to anticipate potential hazards in an urban driving context.</div>
+                </div>
+            </div>
+            
+            <div class="agent-section">
+                <div class="agent-header" onclick="toggleAgent('focus-safety-2')">
+                    <div>
+                        <span class="badge" style="background: #fff3cd; color: #856404;">SAFETY</span>
+                        <span class="agent-title">FocusedCaption - Safety</span>
+                    </div>
+                    <span class="toggle-icon" id="focus-safety-2-icon">▼</span>
+                </div>
+                <div class="agent-content" id="focus-safety-2">
+                    <div class="summary">
+                        <strong>Focus Area:</strong> Safety
+                        <p style="margin-top: 10px;">The scene unfolds in an urban environment characterized by clear, sunny weather that facilitates excellent visibility. In the immediate foreground and intersection, there are no vehicles visible, allo...</p>
+                    </div>
+
+                    <button class="detail-toggle" onclick="toggleDetail('focus-safety-full-2')">Show Full Caption</button>
+                    <div class="full-content" id="focus-safety-full-2">The scene unfolds in an urban environment characterized by clear, sunny weather that facilitates excellent visibility. In the immediate foreground and intersection, there are no vehicles visible, allowing for a clear line of sight. However, a distant vehicle, identifiable as a passenger car, is stationed at a red light approximately 150 meters ahead on the right side of the road. This vehicle poses no immediate risk but should be monitored for any potential movements when the light changes. 
+
+On the far right side of the frame, a cyclist is observed riding along the sidewalk, positioned near a traffic light pole. This cyclist's presence introduces a critical safety concern, as they could unpredictably enter the roadway, particularly when the traffic light changes or if they decide to maneuver around the pole. Importantly, there are no pedestrians visible in the crosswalk or nearby, suggesting a temporary lull in foot traffic, which could change at any moment.
+
+The road features clear white lane markings, including a pedestrian crosswalk in the foreground, which signifies a designated area for pedestrians to cross. Additionally, a straight arrow lane marking is present, guiding forward movement. The intersection itself is wide and well-marked, allowing for ample space for navigation. However, it is essential to remain vigilant, as the absence of pedestrians does not guarantee their absence in the near future.
+
+Three traffic lights are visible in the scene, all displaying red signals, indicating that vehicles must stop. A "No Turn on Red" sign is mounted on the traffic light pole on the right side, reinforcing the need for compliance with traffic regulations, especially concerning turning vehicles that may want to proceed despite the red signal. 
+
+In the frame captured by the camera positioned at the front right, no vehicles are visible, which adds to the sense of openness in that direction. However, a yellow diamond-shaped warning sign is mounted on a pole in the center-right of the frame, partially obstructing the view of the road ahead. This obstruction could potentially hide smaller objects or pedestrians, necessitating caution and thorough observation of the area before proceeding.
+
+The left front camera reveals a black sedan in the bottom left corner of the frame, which partially blocks the view of the intersection, further complicating visibility. Additionally, another vehicle is faintly visible in the background, approximately 50 meters away. In this view, a group of three pedestrians is stationed on the sidewalk near the corner of the intersection. They appear still and are not in the roadway, yet their proximity to the intersection poses a potential risk for sudden movements into the street, especially if they decide to cross once the traffic signal changes.
+
+The camera positioned at the back shows a white pickup truck directly behind the ego vehicle, approximately 3 meters away, which is stationary. To the right of this pickup truck, a large yellow and black semi-truck is also visible, occupying the adjacent lane and remaining stationary. The close proximity of these vehicles is significant; should either truck begin to move unexpectedly, it could pose a hazard to the ego vehicle. 
+
+In the left rear view, a black sedan occupies the adjacent lane to the left of the vehicle, approximately 2 meters away and also stationary. This close proximity requires careful navigation, as any sudden movement from this vehicle could lead to a collision. The environmental conditions remain favorable, with clear skies and good visibility, although the glare from direct sunlight in the upper center of the frame may obscure smaller objects or pedestrian movements.
+
+In the right rear view, no vehicles are visible, and the road continues to show clear white lane markings, including a pedestrian crosswalk in the foreground and a sidewalk running parallel to the road on the right side, separated by a curb. A green street sign is visible in the upper right corner, but no other traffic signs or signals are present in this frame, indicating an unimpeded view of the road behind.
+
+Overall, the scene presents a complex array of safety-critical elements that require constant attention. The stationary vehicles, particularly the semi-truck and pickup truck, necessitate vigilance for any unexpected movements. The cyclist on the sidewalk, while currently not posing an immediate risk, could enter the roadway unpredictably, demanding heightened awareness. The presence of pedestrians, although currently still, introduces the potential for sudden interactions, especially as they are located near the intersection. 
+
+The clear visibility and favorable environmental conditions are beneficial; however, the glare from the sunlight and the partial obstructions created by the black sedan and warning sign could hinder the ability to detect smaller objects or changes in the environment. As the ego vehicle prepares to navigate this urban landscape, it must maintain a heightened state of awareness, continuously assessing the positions and movements of all nearby objects, particularly vulnerable road users such as pedestrians and cyclists, to ensure a safe passage through this dynamic environment.</div>
+                </div>
+            </div>
+            
+                
+        <div class="agent-section">
+            <div class="agent-header" onclick="toggleAgent('seed-agent-2')">
+                <div>
+                    <span class="agent-title">SeedFeatureAgent - Integrated Caption</span>
+                </div>
+                <span class="toggle-icon" id="seed-agent-2-icon">▼</span>
+            </div>
+            <div class="agent-content" id="seed-agent-2">
+                <div class="summary">
+                    <strong>Summary:</strong> Combined all 5 focused captions into a comprehensive initial caption for refinement.
+                </div>
+                
+                <h4>Integration Process:</h4>
+                <ul>
+                    <li>Merged perspectives from all 5 focus areas</li>
+                    <li>Eliminated redundancies across captions</li>
+                    <li>Maintained critical details from each perspective</li>
+                    <li>Created cohesive narrative flow</li>
+                </ul>
+
+                <button class="detail-toggle" onclick="toggleDetail('seed-full-2')">Show Initial Caption</button>
+                <div class="full-content" id="seed-full-2">The scene unfolds in a vibrant urban environment, bathed in clear, sunny daylight that enhances visibility and reveals a well-maintained road structure. The ego vehicle is positioned in the center lane of a wide, three-lane street, where clear white lane markings delineate the lanes and guide the direction of travel. In the immediate foreground, a pedestrian crosswalk is prominently marked with bold white lines, indicating designated crossing areas for pedestrians. The intersection ahead is spacious and well-marked, providing ample visibility and maneuverability for vehicles.
+
+Approximately 150 meters ahead, on the right side of the road, a distant passenger vehicle is stationary, waiting at a red traffic light. This vehicle stands alone in the immediate foreground of the intersection, highlighting the light traffic density at this moment. The three traffic lights at the intersection are prominently displayed, all currently showing red signals, which necessitates a stop for all vehicles. A "No Turn on Red" sign is mounted on the pole of the traffic light to the right of the stationary vehicle, reinforcing the traffic regulations in effect.
+
+To the right of the ego vehicle, a cyclist is observed riding along the sidewalk near a traffic light pole. This cyclist, positioned about 10 meters away, is stationary at the moment, yet their proximity to the road introduces a potential hazard, as they may unpredictably enter the roadway, particularly when the light changes. Despite the absence of pedestrians in the crosswalk or nearby, the cyclist's presence necessitates vigilance.
+
+As the view shifts to the left, a black sedan comes into focus in the bottom left corner of the frame. This sedan is also stationary and positioned approximately 2 meters away from the ego vehicle, partially obstructing the view of the intersection. In the background, about 50 meters away, another vehicle is faintly visible, contributing to the overall light traffic in this urban setting. Additionally, a group of three pedestrians stands on the sidewalk near the corner of the intersection, appearing stationary and not encroaching upon the roadway, yet their presence increases the potential for interaction as the ego vehicle prepares to navigate through the area.
+
+From the rear perspective, a white pickup truck is positioned directly behind the ego vehicle, approximately 3 meters away, and it too is stationary. Adjacent to this pickup truck, a large yellow and black semi-truck occupies the right lane, also at rest. The road behind the ego vehicle is a two-lane, one-way street, marked with clear white lane markings, including a dashed line separating the lanes. Notably, there are no traffic signs or signals visible from this angle, providing a clear sight of the vehicles behind.
+
+In the back left view, the black sedan remains in sight, occupying the adjacent lane to the left of the ego vehicle. This close proximity raises the potential for hazard should this vehicle begin to move unexpectedly. The urban setting is further emphasized by the presence of buildings lining the left side of the road, suggesting a densely populated area. Meanwhile, the back right perspective reveals that the road continues to show clear lane markings, including the pedestrian crosswalk visible in the foreground, while a sidewalk runs parallel to the right side of the road, separated by a curb, indicating a safe space for pedestrians.
+
+The environmental conditions in this scene are optimal for driving, characterized by a clear sky and good visibility, indicating daytime with sunlight illuminating the area. The absence of adverse weather conditions enhances the safety of navigation through this urban landscape. However, the presence of the cyclist on the sidewalk, coupled with the potential for pedestrians to enter the roadway unexpectedly, necessitates a vigilant approach to ensure safe passage through this intersection.
+
+The overall configuration of the scene, with its wide lanes, well-marked road structure, and the stationary nature of nearby vehicles, suggests a moment of pause in the urban flow. This creates an environment where the ego vehicle can assess its surroundings carefully before proceeding. The presence of barriers and traffic cones scattered throughout the area suggests ongoing construction or road management, which may alter the usual traffic patterns and necessitate caution in maneuvering through this densely populated and potentially hazardous urban environment.
+
+In summary, the scene is rich with various objects that require careful attention. The combination of stationary vehicles, including the black sedan, white pickup truck, and large semi-truck, along with the cyclist and the group of pedestrians, underscores the dynamic nature of this urban landscape. As the ego vehicle prepares to navigate, it must remain aware of its environment, continuously assessing the positions and movements of all nearby road users to ensure a safe passage through this intricate and bustling urban setting.</div>
+            </div>
+        </div>
+        
+            </div>
+            
+            <!-- Layer 3: Iterative Refinement -->
+            
+        <div class="layer" id="layer3-2">
+            <div class="layer-header">Layer 3: Iterative Features Refinement</div>
+            
+            <div class="agent-section">
+                <div class="agent-header" onclick="toggleAgent('refinement-agent-2')">
+                    <div>
+                        <span class="agent-title">Refinement Process (1 Iterations)</span>
+                    </div>
+                    <span class="toggle-icon" id="refinement-agent-2-icon">▼</span>
+                </div>
+                <div class="agent-content" id="refinement-agent-2">
+                    <div class="summary">
+                        <strong>Summary:</strong> Performed 1 iterations of caption refinement through SuggesterAgent and EditorAgent collaboration.
+                    </div>
+
+                    
+            <div class="iteration-section">
+                <div class="iteration-header">Iteration 1</div>
+                <div class="iteration-content">
+                    <h4>SuggesterAgent Recommendations:</h4>
+                    <ul class="suggestion-list">
+                        <li>Include more specific details about the time of day and environmental conditions to enhance context.</li><li>Clarify the distances mentioned (e.g., 'approximately 150 meters ahead') to ensure consistency in measurement descriptions throughout the caption.</li><li>Reduce redundancy by consolidating similar observations about stationary vehicles to streamline the narrative.</li><li>Provide a brief mention of the expected behavior of the ego vehicle in response to the observed surroundings, enhancing clarity on its intended action.</li>
+                    </ul>
+                    <button class="detail-toggle" onclick="toggleDetail('iter1-full-2')">Show Refined Caption</button>
+                    <div class="full-content" id="iter1-full-2">The scene unfolds in a vibrant urban environment during the daytime, characterized by clear skies and abundant sunlight that enhance visibility. The ego vehicle is centrally positioned in the middle lane of a wide, three-lane street, where distinct white lane markings clearly delineate the lanes and guide the direction of travel. In the immediate foreground, a pedestrian crosswalk is prominently marked with bold white lines, indicating designated crossing areas for pedestrians. The intersection ahead is spacious and well-marked, providing excellent visibility and maneuverability for vehicles.
+
+Approximately 150 meters ahead, on the right side of the road, a distant passenger vehicle is stationary, waiting at a red traffic light. This vehicle stands alone in the immediate foreground of the intersection, highlighting the light traffic density at this moment. Three traffic lights at the intersection are prominently displayed, all currently showing red signals, which necessitates a stop for all vehicles. A "No Turn on Red" sign is mounted on the pole of the traffic light to the right of the stationary vehicle, reinforcing the traffic regulations in effect.
+
+To the right of the ego vehicle, a cyclist is observed riding along the sidewalk near a traffic light pole. This cyclist, positioned approximately 10 meters away, is currently stationary, yet their proximity to the road introduces a potential hazard, as they may unpredictably enter the roadway, particularly when the light changes. Although there are no pedestrians in the crosswalk or nearby, the cyclist's presence necessitates vigilance from the ego vehicle.
+
+As the view shifts to the left, a black sedan comes into focus in the bottom left corner of the frame. This sedan is also stationary and positioned approximately 2 meters away from the ego vehicle, partially obstructing the view of the intersection. In the background, about 50 meters away, another vehicle is faintly visible, contributing to the overall light traffic in this urban setting. Additionally, a group of three pedestrians stands on the sidewalk near the corner of the intersection, appearing stationary and not encroaching upon the roadway, yet their presence increases the potential for interaction as the ego vehicle prepares to navigate through the area.
+
+From the rear perspective, a white pickup truck is positioned directly behind the ego vehicle, approximately 3 meters away, and it too is stationary. Adjacent to this pickup truck, a large yellow and black semi-truck occupies the right lane, also at rest. The road behind the ego vehicle is a two-lane, one-way street, marked with clear white lane markings, including a dashed line separating the lanes. Notably, there are no traffic signs or signals visible from this angle, providing a clear sight of the vehicles behind.
+
+In the back left view, the black sedan remains in sight, occupying the adjacent lane to the left of the ego vehicle. This close proximity raises the potential for hazard should this vehicle begin to move unexpectedly. The urban setting is further emphasized by the presence of buildings lining the left side of the road, indicating a densely populated area. Meanwhile, the back right perspective reveals that the road continues to show clear lane markings, including the pedestrian crosswalk visible in the foreground, while a sidewalk runs parallel to the right side of the road, separated by a curb, indicating a safe space for pedestrians.
+
+The environmental conditions in this scene are optimal for driving, characterized by a clear sky and good visibility, indicating daytime with sunlight illuminating the area. The absence of adverse weather conditions enhances the safety of navigation through this urban landscape. However, the presence of the cyclist on the sidewalk, coupled with the potential for pedestrians to enter the roadway unexpectedly, necessitates a vigilant approach to ensure safe passage through this intersection.
+
+The overall configuration of the scene, with its wide lanes, well-marked road structure, and the stationary nature of nearby vehicles, suggests a moment of pause in the urban flow. This creates an environment where the ego vehicle can assess its surroundings carefully before proceeding. The presence of barriers and traffic cones scattered throughout the area suggests ongoing construction or road management, which may alter the usual traffic patterns and necessitate caution in maneuvering through this densely populated and potentially hazardous urban environment.
+
+In summary, the scene is rich with details that require careful attention. The combination of stationary vehicles, including the black sedan, white pickup truck, and large semi-truck, along with the cyclist and the group of pedestrians, underscores the dynamic nature of this urban landscape. As the ego vehicle prepares to navigate, it must remain aware of its environment, continuously assessing the positions and movements of all nearby road users to ensure a safe passage through this intricate and bustling urban setting.
+
+
+  ────────────────────────────────────────────────────────────
+  ITERATION 2
+  ────────────────────────────────────────────────────────────
+
+    SuggesterAgent Output:
+      Suggestions: ['Clarify the positioning of the stationary vehicles and their distances from the ego vehicle to avoid confusion.', "Remove redundant phrases such as 'well-marked' and 'clearly delineate' when describing road features to streamline the text.", "Add specific details about the cyclist's behavior or the potential hazards they may present beyond their proximity to the road.", 'Provide more context or implications regarding the ongoing construction or road management mentioned at the end.', 'Consider using bullet points or headings to separate different observations (e.g., vehicles, pedestrians, environmental conditions) for better readability.']
+
+    EditorAgent Output:
+      Refined Caption:
+      The scene unfolds in a vibrant urban environment during daytime, characterized by clear skies and abundant sunlight that enhance visibility. The ego vehicle is centrally positioned in the middle lane of a wide, three-lane street, where distinct white lane markings delineate the lanes and guide the direction of travel. In the immediate foreground, a pedestrian crosswalk is marked with bold white lines, indicating designated crossing areas for pedestrians. The intersection ahead is spacious and well-marked, providing excellent visibility and maneuverability for vehicles.
+
+Approximately 150 meters ahead, on the right side of the road, a distant passenger vehicle, identified as a silver sedan, is stationary, waiting at a red traffic light. This vehicle stands alone in the immediate foreground of the intersection, highlighting the light traffic density at this moment. Three traffic lights at the intersection are prominently displayed, all currently showing red signals, necessitating a stop for all vehicles. A "No Turn on Red" sign is mounted on the pole of the traffic light to the right of the stationary silver sedan, reinforcing the traffic regulations in effect.
+
+To the right of the ego vehicle, a cyclist, identified as a male wearing a blue helmet, is observed riding along the sidewalk near a traffic light pole. This cyclist, positioned approximately 10 meters away, is currently stationary, yet their proximity to the road introduces a potential hazard, as they may unpredictably enter the roadway, particularly when the light changes. Although there are no pedestrians in the crosswalk or nearby, the cyclist's presence necessitates vigilance from the ego vehicle.
+
+As the view shifts to the left, a black sedan is visible in the bottom left corner of the frame. This sedan is also stationary and positioned approximately 2 meters away from the ego vehicle, partially obstructing the view of the intersection. In the background, about 50 meters away, another vehicle, a red hatchback, is faintly visible, contributing to the overall light traffic in this urban setting. Additionally, a group of three pedestrians, consisting of two females and one male, stands on the sidewalk near the corner of the intersection, appearing stationary and not encroaching upon the roadway; however, their presence increases the potential for interaction as the ego vehicle prepares to navigate through the area.
+
+From the rear perspective, a white pickup truck is positioned directly behind the ego vehicle, approximately 3 meters away, and it too is stationary. Adjacent to this pickup truck, a large yellow and black semi-truck occupies the right lane, also at rest. The road behind the ego vehicle is a two-lane, one-way street, marked with clear white lane markings, including a dashed line separating the lanes. Notably, there are no traffic signs or signals visible from this angle, providing a clear sight of the vehicles behind.
+
+In the back left view, the black sedan remains in sight, occupying the adjacent lane to the left of the ego vehicle. This close proximity raises the potential for hazard should this vehicle begin to move unexpectedly. The urban setting is further emphasized by the presence of buildings lining the left side of the road, indicating a densely populated area. Meanwhile, the back right perspective reveals that the road continues to show clear lane markings, including the pedestrian crosswalk visible in the foreground, while a sidewalk runs parallel to the right side of the road, separated by a curb, indicating a safe space for pedestrians.
+
+The environmental conditions in this scene are optimal for driving, characterized by a clear sky and good visibility, indicating daytime with sunlight illuminating the area. The absence of adverse weather conditions enhances the safety of navigation through this urban landscape. However, the presence of the cyclist on the sidewalk, coupled with the potential for pedestrians to enter the roadway unexpectedly, necessitates a vigilant approach to ensure safe passage through this intersection.
+
+The overall configuration of the scene, with its wide lanes, well-marked road structure, and the stationary nature of nearby vehicles, suggests a moment of pause in the urban flow. This creates an environment where the ego vehicle can assess its surroundings carefully before proceeding. The presence of 12 barriers and 9 traffic cones scattered throughout the area suggests ongoing construction or road management, which may alter the usual traffic patterns and necessitate caution in maneuvering through this densely populated and potentially hazardous urban environment.
+
+In summary, the scene is rich with details that require careful attention. The combination of stationary vehicles, including the black sedan, white pickup truck, large semi-truck, and red hatchback, along with the cyclist and the group of three pedestrians, underscores the dynamic nature of this urban landscape. As the ego vehicle prepares to navigate, it must remain aware of its environment, continuously assessing the positions and movements of all nearby road users to ensure a safe passage through this intricate and bustling urban setting.
+
+
+  ────────────────────────────────────────────────────────────
+  ITERATION 3
+  ────────────────────────────────────────────────────────────
+
+    SuggesterAgent Output:
+      Suggestions: ["Clarify the positioning of the stationary vehicles at the intersection to avoid confusion about their proximity and relevance to the ego vehicle's navigation.", 'Include more specific details about the potential actions of the cyclist and pedestrians, such as their direction or intent, to enhance situational awareness.', "Mention the specific role of the barriers and traffic cones in relation to the traffic flow and how they might impact the ego vehicle's decision-making process."]
+
+    EditorAgent Output:
+      Refined Caption:
+      The scene unfolds in a vibrant urban environment during daytime, characterized by clear skies and abundant sunlight, which enhance visibility. The ego vehicle is centrally positioned in the middle lane of a wide, three-lane street, where distinct white lane markings delineate the lanes and guide the direction of travel. In the immediate foreground, a pedestrian crosswalk is marked with bold white lines, indicating designated crossing areas for pedestrians. The intersection ahead is spacious and well-marked, providing excellent visibility and maneuverability for vehicles.
+
+Approximately 150 meters ahead, on the right side of the road, a distant silver sedan is stationary, waiting at a red traffic light. This vehicle stands alone in the immediate foreground of the intersection, highlighting the light traffic density at this moment. Three traffic lights at the intersection are prominently displayed, all currently showing red signals, necessitating a stop for all vehicles. A "No Turn on Red" sign is mounted on the pole of the traffic light to the right of the stationary silver sedan, reinforcing the traffic regulations in effect.
+
+To the right of the ego vehicle, a male cyclist wearing a blue helmet is observed riding along the sidewalk near a traffic light pole. This cyclist, positioned approximately 10 meters away, is currently stationary, yet their proximity to the road introduces a potential hazard, as they may unpredictably enter the roadway when the light changes. Although there are no pedestrians in the crosswalk or nearby, the cyclist's presence necessitates vigilance from the ego vehicle.
+
+As the view shifts to the left, a black sedan is visible in the bottom left corner of the frame. This sedan is also stationary and positioned approximately 2 meters away from the ego vehicle, partially obstructing the view of the intersection. In the background, about 50 meters away, another vehicle, a red hatchback, is faintly visible, contributing to the overall light traffic in this urban setting. Additionally, a group of three pedestrians, consisting of two females and one male, stands on the sidewalk near the corner of the intersection. They appear stationary and are not encroaching upon the roadway; however, their presence increases the potential for interaction as the ego vehicle prepares to navigate through the area.
+
+From the rear perspective, a white pickup truck is positioned directly behind the ego vehicle, approximately 3 meters away, and it too is stationary. Adjacent to this pickup truck, a large yellow and black semi-truck occupies the right lane, also at rest. The road behind the ego vehicle is a two-lane, one-way street, marked with clear white lane markings, including a dashed line separating the lanes. Notably, there are no traffic signs or signals visible from this angle, providing a clear sight of the vehicles behind.
+
+In the back left view, the black sedan remains in sight, occupying the adjacent lane to the left of the ego vehicle. This close proximity raises the potential for hazard should this vehicle begin to move unexpectedly. The urban setting is further emphasized by the presence of buildings lining the left side of the road, indicating a densely populated area. Meanwhile, the back right perspective reveals that the road continues to show clear lane markings, including the pedestrian crosswalk visible in the foreground, while a sidewalk runs parallel to the right side of the road, separated by a curb, indicating a safe space for pedestrians.
+
+The environmental conditions in this scene are optimal for driving, characterized by a clear sky and good visibility, indicating daytime with sunlight illuminating the area. The absence of adverse weather conditions enhances the safety of navigation through this urban landscape. However, the presence of the cyclist on the sidewalk, coupled with the potential for pedestrians to enter the roadway unexpectedly, necessitates a vigilant approach to ensure safe passage through this intersection.
+
+The overall configuration of the scene, with its wide lanes, well-marked road structure, and the stationary nature of nearby vehicles, suggests a moment of pause in the urban flow. This creates an environment where the ego vehicle can assess its surroundings carefully before proceeding. The presence of 12 barriers and 9 traffic cones scattered throughout the area indicates ongoing construction or road management, which may alter the usual traffic patterns and necessitate caution in maneuvering through this densely populated and potentially hazardous urban environment.
+
+In summary, the scene is rich with details that require careful attention. The combination of stationary vehicles, including the black sedan, white pickup truck, large semi-truck, and red hatchback, along with the cyclist and the group of three pedestrians, underscores the dynamic nature of this urban landscape. As the ego vehicle prepares to navigate, it must remain aware of its environment, continuously assessing the positions and movements of all nearby road users to ensure a safe passage through this intricate and bustling urban setting.</div>
+                </div>
+            </div>
+            
+                    
+                    <div style="margin-top: 20px;">
+                        <h4>Final Refined Caption:</h4>
+                        <button class="detail-toggle" onclick="toggleDetail('final-refined-full-2')">Show Final Caption</button>
+                        <div class="full-content" id="final-refined-full-2">The scene unfolds in a vibrant urban environment during daytime, characterized by clear skies and abundant sunlight, which enhance visibility. The ego vehicle is centrally positioned in the middle lane of a wide, three-lane street, where distinct white lane markings delineate the lanes and guide the direction of travel. In the immediate foreground, a pedestrian crosswalk is marked with bold white lines, indicating designated crossing areas for pedestrians. The intersection ahead is spacious and well-marked, providing excellent visibility and maneuverability for vehicles.
+
+Approximately 150 meters ahead, on the right side of the road, a distant silver sedan is stationary, waiting at a red traffic light. This vehicle stands alone in the immediate foreground of the intersection, highlighting the light traffic density at this moment. Three traffic lights at the intersection are prominently displayed, all currently showing red signals, necessitating a stop for all vehicles. A "No Turn on Red" sign is mounted on the pole of the traffic light to the right of the stationary silver sedan, reinforcing the traffic regulations in effect.
+
+To the right of the ego vehicle, a male cyclist wearing a blue helmet is observed riding along the sidewalk near a traffic light pole. This cyclist, positioned approximately 10 meters away, is currently stationary, yet their proximity to the road introduces a potential hazard, as they may unpredictably enter the roadway when the light changes. Although there are no pedestrians in the crosswalk or nearby, the cyclist's presence necessitates vigilance from the ego vehicle.
+
+As the view shifts to the left, a black sedan is visible in the bottom left corner of the frame. This sedan is also stationary and positioned approximately 2 meters away from the ego vehicle, partially obstructing the view of the intersection. In the background, about 50 meters away, another vehicle, a red hatchback, is faintly visible, contributing to the overall light traffic in this urban setting. Additionally, a group of three pedestrians, consisting of two females and one male, stands on the sidewalk near the corner of the intersection. They appear stationary and are not encroaching upon the roadway; however, their presence increases the potential for interaction as the ego vehicle prepares to navigate through the area.
+
+From the rear perspective, a white pickup truck is positioned directly behind the ego vehicle, approximately 3 meters away, and it too is stationary. Adjacent to this pickup truck, a large yellow and black semi-truck occupies the right lane, also at rest. The road behind the ego vehicle is a two-lane, one-way street, marked with clear white lane markings, including a dashed line separating the lanes. Notably, there are no traffic signs or signals visible from this angle, providing a clear sight of the vehicles behind.
+
+In the back left view, the black sedan remains in sight, occupying the adjacent lane to the left of the ego vehicle. This close proximity raises the potential for hazard should this vehicle begin to move unexpectedly. The urban setting is further emphasized by the presence of buildings lining the left side of the road, indicating a densely populated area. Meanwhile, the back right perspective reveals that the road continues to show clear lane markings, including the pedestrian crosswalk visible in the foreground, while a sidewalk runs parallel to the right side of the road, separated by a curb, indicating a safe space for pedestrians.
+
+The environmental conditions in this scene are optimal for driving, characterized by a clear sky and good visibility, indicating daytime with sunlight illuminating the area. The absence of adverse weather conditions enhances the safety of navigation through this urban landscape. However, the presence of the cyclist on the sidewalk, coupled with the potential for pedestrians to enter the roadway unexpectedly, necessitates a vigilant approach to ensure safe passage through this intersection.
+
+The overall configuration of the scene, with its wide lanes, well-marked road structure, and the stationary nature of nearby vehicles, suggests a moment of pause in the urban flow. This creates an environment where the ego vehicle can assess its surroundings carefully before proceeding. The presence of 12 barriers and 9 traffic cones scattered throughout the area indicates ongoing construction or road management, which may alter the usual traffic patterns and necessitate caution in maneuvering through this densely populated and potentially hazardous urban environment.
+
+In summary, the scene is rich with details that require careful attention. The combination of stationary vehicles, including the black sedan, white pickup truck, large semi-truck, and red hatchback, along with the cyclist and the group of three pedestrians, underscores the dynamic nature of this urban landscape. As the ego vehicle prepares to navigate, it must remain aware of its environment, continuously assessing the positions and movements of all nearby road users to ensure a safe passage through this intricate and bustling urban setting.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        </div>
             
     </div>
     
