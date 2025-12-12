@@ -16,9 +16,14 @@ from datetime import datetime
 from pathlib import Path
 from PIL import Image
 from openai import AzureOpenAI
+import json
+from pydantic import BaseModel
+import time
+from openai import RateLimitError, Omit, omit
 
 from nuscenes_loader import NuScenesLoader
 from evaluation_framework import ComprehensiveMQAEvaluator
+from agents.structure_caption.caption_agent import StructuredCaption
 
 
 class RawGPT4oBaseline:
@@ -155,8 +160,51 @@ Please generate a comprehensive caption describing this autonomous driving scene
         except Exception as e:
             print(f"Error generating caption: {e}")
             return "Error: Failed to generate scene caption"
+
+    def generate_structured_caption(self, refined_caption: str) -> Dict[str, Any]:
+        """Generate structured JSON caption using Pydantic"""
+        
+        system_prompt = """You are a caption generation expert for autonomous driving scenes.
+
+Generate a comprehensive structured caption based on the refined features provided.
+
+Guidelines:
+- scene_summary: Provide a concise 1-2 sentence overview
+- ego_vehicle: Describe the ego vehicle's current action, lane position, and estimated speed
+- objects: List ALL detected objects with their categories, positions, states, attributes, and visibility
+- road_structure: Describe the road type, number of lanes, and visible markings
+- environment: Specify lighting, weather, and location type
+- safety_critical: List any safety-relevant observations (close objects, hazards, etc.)
+
+Be precise, comprehensive, and factual based on the features provided."""
+
+        user_prompt = f"""Generate a structured caption from this refined caption:
+
+{refined_caption}
+
+Create a complete, accurate caption covering all aspects of the scene."""
+
+        messages = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt}
+        ]
+        
+        response = self.call_llm(
+            messages, 
+            temperature=0.3, 
+            response_format=StructuredCaption
+        )
+        
+        # Convert Pydantic model to dict
+        caption_dict = response.model_dump()
+        caption_dict["full_caption"] = refined_caption  # Include full caption text
+        
+        return {
+            "agent": "GPT-4o Baseline",
+            "structured_caption": caption_dict
+        }
     
-    def answer_question_from_caption(self, question: str, scene_caption: str) -> str:
+    def answer_question_from_caption(self, question: str, structured_caption: dict) -> str:
         """
         Answer MQA question based on scene caption only (Step 2)
         
@@ -167,41 +215,36 @@ Please generate a comprehensive caption describing this autonomous driving scene
         Returns:
             Predicted answer in MQA format
         """
-        system_prompt = """You are an expert at answering questions about autonomous driving scenes.
+        system_prompt = """You are an expert at answering questions about driving scenes.
 
-You will be given a scene caption and a question. Answer the question based ONLY on the information in the caption.
+Answer using the structured caption and features available.
 
-CRITICAL FORMATTING RULES:
-1. For counting questions, use: <target><cnt>NUMBER</cnt> <obj>OBJECT_NAME</obj></target>
-2. For binary questions, use: <ans>yes</ans> or <ans>no</ans>
-3. For camera direction questions, use: <cam>DIRECTION</cam>
-4. For distance questions, use: <dst>DISTANCE</dst>
-5. For location questions, use: <loc>X, Y</loc>
-
-IMPORTANT: 
-- Object names should be singular (e.g., "car" not "cars")
-- Use exact object categories from nuScenes: adult pedestrian, child pedestrian, car, truck, bus, trailer, bicycle, motorcycle, barrier, traffic cone, construction vehicle
-- For camera directions use: front, front left, front right, back, back left, back right
-- Only use information explicitly stated in the caption
-- Be precise and concise in your answers
+Follow the nuScenes-MQA format strictly:
+- Use XML tags:
+  - <target>: Encapsulates <cnt> and <obj>
+  - <obj>: Object name (single word or short phrase)
+  - <cnt>: Count (number)
+  - <ans>: Binary response (yes/no)
+  - <cam>: Camera name (front, back, front left, etc.)
+  - <dst>: Distance description
+  - <loc>: Location coordinates (x, y)
 
 Examples:
-Q: "How many cars are in the front camera?"
-A: "<target><cnt>3</cnt> <obj>car</obj></target>"
+Q: "How many <obj>cars</obj> are in <cam>front</cam>?"
+A: "There are <target><cnt>2</cnt> <obj>cars</obj></target>."
 
-Q: "Are there any pedestrians visible?"
-A: "<ans>yes</ans>"
+Q: "Is there a <obj>pedestrian</obj> in <cam>front left</cam>?"
+A: "<ans>yes</ans>, there is <target><cnt>1</cnt> <obj>pedestrian</obj></target>."
 
-Q: "What objects are in the front left camera?"
-A: "<target><cnt>2</cnt> <obj>car</obj></target>, <target><cnt>1</cnt> <obj>truck</obj></target>"
+Be precise with counts and use the exact XML format."
 """
         
-        user_prompt = f"""Scene Caption:
-{scene_caption}
+        user_prompt = f"""Question: {question}
 
-Question: {question}
+Scene Information:
+{json.dumps(structured_caption, indent=2)}
 
-Please answer the question using the proper XML format based on the scene caption."""
+Provide a precise answer using the correct XML format."""
         
         messages = [
             {"role": "system", "content": system_prompt},
@@ -282,6 +325,52 @@ Please answer the question using the proper XML format based on the scene captio
 - Right region: {len(right_objects)} objects"""
         
         return description
+    
+    def call_llm(self, messages: List[Dict], temperature: float = 0.7, max_retries: int = 8, response_format: BaseModel | Omit=omit) -> str:
+        """Call Azure OpenAI API with strong retry logic."""
+        delay = 5  # start with 5 seconds – Azure recommends >= 5s
+
+        for attempt in range(max_retries):
+            try:
+                if response_format is omit:
+                    response = self.client.chat.completions.create(
+                        model=self.model,
+                        messages=messages,
+                        temperature=temperature
+                    )
+                    return response.choices[0].message.content
+                else:
+                    response = self.client.chat.completions.parse(
+                        model=self.model,
+                        messages=messages,
+                        temperature=temperature,
+                        response_format=response_format
+                    )
+                    return response.choices[0].message.parsed
+
+            except Exception as e:
+                # Check if it's a rate limit (Azure sometimes wraps it differently)
+                is_rate_limit = (
+                    isinstance(e, RateLimitError)
+                    or "RateLimit" in str(e)
+                    or "429" in str(e)
+                    or "too many requests" in str(e).lower()
+                )
+
+                if is_rate_limit:
+                    print(
+                        f"[RateLimit] {self.agent_name} attempt {attempt+1}/{max_retries}. "
+                        f"Waiting {delay}s..."
+                    )
+                    time.sleep(delay)
+                    delay = min(delay * 2, 60)  # cap at 60 sec
+                    continue
+
+                # Other errors should not be silently swallowed
+                print(f"[{self.agent_name}] Non-rate-limit error: {e}")
+                raise e
+
+        raise RuntimeError(f"{self.agent_name}: LLM call failed after {max_retries} retries.")
 
 
 def run_baseline_evaluation(
@@ -311,7 +400,7 @@ def run_baseline_evaluation(
     
     # Initialize components
     print("\nInitializing...")
-    baseline = RawGPT4oBaseline(api_key, endpoint)
+    baseline = RawGPT4oBaseline(api_key, endpoint, model="gpt-4o")
     loader = NuScenesLoader(nuscenes_dataroot, nuscenes_version)
     evaluator = ComprehensiveMQAEvaluator(mqa_csv_path)
     
@@ -380,7 +469,7 @@ def run_baseline_evaluation(
                     # Get answer from caption only (fair comparison with agentic pipeline)
                     predicted_answer = baseline.answer_question_from_caption(
                         question=question,
-                        scene_caption=scene_caption
+                        structured_caption=scene_caption
                     )
                     
                     print(f"  Predicted: {predicted_answer[:100]}...")
@@ -483,5 +572,5 @@ if __name__ == "__main__":
         mqa_csv_path=MQA_CSV_PATH,
         nuscenes_version=NUSCENES_VERSION,
         test_mode=True,
-        num_test_scenes=10  # Number of unique scenes to evaluate
+        num_test_scenes=20  # Number of unique scenes to evaluate
     )

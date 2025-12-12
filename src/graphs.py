@@ -73,6 +73,13 @@ class MQAResultsVisualizer:
             'binary': None
         }
         
+        # Handle NaN or None values
+        if pd.isna(answer) or answer is None:
+            return parsed
+        
+        # Convert to string if not already
+        answer = str(answer)
+        
         # Parse <target> blocks
         targets = re.findall(r'<target>(.*?)</target>', answer, re.DOTALL | re.IGNORECASE)
         for target in targets:
@@ -97,24 +104,30 @@ class MQAResultsVisualizer:
         print("\n" + "="*80)
         print("OVERALL PERFORMANCE")
         print("="*80)
+        df = self.df[self.df['config_name'] == 'full']
+        # Count NaN predictions
+        nan_count = df['predicted_answer'].isna().sum()
         
-        pred_parsed = self.df['predicted_answer'].apply(self.parse_answer)
-        gt_parsed = self.df['ground_truth_answer'].apply(
+        pred_parsed = df['predicted_answer'].apply(self.parse_answer)
+        gt_parsed = df['ground_truth_answer'].apply(
             lambda x: self.parse_answer(x.split(':')[0])
         )
         correct = sum(p == g for p, g in zip(pred_parsed, gt_parsed))
-        total = len(self.df)
+        total = len(df)
         accuracy = correct / total if total > 0 else 0
         
         print(f"\nAgentic Pipeline:")
         print(f"  Total Evaluations: {total}")
         print(f"  Correct: {correct}")
         print(f"  Incorrect: {total - correct}")
+        print(f"  NaN/Missing Predictions: {nan_count} ({nan_count/total*100:.1f}%)")
         print(f"  Overall Accuracy: {accuracy:.2%}")
         
         if self.baseline_accuracy is not None:
+            baseline_nan_count = self.baseline_df['predicted_answer'].isna().sum()
             print(f"\nBaseline GPT-4o:")
             print(f"  Total Evaluations: {len(self.baseline_df)}")
+            print(f"  NaN/Missing Predictions: {baseline_nan_count} ({baseline_nan_count/len(self.baseline_df)*100:.1f}%)")
             print(f"  Overall Accuracy: {self.baseline_accuracy:.2%}")
             improvement = (accuracy - self.baseline_accuracy) / self.baseline_accuracy * 100 if self.baseline_accuracy > 0 else 0
             print(f"\nImprovement over baseline: {accuracy - self.baseline_accuracy:+.2%} ({improvement:+.1f}%)")
@@ -126,11 +139,12 @@ class MQAResultsVisualizer:
         print("="*80)
         print("QUESTIONS PER SCENE WITH QUESTION TYPE DISTRIBUTION")
         print("="*80 + "\n")
+        df = self.df[self.df['config_name'] == 'full']
         
         # Get unique questions per scene
         scene_data = []
-        for sample_token in self.df['sample_token'].unique():
-            scene_df = self.df[self.df['sample_token'] == sample_token]
+        for sample_token in df['sample_token'].unique():
+            scene_df = df[df['sample_token'] == sample_token]
             
             # Get unique questions and question types
             num_questions = scene_df['question'].nunique()
@@ -168,11 +182,11 @@ class MQAResultsVisualizer:
         # Print totals
         print("\n" + "-"*80)
         print("TOTALS:")
-        total_questions = self.df['question'].nunique()
+        total_questions = df['question'].nunique()
         print(f"  Total Unique Questions: {total_questions}")
         
         # Question type distribution across all data
-        qtype_distribution = self.df.groupby('question_type')['question'].nunique()
+        qtype_distribution = df.groupby('question_type')['question'].nunique()
         for qtype, count in qtype_distribution.items():
             print(f"  {qtype}: {count}")
         
@@ -183,11 +197,13 @@ class MQAResultsVisualizer:
         print("="*80)
         print("ACCURACY BY QUESTION TYPE")
         print("="*80 + "\n")
+
+        df = self.df[self.df['config_name'] == 'full']
         
         qtype_data = []
         
-        for qtype in self.df['question_type'].unique():
-            qtype_df = self.df[self.df['question_type'] == qtype]
+        for qtype in df['question_type'].unique():
+            qtype_df = df[df['question_type'] == qtype]
             
             pred_parsed = qtype_df['predicted_answer'].apply(self.parse_answer)
             gt_parsed = qtype_df['ground_truth_answer'].apply(
@@ -313,8 +329,8 @@ class MQAResultsVisualizer:
         
         # Extract object tags and compute accuracy
         tag_accuracy = defaultdict(lambda: {'correct': 0, 'total': 0})
-        
-        for idx, row in self.df.iterrows():
+        df = self.df[self.df['config_name'] == 'full']
+        for idx, row in df.iterrows():
             tags = self.parse_tags_from_question(row['question'])
             
             pred = self.parse_answer(row['predicted_answer'])
@@ -322,9 +338,18 @@ class MQAResultsVisualizer:
             is_correct = (pred == gt)
             
             for tag in tags['obj']:
-                tag_accuracy[tag]['total'] += 1
+                # Normalize tag to singular form (remove trailing 's' if present)
+                normalized_tag = tag.lower()
+                if normalized_tag.endswith('s') and len(normalized_tag) > 1:
+                    # Check if it's likely a plural (simple heuristic)
+                    singular = normalized_tag[:-1]
+                    # Don't remove 's' from words that end in 'ss', 'us', etc.
+                    if not normalized_tag.endswith(('ss', 'us', 'is')):
+                        normalized_tag = singular
+                
+                tag_accuracy[normalized_tag]['total'] += 1
                 if is_correct:
-                    tag_accuracy[tag]['correct'] += 1
+                    tag_accuracy[normalized_tag]['correct'] += 1
         
         if not tag_accuracy:
             print("No object tags found")
@@ -369,8 +394,10 @@ class MQAResultsVisualizer:
         
         # Extract camera tags and compute accuracy
         tag_accuracy = defaultdict(lambda: {'correct': 0, 'total': 0})
+
+        df = self.df[self.df['config_name'] == 'full']
         
-        for idx, row in self.df.iterrows():
+        for idx, row in df.iterrows():
             tags = self.parse_tags_from_question(row['question'])
             
             pred = self.parse_answer(row['predicted_answer'])
@@ -482,11 +509,12 @@ class MQAResultsVisualizer:
     def plot_question_type_accuracy(self):
         """Plot accuracy by question type"""
         fig, ax = plt.subplots(figsize=(18, 18))
+        df = self.df[self.df['config_name'] == 'full']
         
         # Calculate accuracy per question type
         qtype_data = []
-        for qtype in self.df['question_type'].unique():
-            qtype_df = self.df[self.df['question_type'] == qtype]
+        for qtype in df['question_type'].unique():
+            qtype_df = df[df['question_type'] == qtype]
             
             pred_parsed = qtype_df['predicted_answer'].apply(self.parse_answer)
             gt_parsed = qtype_df['ground_truth_answer'].apply(
@@ -566,16 +594,9 @@ class MQAResultsVisualizer:
 
 def main():
     """Main execution"""
-    import sys
     
-    if len(sys.argv) < 2:
-        print("Usage: python graphs.py <path_to_results.csv> [baseline_results.csv]")
-        print("\nExample: python graphs.py evaluation_results/mqa_results_test_20231215_143022.csv")
-        print("With baseline: python graphs.py evaluation_results/mqa_results_test.csv evaluation_results/baseline_gpt4o_results.csv")
-        sys.exit(1)
-    
-    csv_path = sys.argv[1]
-    baseline_path = sys.argv[2] if len(sys.argv) > 2 else None
+    csv_path = 'evaluation_results/mqa_results_test_20251211_142646.csv'  # Default path
+    baseline_path = 'evaluation_results/baseline_gpt4omini_results_20251212_111507.csv'
     
     print(f"\nLoading results from: {csv_path}")
     if baseline_path:
