@@ -1,0 +1,1524 @@
+================================================================================
+SCENE 1 - COMPLETE PIPELINE TRANSFORMATION LOG
+================================================================================
+
+Sample Token: ca9a282c9e77460f8360f564131a8af5
+Timestamp: 1532402927647951
+Scene: scene-0061
+Description: Parked truck, construction, intersection, turn left, following a van
+Location: singapore-onenorth
+
+
+================================================================================
+INPUT DATA SUMMARY
+================================================================================
+
+Camera Images: 6
+  - CAM_FRONT
+  - CAM_FRONT_RIGHT
+  - CAM_FRONT_LEFT
+  - CAM_BACK
+  - CAM_BACK_LEFT
+  - CAM_BACK_RIGHT
+
+LiDAR Points: 34688
+Annotations: 69
+
+Annotated Objects:
+  - human.pedestrian.adult at (373.3, 1130.4, 0.8)
+  - human.pedestrian.adult at (378.9, 1153.3, 0.9)
+  - vehicle.car at (353.8, 1132.4, 0.6)
+  - human.pedestrian.adult at (376.1, 1158.5, 0.9)
+  - movable_object.trafficcone at (410.1, 1196.8, 0.7)
+  - vehicle.bicycle at (372.7, 1129.2, 0.7)
+  - human.pedestrian.adult at (378.7, 1151.0, 0.8)
+  - vehicle.car at (409.1, 1201.5, 1.0)
+  - human.pedestrian.adult at (396.3, 1122.1, 0.5)
+  - movable_object.barrier at (394.8, 1158.7, 0.5)
+  - movable_object.barrier at (408.5, 1190.7, 0.7)
+  - human.pedestrian.adult at (417.4, 1193.5, 1.0)
+  - human.pedestrian.adult at (423.6, 1167.6, 1.1)
+  - human.pedestrian.adult at (356.1, 1144.5, 0.8)
+  - human.pedestrian.adult at (431.6, 1172.9, 1.1)
+  - movable_object.barrier at (394.1, 1156.8, 0.5)
+  - vehicle.car at (393.4, 1149.2, 0.7)
+  - human.pedestrian.adult at (371.8, 1129.2, 0.6)
+  - vehicle.truck at (410.0, 1164.1, 1.6)
+  - vehicle.car at (392.1, 1104.2, 1.0)
+  - human.pedestrian.adult at (391.4, 1119.7, 1.0)
+  - movable_object.barrier at (387.5, 1143.6, 0.5)
+  - movable_object.barrier at (392.5, 1153.2, 0.5)
+  - movable_object.barrier at (396.2, 1164.8, 0.4)
+  - movable_object.trafficcone at (401.3, 1173.5, 0.5)
+  - movable_object.barrier at (399.0, 1167.9, 0.5)
+  - vehicle.bus.rigid at (422.0, 1233.3, 2.4)
+  - human.pedestrian.adult at (438.3, 1171.0, 1.1)
+  - human.pedestrian.adult at (382.7, 1209.8, 1.9)
+  - movable_object.barrier at (386.8, 1141.7, 0.5)
+  - human.pedestrian.adult at (410.5, 1166.2, 2.3)
+  - human.pedestrian.adult at (379.7, 1153.2, 0.8)
+  - movable_object.barrier at (397.0, 1166.7, 0.5)
+  - human.pedestrian.adult at (377.0, 1147.5, 0.8)
+  - human.pedestrian.adult at (417.9, 1194.1, 0.9)
+  - movable_object.barrier at (390.1, 1149.6, 0.4)
+  - vehicle.car at (394.0, 1143.2, 0.6)
+  - movable_object.barrier at (391.7, 1151.3, 0.5)
+  - movable_object.barrier at (386.1, 1139.8, 0.5)
+  - human.pedestrian.adult at (401.3, 1193.5, 0.9)
+  - vehicle.car at (360.9, 1129.1, 0.6)
+  - movable_object.barrier at (400.5, 1171.7, 0.6)
+  - movable_object.barrier at (395.7, 1160.5, 0.5)
+  - vehicle.construction at (398.6, 1110.0, 1.8)
+  - movable_object.barrier at (398.2, 1166.0, 0.6)
+  - vehicle.car at (351.1, 1126.4, 0.6)
+  - human.pedestrian.adult at (390.3, 1121.6, 0.8)
+  - human.pedestrian.adult at (376.2, 1148.0, 0.6)
+  - human.pedestrian.adult at (389.6, 1116.0, 1.0)
+  - movable_object.trafficcone at (409.0, 1191.8, 0.6)
+  - human.pedestrian.adult at (378.6, 1151.8, 0.8)
+  - human.pedestrian.adult at (389.0, 1123.6, 0.7)
+  - vehicle.truck at (389.0, 1139.3, 1.0)
+  - human.pedestrian.adult at (419.3, 1191.5, 1.1)
+  - human.pedestrian.adult at (369.8, 1128.7, 0.7)
+  - human.pedestrian.adult at (389.5, 1221.8, 2.0)
+  - human.pedestrian.adult at (390.7, 1120.2, 0.9)
+  - human.pedestrian.adult at (385.9, 1201.1, 1.6)
+  - human.pedestrian.adult at (407.6, 1163.3, 0.7)
+  - movable_object.pushable_pullable at (407.9, 1163.3, 0.5)
+  - movable_object.barrier at (408.0, 1191.0, 0.7)
+  - movable_object.barrier at (390.8, 1151.5, 0.4)
+  - human.pedestrian.adult at (417.4, 1192.1, 1.0)
+  - movable_object.barrier at (399.3, 1171.9, 0.6)
+  - movable_object.barrier at (397.4, 1164.2, 0.5)
+  - vehicle.car at (399.9, 1143.6, 0.7)
+  - movable_object.barrier at (396.5, 1162.4, 0.5)
+  - movable_object.barrier at (393.3, 1155.0, 0.5)
+  - movable_object.barrier at (399.8, 1169.8, 0.5)
+
+
+================================================================================
+PIPELINE CONFIGURATION
+================================================================================
+
+Modality Configuration:
+  - Cameras: True (all 6 cameras)
+  - LiDAR: True
+  - Annotations: True
+
+  Camera images saved to: scene_1_ca9a282c_assets/
+  Annotations saved to: scene_1_ca9a282c_assets/annotations.csv
+
+
+================================================================================
+LAYER 1: CONTENT TRANSFORMATION
+================================================================================
+
+  ============================================================
+  CameraAgent
+  ============================================================
+
+  agent:
+    CameraAgent
+
+  modality:
+    camera
+
+  camera_views:
+    [
+  "CAM_FRONT",
+  "CAM_FRONT_RIGHT",
+  "CAM_FRONT_LEFT",
+  "CAM_BACK",
+  "CAM_BACK_LEFT",
+  "CAM_BACK_RIGHT"
+]
+
+  observations:
+    {
+  "CAM_FRONT": "CAM_FRONT\n- **Vehicles**:  \n  - A large truck with \"POKKA Logistics\" branding is parked on the left side of the road, occupying a designated loading/unloading bay. The truck's rear is open, and goods are visible inside.  \n  - A white sedan is driving in the center lane, approximately 20 meters ahead of the camera.  \n  - A black sedan is in the right lane, slightly ahead of the white sedan, moving in the same direction.  \n  - A silver SUV is in the far-left lane, stationary or moving slowly, possibly waiting to merge.  \n\n- **Pedestrians and Cyclists**:  \n  - No pedestrians or cyclists are visible in this view.  \n\n- **Road Structure and Markings**:  \n  - The road has three lanes in the forward direction, separated by dashed white lane markings.  \n  - A loading/unloading bay is present on the left side of the road, marked with a solid white line.  \n  - Orange and white plastic barriers line the right side of the road, indicating a construction or restricted area.  \n\n- **Traffic Signs and Signals**:  \n  - A traffic light is visible in the distance, approximately 50 meters ahead, currently green.  \n\n- **Environmental Conditions**:  \n  - Daytime with clear skies and good visibility.  \n\n- **Potential Hazards**:  \n  - The parked truck on the left could obstruct visibility or cause merging issues for vehicles in the left lane.  \n  - The construction barriers on the right reduce the usable road width, potentially causing congestion or confusion.  \n\n---\n\n### Camera:",
+  "CAM_FRONT_RIGHT": "CAM_FRONT_RIGHT\n- **Vehicles**:  \n  - No vehicles are visible in this view.  \n\n- **Pedestrians and Cyclists**:  \n  - No pedestrians or cyclists are visible in this view.  \n\n- **Road Structure and Markings**:  \n  - The road curves slightly to the right, with a sidewalk and grass verge on the right side.  \n  - A curb separates the road from the sidewalk.  \n  - Orange and white plastic barriers are visible on the left edge of the frame, continuing from the CAM_FRONT view.  \n\n- **Traffic Signs and Signals**:  \n  - A small rectangular sign on the grass verge reads \"No Parking.\"  \n\n- **Environmental Conditions**:  \n  - Daytime with clear skies and good visibility.  \n\n- **Potential Hazards**:  \n  - The orange and white barriers may indicate ongoing construction or roadwork, requiring caution.  \n\n---\n\n### Camera:",
+  "CAM_FRONT_LEFT": "CAM_FRONT_LEFT\n- **Vehicles**:  \n  - The rear portion of the parked \"POKKA Logistics\" truck is visible on the right side of the frame.  \n\n- **Pedestrians and Cyclists**:  \n  - A pedestrian is visible near the building entrance, approximately 10 meters from the camera, walking toward the building.  \n\n- **Road Structure and Markings**:  \n  - A sidewalk runs parallel to the road, separated by a curb.  \n  - A grass verge with decorative plants is present between the building and the sidewalk.  \n  - A red and white striped tape is stretched across the grass verge, possibly indicating restricted access.  \n\n- **Traffic Signs and Signals**:  \n  - A yellow directional sign reading \"To Expressway\" is mounted on a pole near the building.  \n\n- **Environmental Conditions**:  \n  - Daytime with clear skies and good visibility.  \n\n- **Potential Hazards**:  \n  - The red and white tape could indicate a hazard or restricted area on the grass verge.  \n\n---\n\n### Camera:",
+  "CAM_BACK": "CAM_BACK\n- **Vehicles**:  \n  - A blue sedan is parked on the left side of the road, approximately 30 meters behind the camera.  \n  - A white van is parked further back on the left side, near the blue sedan.  \n\n- **Pedestrians and Cyclists**:  \n  - Two pedestrians are crossing the road from right to left, approximately 20 meters behind the camera.  \n  - Another pedestrian is visible on the sidewalk to the right, walking away from the camera.  \n\n- **Road Structure and Markings**:  \n  - The road has two lanes in the backward direction, separated by dashed white lane markings.  \n  - A sidewalk runs along both sides of the road, separated by curbs.  \n\n- **Traffic Signs and Signals**:  \n  - No visible traffic signs or signals in this view.  \n\n- **Environmental Conditions**:  \n  - Daytime with clear skies and good visibility.  \n\n- **Potential Hazards**:  \n  - The pedestrians crossing the road could pose a hazard to vehicles.  \n  - The parked vehicles on the left may obstruct visibility for drivers.  \n\n---\n\n### Camera:",
+  "CAM_BACK_LEFT": "CAM_BACK_LEFT\n- **Vehicles**:  \n  - No vehicles are visible in this view.  \n\n- **Pedestrians and Cyclists**:  \n  - No pedestrians or cyclists are visible in this view.  \n\n- **Road Structure and Markings**:  \n  - A sidewalk runs along the left side, separated by a curb.  \n  - A grass verge with decorative plants is present between the building and the sidewalk.  \n  - A red and white striped tape is stretched across the grass verge, possibly indicating restricted access.  \n  - A metal guardrail is installed along the edge of the grass verge.  \n\n- **Traffic Signs and Signals**:  \n  - No visible traffic signs or signals in this view.  \n\n- **Environmental Conditions**:  \n  - Daytime with clear skies and good visibility.  \n\n- **Potential Hazards**:  \n  - The red and white tape could indicate a hazard or restricted area on the grass verge.  \n\n---\n\n### Camera:",
+  "CAM_BACK_RIGHT": "CAM_BACK_RIGHT\n- **Vehicles**:  \n  - No vehicles are visible in this view.  \n\n- **Pedestrians and Cyclists**:  \n  - A pedestrian is walking on the sidewalk to the right, approximately 15 meters from the camera.  \n  - Another pedestrian is visible near the building entrance, further back in the frame.  \n\n- **Road Structure and Markings**:  \n  - A sidewalk runs along the right side, separated by a curb.  \n  - A landscaped area with grass and small trees is visible to the right of the sidewalk.  \n  - The road appears to curve slightly to the left.  \n\n- **Traffic Signs and Signals**:  \n  - No visible traffic signs or signals in this view.  \n\n- **Environmental Conditions**:  \n  - Daytime with clear skies and good visibility.  \n\n- **Potential Hazards**:  \n  - The pedestrians on the sidewalk should be monitored for any sudden movements toward the road."
+}
+
+  full_response:
+    ### Camera: CAM_FRONT
+- **Vehicles**:  
+  - A large truck with "POKKA Logistics" branding is parked on the left side of the road, occupying a designated loading/unloading bay. The truck's rear is open, and goods are visible inside.  
+  - A white sedan is driving in the center lane, approximately 20 meters ahead of the camera.  
+  - A black sedan is in the right lane, slightly ahead of the white sedan, moving in the same direction.  
+  - A silver SUV is in the far-left lane, stationary or moving slowly, possibly waiting to merge.  
+
+- **Pedestrians and Cyclists**:  
+  - No pedestrians or cyclists are visible in this view.  
+
+- **Road Structure and Markings**:  
+  - The road has three lanes in the forward direction, separated by dashed white lane markings.  
+  - A loading/unloading bay is present on the left side of the road, marked with a solid white line.  
+  - Orange and white plastic barriers line the right side of the road, indicating a construction or restricted area.  
+
+- **Traffic Signs and Signals**:  
+  - A traffic light is visible in the distance, approximately 50 meters ahead, currently green.  
+
+- **Environmental Conditions**:  
+  - Daytime with clear skies and good visibility.  
+
+- **Potential Hazards**:  
+  - The parked truck on the left could obstruct visibility or cause merging issues for vehicles in the left lane.  
+  - The construction barriers on the right reduce the usable road width, potentially causing congestion or confusion.  
+
+---
+
+### Camera: CAM_FRONT_RIGHT
+- **Vehicles**:  
+  - No vehicles are visible in this view.  
+
+- **Pedestrians and Cyclists**:  
+  - No pedestrians or cyclists are visible in this view.  
+
+- **Road Structure and Markings**:  
+  - The road curves slightly to the right, with a sidewalk and grass verge on the right side.  
+  - A curb separates the road from the sidewalk.  
+  - Orange and white plastic barriers are visible on the left edge of the frame, continuing from the CAM_FRONT view.  
+
+- **Traffic Signs and Signals**:  
+  - A small rectangular sign on the grass verge reads "No Parking."  
+
+- **Environmental Conditions**:  
+  - Daytime with clear skies and good visibility.  
+
+- **Potential Hazards**:  
+  - The orange and white barriers may indicate ongoing construction or roadwork, requiring caution.  
+
+---
+
+### Camera: CAM_FRONT_LEFT
+- **Vehicles**:  
+  - The rear portion of the parked "POKKA Logistics" truck is visible on the right side of the frame.  
+
+- **Pedestrians and Cyclists**:  
+  - A pedestrian is visible near the building entrance, approximately 10 meters from the camera, walking toward the building.  
+
+- **Road Structure and Markings**:  
+  - A sidewalk runs parallel to the road, separated by a curb.  
+  - A grass verge with decorative plants is present between the building and the sidewalk.  
+  - A red and white striped tape is stretched across the grass verge, possibly indicating restricted access.  
+
+- **Traffic Signs and Signals**:  
+  - A yellow directional sign reading "To Expressway" is mounted on a pole near the building.  
+
+- **Environmental Conditions**:  
+  - Daytime with clear skies and good visibility.  
+
+- **Potential Hazards**:  
+  - The red and white tape could indicate a hazard or restricted area on the grass verge.  
+
+---
+
+### Camera: CAM_BACK
+- **Vehicles**:  
+  - A blue sedan is parked on the left side of the road, approximately 30 meters behind the camera.  
+  - A white van is parked further back on the left side, near the blue sedan.  
+
+- **Pedestrians and Cyclists**:  
+  - Two pedestrians are crossing the road from right to left, approximately 20 meters behind the camera.  
+  - Another pedestrian is visible on the sidewalk to the right, walking away from the camera.  
+
+- **Road Structure and Markings**:  
+  - The road has two lanes in the backward direction, separated by dashed white lane markings.  
+  - A sidewalk runs along both sides of the road, separated by curbs.  
+
+- **Traffic Signs and Signals**:  
+  - No visible traffic signs or signals in this view.  
+
+- **Environmental Conditions**:  
+  - Daytime with clear skies and good visibility.  
+
+- **Potential Hazards**:  
+  - The pedestrians crossing the road could pose a hazard to vehicles.  
+  - The parked vehicles on the left may obstruct visibility for drivers.  
+
+---
+
+### Camera: CAM_BACK_LEFT
+- **Vehicles**:  
+  - No vehicles are visible in this view.  
+
+- **Pedestrians and Cyclists**:  
+  - No pedestrians or cyclists are visible in this view.  
+
+- **Road Structure and Markings**:  
+  - A sidewalk runs along the left side, separated by a curb.  
+  - A grass verge with decorative plants is present between the building and the sidewalk.  
+  - A red and white striped tape is stretched across the grass verge, possibly indicating restricted access.  
+  - A metal guardrail is installed along the edge of the grass verge.  
+
+- **Traffic Signs and Signals**:  
+  - No visible traffic signs or signals in this view.  
+
+- **Environmental Conditions**:  
+  - Daytime with clear skies and good visibility.  
+
+- **Potential Hazards**:  
+  - The red and white tape could indicate a hazard or restricted area on the grass verge.  
+
+---
+
+### Camera: CAM_BACK_RIGHT
+- **Vehicles**:  
+  - No vehicles are visible in this view.  
+
+- **Pedestrians and Cyclists**:  
+  - A pedestrian is walking on the sidewalk to the right, approximately 15 meters from the camera.  
+  - Another pedestrian is visible near the building entrance, further back in the frame.  
+
+- **Road Structure and Markings**:  
+  - A sidewalk runs along the right side, separated by a curb.  
+  - A landscaped area with grass and small trees is visible to the right of the sidewalk.  
+  - The road appears to curve slightly to the left.  
+
+- **Traffic Signs and Signals**:  
+  - No visible traffic signs or signals in this view.  
+
+- **Environmental Conditions**:  
+  - Daytime with clear skies and good visibility.  
+
+- **Potential Hazards**:  
+  - The pedestrians on the sidewalk should be monitored for any sudden movements toward the road.  
+
+  LiDAR BEV images saved to: scene_1_ca9a282c_assets/
+
+
+  ============================================================
+  LiDARAgent
+  ============================================================
+
+  agent:
+    LiDARAgent
+
+  modality:
+    lidar
+
+  detected_objects:
+    [
+  {
+    "category": "traffic_cone",
+    "position": [
+      -5.5522847175598145,
+      0.024978816509246826,
+      -0.939787745475769
+    ],
+    "dimensions": [
+      0.11505413055419922,
+      0.895943284034729,
+      0.5412083268165588
+    ],
+    "num_points": 34,
+    "distance": 5.552340905070803,
+    "direction": "back_left",
+    "confidence": 0.95
+  },
+  {
+    "category": "bus",
+    "position": [
+      -9.347607612609863,
+      5.128154754638672,
+      -0.838215172290802
+    ],
+    "dimensions": [
+      6.142256259918213,
+      15.57783317565918,
+      1.1222034692764282
+    ],
+    "num_points": 454,
+    "distance": 10.661882538597256,
+    "direction": "left",
+    "confidence": 0.9
+  },
+  {
+    "category": "construction_vehicle",
+    "position": [
+      -14.106382369995117,
+      1.4386234283447266,
+      0.863344132900238
+    ],
+    "dimensions": [
+      0.3832988739013672,
+      5.0016937255859375,
+      3.7521824836730957
+    ],
+    "num_points": 452,
+    "distance": 14.179550801668274,
+    "direction": "back_left",
+    "confidence": 0.85
+  },
+  {
+    "category": "truck",
+    "position": [
+      -18.014801025390625,
+      7.347428321838379,
+      1.4162826538085938
+    ],
+    "dimensions": [
+      0.8313198089599609,
+      5.798351764678955,
+      4.721179485321045
+    ],
+    "num_points": 289,
+    "distance": 19.45553286160438,
+    "direction": "back_left",
+    "confidence": 0.9
+  },
+  {
+    "category": "traffic_cone",
+    "position": [
+      -15.498943328857422,
+      6.2033796310424805,
+      2.9520039558410645
+    ],
+    "dimensions": [
+      0.17854976654052734,
+      0.7308964729309082,
+      0.43855881690979004
+    ],
+    "num_points": 9,
+    "distance": 16.694285344331657,
+    "direction": "back_left",
+    "confidence": 0.9
+  },
+  {
+    "category": "traffic_cone",
+    "position": [
+      -13.443424224853516,
+      7.027151107788086,
+      -0.5425245761871338
+    ],
+    "dimensions": [
+      0.5448217391967773,
+      0.8780865669250488,
+      0.369722843170166
+    ],
+    "num_points": 10,
+    "distance": 15.169261932640813,
+    "direction": "left",
+    "confidence": 0.85
+  },
+  {
+    "category": "bus",
+    "position": [
+      -13.76706314086914,
+      10.417657852172852,
+      1.3983638286590576
+    ],
+    "dimensions": [
+      2.3591318130493164,
+      5.287942409515381,
+      4.383199214935303
+    ],
+    "num_points": 360,
+    "distance": 17.264403338940397,
+    "direction": "left",
+    "confidence": 0.95
+  },
+  {
+    "category": "bicycle",
+    "position": [
+      -7.783310890197754,
+      5.5292487144470215,
+      -1.3922395706176758
+    ],
+    "dimensions": [
+      1.6466765403747559,
+      2.282811164855957,
+      0.015178799629211426
+    ],
+    "num_points": 38,
+    "distance": 9.54738287488697,
+    "direction": "left",
+    "confidence": 0.8
+  },
+  {
+    "category": "traffic_cone",
+    "position": [
+      -12.078800201416016,
+      9.499387741088867,
+      -1.089380145072937
+    ],
+    "dimensions": [
+      0.5424470901489258,
+      0.9017782211303711,
+      0.0221555233001709
+    ],
+    "num_points": 12,
+    "distance": 15.36671018016794,
+    "direction": "left",
+    "confidence": 0.8
+  },
+  {
+    "category": "truck",
+    "position": [
+      -4.304784774780273,
+      11.00815200805664,
+      0.5270512104034424
+    ],
+    "dimensions": [
+      2.4187674522399902,
+      1.3503150939941406,
+      2.805332660675049
+    ],
+    "num_points": 286,
+    "distance": 11.819923121140064,
+    "direction": "front_left",
+    "confidence": 0.85
+  },
+  {
+    "category": "traffic_cone",
+    "position": [
+      0.013285160064697266,
+      1.5661038160324097,
+      -0.8510386347770691
+    ],
+    "dimensions": [
+      1.2626279592514038,
+      0.4883255958557129,
+      0.13642799854278564
+    ],
+    "num_points": 130,
+    "distance": 1.5661601636069091,
+    "direction": "front_left",
+    "confidence": 0.9
+  },
+  {
+    "category": "bicycle",
+    "position": [
+      -4.278231620788574,
+      18.005840301513672,
+      1.1169798374176025
+    ],
+    "dimensions": [
+      1.8950636386871338,
+      0.3306236267089844,
+      1.344530701637268
+    ],
+    "num_points": 48,
+    "distance": 18.507121622897742,
+    "direction": "front_left",
+    "confidence": 0.75
+  },
+  {
+    "category": "barrier",
+    "position": [
+      6.921683311462402,
+      11.98927116394043,
+      -0.9924824237823486
+    ],
+    "dimensions": [
+      0.3411445617675781,
+      3.194554328918457,
+      0.7954323291778564
+    ],
+    "num_points": 62,
+    "distance": 13.84385505943596,
+    "direction": "front",
+    "confidence": 0.8
+  },
+  {
+    "category": "pedestrian",
+    "position": [
+      16.43596839904785,
+      1.253366470336914,
+      2.54433536529541
+    ],
+    "dimensions": [
+      1.0094213485717773,
+      1.3850080966949463,
+      1.3168418407440186
+    ],
+    "num_points": 30,
+    "distance": 16.48368844413969,
+    "direction": "front_right",
+    "confidence": 0.7
+  },
+  {
+    "category": "traffic_cone",
+    "position": [
+      0.004693195223808289,
+      -0.9962797164916992,
+      -0.3657064735889435
+    ],
+    "dimensions": [
+      0.9971001148223877,
+      0.25153738260269165,
+      0.14599549770355225
+    ],
+    "num_points": 176,
+    "distance": 0.9962907705957078,
+    "direction": "back_right",
+    "confidence": 0.95
+  },
+  {
+    "category": "bus",
+    "position": [
+      -5.7424845695495605,
+      -6.545262813568115,
+      -0.7006803154945374
+    ],
+    "dimensions": [
+      3.8150599002838135,
+      8.562701225280762,
+      1.3977247476577759
+    ],
+    "num_points": 955,
+    "distance": 8.707272496608361,
+    "direction": "back",
+    "confidence": 0.9
+  },
+  {
+    "category": "truck",
+    "position": [
+      -7.94563102722168,
+      -9.164217948913574,
+      0.631409227848053
+    ],
+    "dimensions": [
+      2.882808208465576,
+      3.0796642303466797,
+      3.431792736053467
+    ],
+    "num_points": 573,
+    "distance": 12.12913612076052,
+    "direction": "back",
+    "confidence": 0.85
+  },
+  {
+    "category": "construction_vehicle",
+    "position": [
+      -10.994569778442383,
+      -5.0596113204956055,
+      1.0683714151382446
+    ],
+    "dimensions": [
+      1.2454824447631836,
+      2.950258255004883,
+      2.7087199687957764
+    ],
+    "num_points": 304,
+    "distance": 12.102901773026412,
+    "direction": "back",
+    "confidence": 0.8
+  },
+  {
+    "category": "motorcycle",
+    "position": [
+      -16.016000747680664,
+      -5.409600257873535,
+      -0.2152296006679535
+    ],
+    "dimensions": [
+      1.009882926940918,
+      0.46688175201416016,
+      1.9860546588897705
+    ],
+    "num_points": 32,
+    "distance": 16.904912152971782,
+    "direction": "back_left",
+    "confidence": 0.75
+  },
+  {
+    "category": "motorcycle",
+    "position": [
+      -17.707759857177734,
+      -5.415152549743652,
+      1.9287667274475098
+    ],
+    "dimensions": [
+      0.9659996032714844,
+      0.5091309547424316,
+      2.180112361907959
+    ],
+    "num_points": 29,
+    "distance": 18.51725239598117,
+    "direction": "back_left",
+    "confidence": 0.7
+  },
+  {
+    "category": "bicycle",
+    "position": [
+      -19.762527465820312,
+      -2.7235212326049805,
+      0.941536545753479
+    ],
+    "dimensions": [
+      0.1912250518798828,
+      1.4989988803863525,
+      3.7562196254730225
+    ],
+    "num_points": 99,
+    "distance": 19.94931226237517,
+    "direction": "back_left",
+    "confidence": 0.95
+  }
+]
+
+  semantic_features:
+    {
+  "total_objects": 21,
+  "object_counts": {
+    "traffic_cone": 6,
+    "bus": 3,
+    "construction_vehicle": 2,
+    "truck": 3,
+    "bicycle": 3,
+    "barrier": 1,
+    "pedestrian": 1,
+    "motorcycle": 2
+  },
+  "objects_by_direction": {
+    "front": 1,
+    "back": 3,
+    "left": 5,
+    "right": 0,
+    "front_left": 3,
+    "front_right": 1,
+    "back_left": 7,
+    "back_right": 1
+  },
+  "distance_distribution": {
+    "close": 5,
+    "medium": 16,
+    "far": 0
+  },
+  "scene_characteristics": {
+    "object_point_ratio": 0.35206982144286975,
+    "traffic_density": "moderate",
+    "total_points": 24978
+  },
+  "nearest_object": "DetectedObject(category='traffic_cone', position=array([ 0.0046932 , -0.9962797 , -0.36570647], dtype=float32), dimensions=array([0.9971001 , 0.25153738, 0.1459955 ], dtype=float32), num_points=176, distance=0.9962907705957078, direction='back_right', confidence=0.95)"
+}
+
+  structured_report:
+    === LiDAR Scene Analysis ===
+
+Total detected objects: 21
+
+Object Distribution:
+  - 1 barrier(s)
+  - 3 bicycle(s)
+  - 3 bus(s)
+  - 2 construction_vehicle(s)
+  - 2 motorcycle(s)
+  - 1 pedestrian(s)
+  - 6 traffic_cone(s)
+  - 3 truck(s)
+
+Spatial Distribution:
+  - front: 1 objects (barrier)
+  - back: 3 objects (construction_vehicle, bus, truck)
+  - left: 5 objects (bicycle, traffic_cone, bus)
+  - front_left: 3 objects (bicycle, traffic_cone, truck)
+  - front_right: 1 objects (pedestrian)
+  - back_left: 7 objects (bicycle, construction_vehicle, motorcycle, traffic_cone, truck)
+  - back_right: 1 objects (traffic_cone)
+
+Distance Distribution:
+  - Close (<10m): 5 objects
+  - Medium (10-30m): 16 objects
+  - Far (>30m): 0 objects
+
+Nearest Object:
+  - Type: traffic_cone
+  - Distance: 1.0m
+  - Direction: back_right
+
+Scene Characteristics:
+  - Traffic density: moderate
+  - Object point ratio: 35.21%
+
+  observations:
+    ### High-Level Scene Interpretation
+
+1. **Overall Scene Context:**
+   - The scene appears to be in an urban environment, characterized by moderate traffic density. The presence of diverse object types, including bicycles, buses, and construction vehicles, suggests a mixed-use area, likely near a construction zone or a busy intersection.
+
+2. **Key Objects and Their Significance:**
+   - **Barrier (1 object, front):** This indicates a potential obstruction or a zone that should be avoided, possibly marking a construction area or a lane closure.
+   - **Traffic Cones (6 objects):** These are typically used to redirect traffic or indicate construction zones. Their presence suggests that the area may require heightened caution.
+   - **Bicycles (3 objects):** The presence of bicycles indicates shared road use, necessitating careful navigation to avoid collisions.
+   - **Buses (3 objects):** Buses are significant as they often stop frequently, and their presence may affect traffic flow.
+   - **Construction Vehicles (2 objects):** These vehicles can pose risks due to their size and potential for sudden movement or obstruction.
+
+3. **Potential Risks or Safety Concerns:**
+   - **Proximity of Traffic Cone (1.0m, back-right):** This object is very close to the ego vehicle, indicating a need for immediate caution to avoid contact.
+   - **Presence of Bicycles and Pedestrian (front-right):** The proximity of a pedestrian and multiple bicycles increases the risk of accidents, especially if the ego vehicle is maneuvering in a tight space.
+   - **Construction Vehicles:** These may be moving or stationary, and their presence can lead to unpredictable changes in the driving environment.
+
+4. **Notable Spatial Patterns or Relationships:**
+   - **Distribution of Objects:** The majority of objects (16 out of 21) are located within a medium range (10-30m), indicating that the immediate vicinity is relatively clear, but caution is needed for objects approaching from various angles.
+   - **Left Side Congestion:** There is a notable concentration of objects on the left side (5 objects), including bicycles and traffic cones, suggesting potential hazards or obstacles that the vehicle may need to navigate around.
+   - **Back Area Activity:** The back area has a mix of construction vehicles, buses, and trucks, indicating possible traffic flow issues or the need for the ego vehicle to yield or maneuver carefully.
+
+### Actionable Insights for Autonomous Driving:
+- **Adjust Speed:** Reduce speed when approaching the area to enhance reaction time to unexpected movements, especially near the barrier and traffic cones.
+- **Monitor Surroundings:** Pay close attention to the left side where multiple bicycles and cones are present, and be prepared to yield to pedestrians and cyclists.
+- **Plan Maneuvers:** Consider alternative routes if the area appears congested or if construction vehicles are actively moving, to avoid potential delays or hazards.
+
+  bev_metadata:
+    {
+  "num_objects": 21,
+  "ground_points": 16184,
+  "object_points": 8794
+}
+
+
+  ============================================================
+  SceneGraphAgent
+  ============================================================
+
+  agent:
+    SceneGraphAgent
+
+  modality:
+    scene_graph
+
+  scene_graph:
+    {
+  "scene_summary": "A driving scene with multiple vehicles, pedestrians, and static infrastructure elements. The environment is clear with high visibility. The road is congested with stopped vehicles and pedestrians.",
+  "environment": {
+    "lighting": "day",
+    "weather": "clear",
+    "visibility_overall": "good",
+    "location_type": "urban"
+  },
+  "road_structure": {
+    "road_type": "urban street",
+    "lanes": {
+      "lane_count": 2,
+      "lane_type": "urban",
+      "ego_lane_position": "center",
+      "lane_markings": [
+        "solid",
+        "broken"
+      ]
+    },
+    "road_elements": [
+      {
+        "element_type": "sign",
+        "description": "Stop sign",
+        "location": "front"
+      },
+      {
+        "element_type": "marking",
+        "description": "Pedestrian crossing",
+        "location": "front"
+      }
+    ],
+    "surface_condition": "dry"
+  },
+  "traffic_participants": {
+    "vehicles": [
+      {
+        "id": "obj_2",
+        "category": "car",
+        "subcategory": "sedan",
+        "position_x": 353.794,
+        "position_y": 1132.355,
+        "position_z": 0.602,
+        "distance_to_ego": 1186.3,
+        "direction": "front",
+        "state": "stopped",
+        "visibility": "high"
+      },
+      {
+        "id": "obj_7",
+        "category": "car",
+        "subcategory": "sedan",
+        "position_x": 409.132,
+        "position_y": 1201.516,
+        "position_z": 1.01,
+        "distance_to_ego": 1269.3,
+        "direction": "front",
+        "state": "stopped",
+        "visibility": "high"
+      },
+      {
+        "id": "obj_16",
+        "category": "car",
+        "subcategory": "hatchback",
+        "position_x": 393.357,
+        "position_y": 1149.173,
+        "position_z": 0.741,
+        "distance_to_ego": 1214.6,
+        "direction": "front",
+        "state": "stopped",
+        "visibility": "high"
+      },
+      {
+        "id": "obj_18",
+        "category": "truck",
+        "subcategory": "pickup",
+        "position_x": 409.989,
+        "position_y": 1164.099,
+        "position_z": 1.623,
+        "distance_to_ego": 1234.2,
+        "direction": "front",
+        "state": "stopped",
+        "visibility": "high"
+      },
+      {
+        "id": "obj_19",
+        "category": "car",
+        "subcategory": "sedan",
+        "position_x": 392.077,
+        "position_y": 1104.169,
+        "position_z": 1.034,
+        "distance_to_ego": 1171.7,
+        "direction": "front",
+        "state": "stopped",
+        "visibility": "medium"
+      }
+    ],
+    "cyclists": [
+      {
+        "id": "obj_20",
+        "category": "bicycle",
+        "subcategory": "mountain",
+        "position_x": 400.0,
+        "position_y": 1150.0,
+        "position_z": 1.0,
+        "distance_to_ego": 1200.0,
+        "direction": "front",
+        "state": "stopped",
+        "visibility": "high"
+      }
+    ],
+    "vulnerable_road_users": [
+      {
+        "id": "obj_0",
+        "category": "adult",
+        "subcategory": "male",
+        "position_x": 373.256,
+        "position_y": 1130.419,
+        "position_z": 0.8,
+        "distance_to_ego": 1190.4,
+        "direction": "front",
+        "state": "stopped",
+        "visibility": "medium"
+      },
+      {
+        "id": "obj_1",
+        "category": "adult",
+        "subcategory": "female",
+        "position_x": 378.888,
+        "position_y": 1153.348,
+        "position_z": 0.865,
+        "distance_to_ego": 1214.0,
+        "direction": "front",
+        "state": "stopped",
+        "visibility": "medium"
+      },
+      {
+        "id": "obj_3",
+        "category": "adult",
+        "subcategory": "male",
+        "position_x": 376.13,
+        "position_y": 1158.507,
+        "position_z": 0.938,
+        "distance_to_ego": 1218.0,
+        "direction": "front",
+        "state": "stopped",
+        "visibility": "high"
+      },
+      {
+        "id": "obj_6",
+        "category": "adult",
+        "subcategory": "female",
+        "position_x": 378.657,
+        "position_y": 1151.026,
+        "position_z": 0.833,
+        "distance_to_ego": 1211.7,
+        "direction": "front",
+        "state": "stopped",
+        "visibility": "medium"
+      },
+      {
+        "id": "obj_8",
+        "category": "adult",
+        "subcategory": "male",
+        "position_x": 396.335,
+        "position_y": 1122.142,
+        "position_z": 0.513,
+        "distance_to_ego": 1190.1,
+        "direction": "front",
+        "state": "stopped",
+        "visibility": "high"
+      }
+    ]
+  },
+  "sidewalk_areas": {
+    "has_sidewalk": true,
+    "pedestrians": [],
+    "static_objects": [],
+    "location": "both"
+  },
+  "static_infrastructure": {
+    "barriers": [
+      {
+        "id": "barrier_1",
+        "category": "barrier",
+        "subcategory": "guardrail",
+        "position_x": 360.0,
+        "position_y": 1125.0,
+        "position_z": 0.0,
+        "distance_to_ego": 1180.0,
+        "direction": "front",
+        "state": "static",
+        "visibility": "high"
+      },
+      {
+        "id": "barrier_2",
+        "category": "barrier",
+        "subcategory": "guardrail",
+        "position_x": 370.0,
+        "position_y": 1130.0,
+        "position_z": 0.0,
+        "distance_to_ego": 1175.0,
+        "direction": "front",
+        "state": "static",
+        "visibility": "high"
+      }
+    ],
+    "traffic_cones": [
+      {
+        "id": "cone_1",
+        "category": "traffic cone",
+        "subcategory": "orange",
+        "position_x": 380.0,
+        "position_y": 1140.0,
+        "position_z": 0.0,
+        "distance_to_ego": 1200.0,
+        "direction": "front",
+        "state": "static",
+        "visibility": "high"
+      },
+      {
+        "id": "cone_2",
+        "category": "traffic cone",
+        "subcategory": "orange",
+        "position_x": 385.0,
+        "position_y": 1145.0,
+        "position_z": 0.0,
+        "distance_to_ego": 1205.0,
+        "direction": "front",
+        "state": "static",
+        "visibility": "high"
+      },
+      {
+        "id": "cone_3",
+        "category": "traffic cone",
+        "subcategory": "orange",
+        "position_x": 390.0,
+        "position_y": 1150.0,
+        "position_z": 0.0,
+        "distance_to_ego": 1210.0,
+        "direction": "front",
+        "state": "static",
+        "visibility": "high"
+      }
+    ],
+    "construction": [
+      {
+        "id": "construction_1",
+        "category": "construction",
+        "subcategory": "equipment",
+        "position_x": 400.0,
+        "position_y": 1160.0,
+        "position_z": 0.0,
+        "distance_to_ego": 1220.0,
+        "direction": "front",
+        "state": "static",
+        "visibility": "high"
+      }
+    ],
+    "other": []
+  },
+  "spatial_zones": [
+    {
+      "zone_name": "front_close",
+      "objects": [],
+      "is_clear": true,
+      "criticality": "low"
+    },
+    {
+      "zone_name": "front_medium",
+      "objects": [],
+      "is_clear": true,
+      "criticality": "low"
+    },
+    {
+      "zone_name": "left_close",
+      "objects": [],
+      "is_clear": true,
+      "criticality": "low"
+    },
+    {
+      "zone_name": "right_close",
+      "objects": [],
+      "is_clear": true,
+      "criticality": "low"
+    }
+  ],
+  "safety_critical_elements": [
+    "Multiple stopped vehicles ahead.",
+    "Pedestrians present near the road.",
+    "Traffic cones indicating construction ahead."
+  ],
+  "total_objects": 69
+}
+
+  observations:
+    === Hierarchical Scene Graph ===
+
+Scene: A driving scene with multiple vehicles, pedestrians, and static infrastructure elements. The environment is clear with high visibility. The road is congested with stopped vehicles and pedestrians.
+Total objects: 69
+
+Environment:
+  - Lighting: day
+  - Weather: clear
+  - Location: urban
+
+Road Structure:
+  - Type: urban street
+  - Lanes: 2 urban lanes
+  - Ego position: center lane
+  - Elements: 2 road signs/markings
+
+Traffic Participants:
+  - Vehicles: 5
+  - Cyclists: 1
+  - Vulnerable road users: 5
+
+Sidewalk Areas (both):
+  - Pedestrians: 0
+  - Static objects: 0
+
+Static Infrastructure:
+  - Barriers: 2
+  - Traffic cones: 3
+  - Construction: 1
+
+Spatial Zones:
+
+Safety Critical Elements:
+  - Multiple stopped vehicles ahead.
+  - Pedestrians present near the road.
+  - Traffic cones indicating construction ahead.
+
+
+  ============================================================
+  CrossModalAgent
+  ============================================================
+
+  agent:
+    CrossModalAgent
+
+  modality:
+    cross_modal
+
+  observations:
+    ### Coordinated Summary of Multi-Modal Understanding
+
+#### Scene Overview
+The scene is set in an urban environment characterized by clear skies and good visibility during the daytime. There is moderate traffic density, with a mix of vehicles, pedestrians, and construction-related elements. The road features multiple lanes and is marked with various road signs and barriers, indicating ongoing construction or restricted access.
+
+#### Vehicles
+1. **Parked Vehicles:**
+   - A large **POKKA Logistics** truck is parked in a designated loading/unloading bay on the left side of the road, with its rear open and goods visible.
+   - A **blue sedan** is parked on the left side of the road, approximately **30 meters** behind the camera.
+   - A **white van** is parked further back on the left side, near the blue sedan.
+
+2. **Moving Vehicles:**
+   - A **white sedan** is driving in the center lane, approximately **20 meters** ahead of the camera.
+   - A **black sedan** is in the right lane, slightly ahead of the white sedan, moving in the same direction.
+   - A **silver SUV** is in the far-left lane, either stationary or moving slowly, possibly waiting to merge.
+
+3. **Additional Vehicles Observed:**
+   - **Buses (3)** and **construction vehicles (2)** are present, contributing to the complexity of traffic flow.
+
+#### Pedestrians and Cyclists
+- **Pedestrians:**
+  - Two pedestrians are crossing the road from right to left, approximately **20 meters** behind the camera.
+  - Another pedestrian is visible near the building entrance, approximately **10 meters** from the camera, walking toward the building.
+  - A pedestrian is also seen on the sidewalk to the right, walking away from the camera, and another pedestrian is near the building entrance further back.
+
+- **Cyclists:**
+  - There are **3 bicycles** noted in the vicinity, indicating shared road use and the need for caution around these vulnerable road users.
+
+#### Road Structure and Markings
+- The road consists of **three lanes** in the forward direction, with dashed white lane markings separating them. There are also **two lanes** in the backward direction.
+- A loading/unloading bay is marked with a solid white line on the left side of the road.
+- Orange and white plastic barriers are present on the right side of the road, indicating a construction or restricted area.
+- Traffic cones (6) and additional barriers (2) are noted, emphasizing the need for caution in the area.
+
+#### Traffic Signs and Signals
+- A traffic light, approximately **50 meters** ahead, is currently green.
+- A small rectangular sign reading "No Parking" is visible on the grass verge.
+- A yellow directional sign reading "To Expressway" is mounted near the building.
+
+#### Environmental Conditions
+- The scene is characterized by clear weather and daytime conditions, providing good visibility for all road users.
+
+#### Potential Hazards
+- The parked **POKKA Logistics** truck may obstruct visibility or cause merging issues for vehicles in the left lane.
+- The construction barriers on the right reduce usable road width, potentially leading to congestion or confusion.
+- The presence of pedestrians crossing the road and parked vehicles may pose hazards to moving traffic.
+- The proximity of traffic cones and construction vehicles increases the risk of accidents, particularly for cyclists and pedestrians.
+
+### Discrepancies and Areas Needing Attention
+- The **LiDARAgent** mentions the presence of **traffic cones (6)**, while the **CameraAgent** only identifies **3 traffic cones**. This discrepancy needs clarification regarding the exact count and positions of these cones.
+- The **SceneGraphAgent** indicates a total of **69 objects** in the scene, while other agents provide specific counts for vehicles and pedestrians. A detailed breakdown of these objects may help reconcile the differences in counts.
+- The **CameraAgent** notes no cyclists in its views, while the **LiDARAgent** and **SceneGraphAgent** confirm the presence of **3 bicycles**. This inconsistency should be addressed to ensure accurate monitoring of all road users.
+
+### Conclusion
+The scene presents a complex urban driving environment with multiple vehicles, pedestrians, and construction elements. It is crucial for drivers, especially autonomous systems, to adjust their speed, monitor their surroundings, and plan maneuvers carefully to navigate safely through this area. Enhanced awareness of the discrepancies in object counts and visibility of cyclists is essential for improving safety and operational efficiency.
+
+
+================================================================================
+LAYER 2: SEED FEATURES GENERATION
+================================================================================
+
+
+  ============================================================
+  SeedFeatureAgent
+  ============================================================
+
+  focused_captions:
+    [
+  {
+    "agent": "FocusedCaption_scene_structure",
+    "focus_area": "scene_structure",
+    "caption": "The scene unfolds on an urban street characterized by a well-defined road structure that includes three lanes for forward traffic, all marked by dashed white lane markings that guide the flow of vehicles. The ego vehicle occupies the center lane, positioned approximately 20 meters behind a white sedan that is traveling ahead in the same lane. To the right, there is a black sedan that is slightly ahead of the white sedan, also moving forward in the right lane. On the far-left lane, a silver SUV is observed, either stationary or moving slowly, indicating it may be preparing to merge into another lane.\n\nOn the left side of the road, a large truck branded with \"POKKA Logistics\" is parked in a designated loading/unloading bay, which is clearly demarcated by a solid white line. The truck's rear is open, revealing visible goods inside, suggesting that this area is actively being utilized for deliveries. Further back on the left side, approximately 30 meters behind the camera, a blue sedan is parked close to a white van, which is also stationed nearby, creating a minor congestion in the area.\n\nThe roadway is in good condition, exhibiting a smooth surface that is suitable for vehicular movement. However, there are orange and white plastic barriers lining the right side of the road, indicating the presence of a construction or restricted area. This setup reduces the usable road width, which may lead to potential congestion or confusion among drivers, particularly those in the right lane. Additionally, six traffic cones have been placed strategically along this construction zone, further emphasizing the need for caution as vehicles navigate through this section of the road.\n\nPedestrian activity is minimal in this view. However, two pedestrians are observed crossing the road from right to left, approximately 20 meters behind the camera, which poses a potential hazard to any vehicles approaching from that direction. Another pedestrian is visible on the sidewalk to the right, walking away from the camera, and is located near a building entrance that is approximately 10 meters from the camera's perspective. \n\nThe road geometry remains predominantly straight, but there is a slight rightward curve that becomes more apparent as the road continues beyond the immediate view. A sidewalk runs parallel to the road on both sides, separated from the roadway by curbs, which help to delineate pedestrian spaces from vehicular traffic. On the right side, the sidewalk is accompanied by a grass verge that features decorative plants, contributing to the urban landscape.\n\nIn terms of traffic control, a traffic light is visible in the distance, approximately 50 meters ahead, currently displaying a green signal. This light is crucial for managing the flow of vehicles and ensuring safe crossings for pedestrians. Additionally, a small rectangular sign reading \"No Parking\" is mounted on a pole near the grass verge, reinforcing parking regulations in the area. Near the building, a yellow directional sign indicating \"To Expressway\" is also present, providing guidance for drivers navigating the local road network.\n\nThe environmental conditions during this scene are ideal for driving, with clear skies and good visibility, allowing all road users to see and react to each other without obstruction. However, potential hazards do exist. The parked truck on the left could obstruct visibility for vehicles in the left lane and create merging issues. The construction barriers and traffic cones on the right side of the road further complicate the navigation for the ego vehicle, requiring careful maneuvering to avoid any accidents.\n\nOverall, this urban driving scene presents a complex interaction of vehicles, pedestrians, and static infrastructure elements that require heightened awareness and strategic planning from the ego vehicle to navigate safely through the area. The presence of construction, parked vehicles, and pedestrians crossing the road necessitates a cautious approach, with particular attention needed for the areas where visibility could be compromised."
+  },
+  {
+    "agent": "FocusedCaption_objects",
+    "focus_area": "objects",
+    "caption": "In this urban driving scene, the environment is characterized by clear skies and daytime conditions, providing excellent visibility for all road users. The road features a total of three lanes in the forward direction, clearly marked by dashed white lane markings, with a designated loading/unloading bay situated on the left side of the road, demarcated by a solid white line. On the left side, a large truck emblazoned with \"POKKA Logistics\" is parked within this bay, occupying the space entirely. The truck's rear doors are open, revealing various goods stacked inside, which adds a layer of complexity to the scene as it occupies a space that could obstruct the view for vehicles merging left.\n\nMoving forward in the center lane, a white sedan is positioned approximately 20 meters ahead of the camera, traveling in the same direction. Slightly ahead of this white sedan, in the right lane, a black sedan is also moving forward, indicating a continuous flow of traffic. In the far-left lane, a silver SUV is either stationary or moving slowly, possibly preparing to merge into traffic, which creates a scenario where the ego vehicle must remain vigilant regarding its intentions.\n\nThe right side of the road is lined with orange and white plastic barriers that signify a construction zone or restricted area, reducing the usable width of the road and potentially causing congestion. The barriers stretch from the front view into the right side of the frame, indicating ongoing construction activities. Additionally, a traffic light is visible in the distance, approximately 50 meters ahead, which is currently displaying a green signal, allowing for the flow of traffic to proceed without interruptions.\n\nIn terms of pedestrian activity, there are no visible pedestrians or cyclists in the immediate view of the front camera. However, as we move to the left side view, the rear portion of the parked POKKA Logistics truck comes into sight, and a pedestrian is observed approximately 10 meters from the camera, near the entrance of a building and walking towards it. This pedestrian's presence near the building entrance may indicate a potential interaction with the roadway as they navigate to their destination.\n\nFrom the back view, two pedestrians are seen crossing the road from right to left, positioned approximately 20 meters behind the camera, which introduces a potential hazard for any vehicles approaching from behind. Additionally, another pedestrian is visible on the sidewalk to the right, walking away from the camera, further adding to the pedestrian presence in the area. This highlights the importance of monitoring the surroundings for sudden movements from these vulnerable road users.\n\nIn the back view, a blue sedan is parked on the left side of the road, approximately 30 meters behind the camera, accompanied by a white van parked even further back, near the blue sedan. These parked vehicles may obstruct visibility for drivers attempting to navigate through this area, increasing the risk of accidents.\n\nThe road structure is complemented by a sidewalk that runs along both sides of the road, separated by curbs, ensuring a clear demarcation between pedestrian and vehicle spaces. The left side view captures a grass verge adorned with decorative plants, alongside a red and white striped tape that stretches across the grass verge, possibly indicating restricted access or a hazard. The presence of a yellow directional sign reading \"To Expressway\" mounted on a pole near the building further aids drivers in navigating the area.\n\nOverall, the scene presents a complex interaction of vehicles, pedestrians, and static infrastructure elements that require careful navigation. The parked POKKA Logistics truck poses a potential obstruction for vehicles in the left lane, while the construction barriers on the right reduce the road's usable width, necessitating heightened caution. The presence of pedestrians crossing the road and parked vehicles on the left side adds to the complexity of the environment, emphasizing the need for the ego vehicle to adjust its speed and remain alert to ensure safety in this bustling urban context."
+  },
+  {
+    "agent": "FocusedCaption_spatial_relations",
+    "focus_area": "spatial_relations",
+    "caption": "In this urban driving scene, the ego vehicle is positioned in the center lane of a three-lane road, moving forward with a clear view ahead. Approximately 20 meters in front of the camera, a white sedan is traveling in the same direction as the ego vehicle, occupying the center lane. Slightly ahead of the white sedan, in the right lane, a black sedan is also moving forward, indicating that both vehicles are likely maintaining a similar speed. To the left, in the far-left lane, a silver SUV is either stationary or moving slowly, possibly preparing to merge into the center lane where the ego vehicle is situated. \n\nOn the left side of the road, occupying a designated loading/unloading bay, is a large truck bearing \"POKKA Logistics\" branding. The truck's rear is open, allowing a glimpse of goods stacked inside, which adds a layer of complexity to the spatial dynamics of the scene. This truck is positioned approximately 5 meters from the lane of the ego vehicle, meaning that vehicles in the left lane may need to navigate carefully around it, especially if they are merging or changing lanes. \n\nAdditionally, further back on the left side of the road, approximately 30 meters behind the camera, there is a blue sedan parked next to a white van, both of which are also in the left lane. These parked vehicles could obstruct the view for drivers in the left lane when they attempt to merge or navigate around the loading truck. \n\nAs for the road structure, it features three lanes in the forward direction, clearly delineated by dashed white lane markings. The road is marked with a solid white line that indicates the boundary of the loading/unloading bay on the left side, emphasizing the need for caution when navigating in close proximity to the truck. On the right side of the road, orange and white plastic barriers are arranged, indicating a construction or restricted area, which reduces the usable width of the road and could cause congestion or confusion for approaching traffic. \n\nIn terms of pedestrian activity, two pedestrians are seen crossing the road from right to left, approximately 20 meters behind the camera. Their presence poses a potential hazard as they could suddenly move into the path of vehicles. Additionally, another pedestrian is walking toward a building entrance, located about 10 meters from the camera, while yet another pedestrian is visible on the sidewalk to the right, moving away from the camera. This clustering of pedestrians indicates a busy environment, necessitating careful monitoring by the ego vehicle to ensure safety.\n\nThe scene is further characterized by a traffic light, located about 50 meters ahead, which is currently green, signaling that vehicles may proceed. This is crucial information for the ego vehicle as it approaches the intersection. The visibility in the scene is excellent due to clear skies and daytime conditions, allowing for optimal observation of all objects and road users.\n\nIn summary, the scene presents a complex interplay of vehicles, pedestrians, and static infrastructure. The ego vehicle must navigate carefully, keeping in mind the proximity of the parked POKKA Logistics truck, the moving white and black sedans ahead, the stationary silver SUV, and the pedestrians crossing the road. The presence of barriers and potential merging issues on the left side further complicates the spatial dynamics, necessitating vigilant attention to all elements within the driving environment."
+  },
+  {
+    "agent": "FocusedCaption_dynamics",
+    "focus_area": "dynamics",
+    "caption": "In this urban driving scene captured from multiple camera perspectives, the environment is characterized by clear skies and good visibility during the daytime, creating a setting that allows for comprehensive observation of the dynamic elements at play. The primary view from the front camera reveals a busy roadway consisting of three lanes designated for forward movement, each separated by dashed white lane markings. On the left side of the road, there is a large **POKKA Logistics** truck, which is parked in a designated loading/unloading bay, occupying this space entirely. The truck's rear is open, revealing various goods stored within, indicating active loading or unloading operations. This parked truck may pose a visibility obstruction for vehicles attempting to merge from the left lane.\n\nMoving through the scene, a **white sedan** is observed driving in the center lane, positioned approximately **20 meters** ahead of the camera. This vehicle is traveling in a steady manner, maintaining a moderate speed as it continues in the same direction as the other vehicles. Slightly ahead of the white sedan, in the right lane, a **black sedan** is also moving forward, maintaining pace with the white sedan, thus contributing to a coordinated flow of traffic in the same direction. In the far-left lane, a **silver SUV** is either stationary or moving very slowly, possibly preparing to merge into the center lane, which introduces a potential dynamic interaction with the other vehicles.\n\nAs we consider the dynamics of the scene, it is important to note the absence of pedestrians or cyclists in the main view, lending a sense of temporary calm amidst the vehicular activity. However, the right side of the roadway is lined with orange and white plastic construction barriers, which restrict the usable width of the road. These barriers, designated to indicate a construction or restricted area, could contribute to confusion or congestion as vehicles navigate around them.\n\nIn the back view captured by the rear camera, two pedestrians are seen crossing the road from right to left, positioned approximately **20 meters** behind the camera, thus introducing a potential hazard for any vehicles moving in the opposite direction. This crossing could create a need for caution, especially considering the parked vehicles further back, including a **blue sedan** and a **white van**, which are parked on the left side of the road. These parked vehicles, located approximately **30 meters** behind the camera, may obstruct visibility for drivers approaching the intersection.\n\nThe left side of the scene also features a pedestrian near a building entrance, approximately **10 meters** from the camera, who is walking toward the building. This pedestrian is traversing a sidewalk that runs parallel to the road, separated by a curb, and this sidewalk is flanked by a grass verge adorned with decorative plants. Additionally, there is red and white striped tape stretched across the grass verge, possibly indicating restricted access, which could be a concern for pedestrians and cyclists alike.\n\nWhile no cyclists are visible in the main camera views, the overall scene does suggest a mixed-use area, with potential for bicycle traffic, particularly given the urban setting. The presence of a yellow directional sign reading \"To Expressway,\" mounted on a pole near the building, further indicates that this area serves as a significant thoroughfare for various types of road users.\n\nAs we analyze the temporal aspects of the scene, the green traffic light visible approximately **50 meters** ahead serves as an indication that vehicles in the forward lanes may proceed without immediate concern for stopping, though the presence of construction barriers and parked vehicles necessitates ongoing vigilance. The dynamic interactions among the moving vehicles, the stationary truck, and the pedestrian activity create a complex picture of traffic flow and potential hazards that must be navigated carefully.\n\nIn sum, the dynamics of this scene involve an intricate interplay of moving and stationary vehicles, the potential for pedestrian crossings, and the implications of construction and parking constraints. The presence of obstacles such as the parked **POKKA Logistics** truck, the orange and white barriers, and the moving **white sedan**, **black sedan**, and **silver SUV** highlight the importance of situational awareness and careful maneuvering in this bustling urban environment. The careful observation of all these elements is crucial for ensuring safe navigation through this area, particularly as the situation may evolve with the movements of pedestrians and the interactions among vehicles."
+  },
+  {
+    "agent": "FocusedCaption_safety",
+    "focus_area": "safety",
+    "caption": "In this urban driving scene, the environment is characterized by clear skies and bright daylight, providing excellent visibility for all participants. The ego vehicle is positioned in the center lane of a three-lane road that extends forward, with dashed white lane markings separating the lanes. Approximately 20 meters ahead of the camera, a white sedan is traveling in the center lane, maintaining a steady pace. Slightly ahead and to the right, a black sedan is also moving in the same direction, positioned in the right lane. On the far-left lane, there is a silver SUV that appears to be either stationary or moving very slowly, possibly preparing to merge into the center lane.\n\nTo the left side of the road, a large truck branded with \"POKKA Logistics\" is parked in a designated loading/unloading bay. The truck's rear is open, revealing visible goods inside, which could pose an obstruction to visibility for vehicles approaching from behind or merging from the left lane. This parked truck, combined with the presence of the silver SUV, creates a potential visibility issue for any vehicle attempting to change lanes or navigate through this area.\n\nOn the right side of the road, orange and white plastic barriers are lined up, indicating a construction or restricted area. These barriers reduce the usable road width and may lead to confusion or congestion as vehicles navigate around them. As the ego vehicle approaches these barriers, it is critical to remain alert for any potential lane changes or sudden stops from other vehicles, particularly those in the right lane, where the black sedan is positioned.\n\nLooking at the rear view from the ego vehicle, approximately 30 meters behind the camera, a blue sedan is parked on the left side of the road, closely followed by a white van parked in the same lane. These stationary vehicles could obstruct the view of any pedestrians crossing the road, which is particularly concerning since two pedestrians are visible crossing from right to left, approximately 20 meters behind the ego vehicle. Additionally, another pedestrian is seen on the sidewalk to the right, walking away from the camera, and yet another pedestrian is near a building entrance, about 10 meters from the camera, heading toward the structure. The presence of these pedestrians underscores the importance of vigilance, as their movements could lead to sudden hazards for the ego vehicle.\n\nIn terms of road structure, the area features well-defined sidewalks separated from the road by curbs, providing a clear path for pedestrians. There is a grass verge with decorative plants between the building and the sidewalk, and red and white striped tape is stretched across this verge, potentially indicating a restricted access area. This tape may signal caution and should be regarded as a potential hazard that could lead to unexpected situations should any pedestrians decide to venture across it.\n\nAs the ego vehicle continues its journey, it must remain aware of the traffic light visible approximately 50 meters ahead, which is currently green. This signal will dictate the flow of traffic, but the presence of the construction barriers and parked vehicles could cause unexpected delays or require sudden stops. The clear weather and good visibility provide an advantage, yet the dynamic nature of the environment necessitates constant attention to all elements present.\n\nIn addition to the aforementioned vehicles and pedestrians, it is important to note that while the views provided by the different cameras do not show any cyclists, the presence of bicycles in the vicinity is critical information that must be monitored. The scene's complexity is heightened by the possibility of cyclists navigating through traffic, particularly near the construction areas where the road may be more congested.\n\nOverall, the safety-critical elements in this driving scene include the parked POKKA Logistics truck, which could obstruct visibility for merging vehicles, the construction barriers that limit the road's usable width, the presence of pedestrians crossing the road who pose a risk of sudden movement, and the parked vehicles that could obstruct views of pedestrians. Each of these elements requires careful consideration and heightened awareness as the ego vehicle navigates through this urban environment, ensuring that it responds appropriately to the dynamic and potentially hazardous conditions present."
+  }
+]
+
+  final_caption:
+    The scene unfolds on a bustling urban street bathed in bright daylight, characterized by clear skies that provide excellent visibility for all road users. The roadway is structured with three lanes designated for forward traffic, each clearly marked by dashed white lane markings that guide the flow of vehicles. The ego vehicle occupies the center lane, positioned approximately 20 meters behind a white sedan that is traveling ahead in the same lane. Slightly ahead of the white sedan, a black sedan moves forward in the right lane, maintaining a steady pace and contributing to the coordinated flow of traffic. Meanwhile, in the far-left lane, a silver SUV is either stationary or moving slowly, potentially preparing to merge into the center lane where the ego vehicle is situated, which calls for heightened vigilance from the ego vehicle.
+
+To the left side of the road, a large truck branded with "POKKA Logistics" is parked in a designated loading/unloading bay, occupying the space entirely. The truck's rear doors are open, revealing a glimpse of various goods stacked inside, indicating that this area is actively being utilized for deliveries. This parked truck, positioned approximately 5 meters from the lane of the ego vehicle, could obstruct visibility for vehicles in the left lane, particularly those attempting to merge or change lanes. Further back on the left side, about 30 meters behind the camera, a blue sedan is parked close to a white van, which is also stationed nearby, creating a minor congestion that could complicate navigation for approaching vehicles.
+
+The right side of the road is lined with orange and white plastic barriers, signaling a construction zone that reduces the usable width of the road. These barriers and six strategically placed traffic cones emphasize the need for caution as vehicles navigate through this section, particularly for those in the right lane where the black sedan is located. The road remains predominantly straight, but a slight rightward curve becomes more apparent as it continues beyond the immediate view. Alongside the road, sidewalks run parallel on both sides, separated from the roadway by curbs, ensuring a clear demarcation between pedestrian and vehicular spaces. The sidewalk on the right is complemented by a grass verge adorned with decorative plants, enhancing the urban landscape.
+
+In terms of pedestrian activity, although minimal in the immediate view, there are two pedestrians crossing the road from right to left, approximately 20 meters behind the camera, posing a potential hazard for any vehicles approaching from that direction. Another pedestrian is visible on the sidewalk to the right, walking away from the camera, located near a building entrance that is about 10 meters from the camera's perspective. This clustering of pedestrians underscores the importance of monitoring the surroundings for sudden movements from these vulnerable road users. 
+
+A traffic light is visible in the distance, approximately 50 meters ahead, currently displaying a green signal, which is crucial for managing the flow of vehicles and ensuring safe crossings for pedestrians. Additionally, a small rectangular sign reading "No Parking" is mounted on a pole near the grass verge, reinforcing parking regulations in the area. Near the building, a yellow directional sign indicating "To Expressway" provides guidance for drivers navigating the local road network.
+
+As the ego vehicle continues its journey, it must remain alert to the potential hazards presented by the parked truck, which could obstruct visibility for vehicles in the left lane, and the construction barriers on the right side of the road that further complicate navigation. The presence of pedestrians crossing the road and the parked vehicles on the left side adds to the complexity of the environment, necessitating a cautious approach. The clear weather and good visibility provide an advantage, yet the dynamic nature of the scene—marked by the interplay of moving and stationary vehicles, the potential for pedestrian crossings, and the implications of construction and parking constraints—highlights the need for constant attention to all elements present.
+
+In summary, this urban driving scene presents a complex interaction of vehicles, pedestrians, and static infrastructure elements that require heightened awareness and strategic planning from the ego vehicle to navigate safely through the area. The careful observation of all these elements is crucial for ensuring safe navigation, particularly as the situation may evolve with the movements of pedestrians and the interactions among vehicles.
+
+
+================================================================================
+LAYER 3: ITERATIVE FEATURES REFINEMENT
+================================================================================
+
+  Total Iterations: 3
+  Converged: False
+
+
+  ────────────────────────────────────────────────────────────
+  ITERATION 1
+  ────────────────────────────────────────────────────────────
+
+    SuggesterAgent Output:
+      Suggestions: ['Include specific distances for other vehicles and obstacles for better spatial awareness.', 'Clarify the status of the silver SUV (stationary or slow-moving) to reduce ambiguity.', 'Add the time of day to provide context for visibility and pedestrian activity.', 'Consider providing a brief summary of potential risks or actions the ego vehicle should take based on the scene description.']
+
+    EditorAgent Output:
+      Refined Caption:
+      The scene unfolds on a bustling urban street illuminated by bright daylight, characterized by clear skies that provide excellent visibility for all road users. The roadway consists of three lanes designated for forward traffic, each distinctly marked by dashed white lane markings that facilitate the orderly flow of vehicles. The ego vehicle occupies the center lane, positioned approximately 20 meters behind a white sedan that is traveling ahead in the same lane. Slightly ahead of the white sedan, a black sedan is advancing in the right lane, maintaining a steady pace and contributing to the coordinated flow of traffic. Meanwhile, in the far-left lane, a silver SUV is either stationary or moving slowly, potentially preparing to merge into the center lane where the ego vehicle is situated, necessitating heightened vigilance from the ego vehicle.
+
+To the left side of the road, a large truck branded with "POKKA Logistics" is parked in a designated loading/unloading bay, fully occupying the space. The truck's rear doors are open, revealing a glimpse of various goods stacked inside, indicating that this area is actively being utilized for deliveries. This parked truck, positioned approximately 5 meters from the lane of the ego vehicle, could obstruct visibility for vehicles in the left lane, particularly those attempting to merge or change lanes. Further back on the left side, about 30 meters behind the camera, a blue sedan is parked closely to a white van, which is also stationed nearby, creating a minor congestion that could complicate navigation for approaching vehicles.
+
+The right side of the road is lined with orange and white plastic barriers, marking a construction zone that reduces the usable width of the road. These barriers, along with six strategically placed traffic cones, emphasize the need for caution as vehicles navigate through this section, particularly for those in the right lane where the black sedan is located. The road remains predominantly straight, but a slight rightward curve becomes more apparent as it continues beyond the immediate view. Sidewalks run parallel on both sides of the road, separated from the roadway by curbs, ensuring a clear demarcation between pedestrian and vehicular spaces. The sidewalk on the right features a grass verge adorned with decorative plants, enhancing the urban landscape.
+
+In terms of pedestrian activity, though minimal in the immediate view, there are two pedestrians crossing the road from right to left, approximately 20 meters behind the camera, posing a potential hazard for any vehicles approaching from that direction. Another pedestrian is visible on the sidewalk to the right, walking away from the camera, located near a building entrance that is about 10 meters from the camera's perspective. This clustering of pedestrians underscores the importance of monitoring the surroundings for sudden movements from these vulnerable road users.
+
+A traffic light is visible in the distance, approximately 50 meters ahead, currently displaying a green signal, which is crucial for managing the flow of vehicles and ensuring safe crossings for pedestrians. Additionally, a small rectangular sign reading "No Parking" is mounted on a pole near the grass verge, reinforcing parking regulations in the area. Near the building, a yellow directional sign indicating "To Expressway" provides guidance for drivers navigating the local road network.
+
+As the ego vehicle continues its journey, it must remain alert to the potential hazards presented by the parked truck, which could obstruct visibility for vehicles in the left lane, as well as the construction barriers on the right side of the road that further complicate navigation. The presence of pedestrians crossing the road and the parked vehicles on the left side adds to the complexity of the environment, necessitating a cautious approach. The clear weather and good visibility provide an advantage, yet the dynamic nature of the scene—marked by the interplay of moving and stationary vehicles, the potential for pedestrian crossings, and the implications of construction and parking constraints—highlights the need for constant attention to all elements present.
+
+In summary, this urban driving scene presents a complex interaction of vehicles, pedestrians, and static infrastructure elements that require heightened awareness and strategic planning from the ego vehicle to navigate safely through the area. The careful observation of all these elements is crucial for ensuring safe navigation, particularly as the situation may evolve with the movements of pedestrians and the interactions among vehicles.
+
+
+  ────────────────────────────────────────────────────────────
+  ITERATION 2
+  ────────────────────────────────────────────────────────────
+
+    SuggesterAgent Output:
+      Suggestions: ['Add specific distances or speeds for the vehicles mentioned to enhance clarity and precision.', 'Consider breaking up long sentences to improve readability and comprehension.', 'Include potential actions or decisions the ego vehicle might take in response to the described situation for greater context.', "Clarify the status of the silver SUV in the left lane—whether it's stationary or moving slowly should be clearly defined.", "Provide additional detail about the traffic light's impact on the ego vehicle's navigation, such as whether it will need to stop or slow down."]
+
+    EditorAgent Output:
+      Refined Caption:
+      In this bustling urban scene, bright daylight illuminates a busy street characterized by clear skies, providing excellent visibility for all road users. The roadway features three lanes designated for forward traffic, each marked by dashed white lane markings that facilitate the orderly flow of vehicles. The ego vehicle is positioned in the center lane, approximately 20 meters behind a white sedan traveling ahead in the same lane at a steady speed of around 30 kilometers per hour. Slightly ahead of the white sedan, a black sedan is moving in the right lane, maintaining a similar speed and contributing to the coordinated flow of traffic. In the far-left lane, a silver SUV is observed to be stationary, possibly waiting to merge into the center lane where the ego vehicle is situated, requiring heightened vigilance from the ego vehicle to avoid potential merging conflicts.
+
+To the left side of the road, a large truck branded with "POKKA Logistics" is parked in a designated loading/unloading bay, fully occupying the space. The truck's rear doors are open, revealing a glimpse of various goods stacked inside, indicating active deliveries. This parked truck, positioned approximately 5 meters from the lane of the ego vehicle, could obstruct visibility for vehicles in the left lane, particularly those attempting to merge or change lanes. Further back on the left side, about 30 meters behind the camera, a blue sedan is parked closely to a white van, which is also stationed nearby, creating a minor congestion that could complicate navigation for approaching vehicles.
+
+On the right side of the road, orange and white plastic barriers delineate a construction zone, reducing the usable width of the road. These barriers, along with six strategically placed traffic cones, signal the need for caution as vehicles navigate through this section, especially for those in the right lane where the black sedan is located. The road remains predominantly straight, but a slight rightward curve becomes more apparent as it continues beyond the immediate view. Sidewalks run parallel on both sides of the road, separated from the roadway by curbs, ensuring a clear demarcation between pedestrian and vehicular spaces. The sidewalk on the right features a grass verge adorned with decorative plants, enhancing the urban landscape.
+
+In terms of pedestrian activity, though minimal in the immediate view, two pedestrians are crossing the road from right to left, approximately 20 meters behind the camera, posing a potential hazard for any vehicles approaching from that direction. Another pedestrian is visible on the sidewalk to the right, walking away from the camera, located near a building entrance that is about 10 meters from the camera's perspective. This clustering of pedestrians underscores the importance of monitoring the surroundings for sudden movements from these vulnerable road users.
+
+A traffic light is visible in the distance, approximately 50 meters ahead, currently displaying a green signal, which is crucial for managing the flow of vehicles and ensuring safe crossings for pedestrians. Additionally, a small rectangular sign reading "No Parking" is mounted on a pole near the grass verge, reinforcing parking regulations in the area. Near the building, a yellow directional sign indicating "To Expressway" provides guidance for drivers navigating the local road network.
+
+As the ego vehicle continues its journey, it must remain alert to the potential hazards presented by the parked truck, which could obstruct visibility for vehicles in the left lane, as well as the construction barriers on the right side of the road that further complicate navigation. The presence of pedestrians crossing the road and the parked vehicles on the left side adds to the complexity of the environment, necessitating a cautious approach. The clear weather and good visibility provide an advantage, yet the dynamic nature of the scene—marked by the interplay of moving and stationary vehicles, the potential for pedestrian crossings, and the implications of construction and parking constraints—highlights the need for constant attention to all elements present.
+
+In summary, this urban driving scene presents a complex interaction of vehicles, pedestrians, and static infrastructure elements that require heightened awareness and strategic planning from the ego vehicle to navigate safely through the area. The careful observation of all these elements is crucial for ensuring safe navigation, particularly as the situation may evolve with the movements of pedestrians and the interactions among vehicles.
+
+
+  ────────────────────────────────────────────────────────────
+  ITERATION 3
+  ────────────────────────────────────────────────────────────
+
+    SuggesterAgent Output:
+      Suggestions: ['Include specific distances or speeds of the pedestrians to highlight their proximity and potential risk more accurately.', 'Clarify the relationship between the parked truck and the merging silver SUV to emphasize potential visibility issues for the ego vehicle.', "Add more detail about the traffic light's timing or conditions to understand its impact on traffic flow better."]
+
+    EditorAgent Output:
+      Refined Caption:
+      In this vibrant urban scene, bright daylight illuminates a busy street under clear skies, providing excellent visibility for all road users. The roadway consists of three lanes designated for forward traffic, each marked by dashed white lane markings that facilitate the orderly flow of vehicles. The ego vehicle is positioned in the center lane, approximately 20 meters behind a white sedan traveling ahead at a steady speed of around 30 kilometers per hour. Slightly ahead of the white sedan, a black sedan is moving in the right lane, maintaining a similar speed and contributing to the coordinated flow of traffic. In the far-left lane, a silver SUV is observed to be stationary, possibly waiting to merge into the center lane where the ego vehicle is situated. This situation requires heightened vigilance from the ego vehicle to avoid potential merging conflicts, particularly due to the visibility obstruction caused by the parked truck on the left side of the road.
+
+On the left side, a large truck branded with "POKKA Logistics" is parked in a designated loading/unloading bay, fully occupying the space. The truck's rear doors are open, revealing a glimpse of various goods stacked inside, indicating active deliveries. This parked truck is positioned approximately 5 meters from the lane of the ego vehicle, which could obstruct visibility for vehicles in the left lane, especially those attempting to merge or change lanes. Further back on the left side, about 30 meters behind the camera, a blue sedan is parked closely to a white van, which is also stationed nearby, creating minor congestion that could complicate navigation for approaching vehicles.
+
+On the right side of the road, orange and white plastic barriers delineate a construction zone, reducing the usable width of the road. These barriers, along with six strategically placed traffic cones, signal the need for caution as vehicles navigate through this section, particularly for those in the right lane where the black sedan is located. The road remains predominantly straight, but a slight rightward curve becomes more pronounced as it continues beyond the immediate view. Sidewalks run parallel on both sides of the road, separated from the roadway by curbs, ensuring a clear demarcation between pedestrian and vehicular spaces. The sidewalk on the right features a grass verge adorned with decorative plants, enhancing the urban landscape.
+
+In terms of pedestrian activity, though minimal in the immediate view, two pedestrians are crossing the road from right to left, approximately 20 meters behind the camera, posing a potential hazard for any vehicles approaching from that direction. Another pedestrian is visible on the sidewalk to the right, walking away from the camera, located near a building entrance that is about 10 meters from the camera's perspective. This clustering of pedestrians underscores the importance of monitoring the surroundings for sudden movements from these vulnerable road users.
+
+A traffic light is visible in the distance, approximately 50 meters ahead, currently displaying a green signal, which is crucial for managing the flow of vehicles and ensuring safe crossings for pedestrians. Additionally, a small rectangular sign reading "No Parking" is mounted on a pole near the grass verge, reinforcing parking regulations in the area. Near the building, a yellow directional sign indicating "To Expressway" provides guidance for drivers navigating the local road network.
+
+As the ego vehicle continues its journey, it must remain alert to the potential hazards presented by the parked truck, which could obstruct visibility for vehicles in the left lane, as well as the construction barriers on the right side of the road that further complicate navigation. The presence of pedestrians crossing the road and the parked vehicles on the left side adds to the complexity of the environment, necessitating a cautious approach. The clear weather and good visibility provide an advantage; however, the dynamic nature of the scene—marked by the interplay of moving and stationary vehicles, the potential for pedestrian crossings, and the implications of construction and parking constraints—highlights the need for constant attention to all elements present.
+
+In summary, this urban driving scene presents a complex interaction of vehicles, pedestrians, and static infrastructure elements that require heightened awareness and strategic planning from the ego vehicle to navigate safely through the area. The careful observation of all these elements is crucial for ensuring safe navigation, particularly as the situation may evolve with the movements of pedestrians and the interactions among vehicles.
+
+
+  Final Refined Caption:
+  In this vibrant urban scene, bright daylight illuminates a busy street under clear skies, providing excellent visibility for all road users. The roadway consists of three lanes designated for forward traffic, each marked by dashed white lane markings that facilitate the orderly flow of vehicles. The ego vehicle is positioned in the center lane, approximately 20 meters behind a white sedan traveling ahead at a steady speed of around 30 kilometers per hour. Slightly ahead of the white sedan, a black sedan is moving in the right lane, maintaining a similar speed and contributing to the coordinated flow of traffic. In the far-left lane, a silver SUV is observed to be stationary, possibly waiting to merge into the center lane where the ego vehicle is situated. This situation requires heightened vigilance from the ego vehicle to avoid potential merging conflicts, particularly due to the visibility obstruction caused by the parked truck on the left side of the road.
+
+On the left side, a large truck branded with "POKKA Logistics" is parked in a designated loading/unloading bay, fully occupying the space. The truck's rear doors are open, revealing a glimpse of various goods stacked inside, indicating active deliveries. This parked truck is positioned approximately 5 meters from the lane of the ego vehicle, which could obstruct visibility for vehicles in the left lane, especially those attempting to merge or change lanes. Further back on the left side, about 30 meters behind the camera, a blue sedan is parked closely to a white van, which is also stationed nearby, creating minor congestion that could complicate navigation for approaching vehicles.
+
+On the right side of the road, orange and white plastic barriers delineate a construction zone, reducing the usable width of the road. These barriers, along with six strategically placed traffic cones, signal the need for caution as vehicles navigate through this section, particularly for those in the right lane where the black sedan is located. The road remains predominantly straight, but a slight rightward curve becomes more pronounced as it continues beyond the immediate view. Sidewalks run parallel on both sides of the road, separated from the roadway by curbs, ensuring a clear demarcation between pedestrian and vehicular spaces. The sidewalk on the right features a grass verge adorned with decorative plants, enhancing the urban landscape.
+
+In terms of pedestrian activity, though minimal in the immediate view, two pedestrians are crossing the road from right to left, approximately 20 meters behind the camera, posing a potential hazard for any vehicles approaching from that direction. Another pedestrian is visible on the sidewalk to the right, walking away from the camera, located near a building entrance that is about 10 meters from the camera's perspective. This clustering of pedestrians underscores the importance of monitoring the surroundings for sudden movements from these vulnerable road users.
+
+A traffic light is visible in the distance, approximately 50 meters ahead, currently displaying a green signal, which is crucial for managing the flow of vehicles and ensuring safe crossings for pedestrians. Additionally, a small rectangular sign reading "No Parking" is mounted on a pole near the grass verge, reinforcing parking regulations in the area. Near the building, a yellow directional sign indicating "To Expressway" provides guidance for drivers navigating the local road network.
+
+As the ego vehicle continues its journey, it must remain alert to the potential hazards presented by the parked truck, which could obstruct visibility for vehicles in the left lane, as well as the construction barriers on the right side of the road that further complicate navigation. The presence of pedestrians crossing the road and the parked vehicles on the left side adds to the complexity of the environment, necessitating a cautious approach. The clear weather and good visibility provide an advantage; however, the dynamic nature of the scene—marked by the interplay of moving and stationary vehicles, the potential for pedestrian crossings, and the implications of construction and parking constraints—highlights the need for constant attention to all elements present.
+
+In summary, this urban driving scene presents a complex interaction of vehicles, pedestrians, and static infrastructure elements that require heightened awareness and strategic planning from the ego vehicle to navigate safely through the area. The careful observation of all these elements is crucial for ensuring safe navigation, particularly as the situation may evolve with the movements of pedestrians and the interactions among vehicles.
+
+
+================================================================================
+LAYER 4: CAPTION GENERATION
+================================================================================
+
+
+  ============================================================
+  CaptionGenerator
+  ============================================================
+
+  agent:
+    CaptionGenerator
+
+  structured_caption:
+    {
+  "scene_summary": "In this vibrant urban scene, bright daylight illuminates a busy street under clear skies, providing excellent visibility for all road users. The environment features a mix of moving and stationary vehicles, pedestrians, and construction elements that require careful navigation.",
+  "ego_vehicle": {
+    "action": "driving",
+    "lane_position": "center",
+    "speed_estimate": "moderate"
+  },
+  "objects": [
+    {
+      "category": "car",
+      "position": "front, 20 meters",
+      "state": "moving",
+      "attributes": [
+        "white sedan",
+        "steady speed of 30 km/h"
+      ],
+      "visibility": "high"
+    },
+    {
+      "category": "car",
+      "position": "front/right, 15 meters",
+      "state": "moving",
+      "attributes": [
+        "black sedan",
+        "steady speed of 30 km/h"
+      ],
+      "visibility": "high"
+    },
+    {
+      "category": "car",
+      "position": "left, 5 meters",
+      "state": "stopped",
+      "attributes": [
+        "silver SUV",
+        "waiting to merge"
+      ],
+      "visibility": "high"
+    },
+    {
+      "category": "truck",
+      "position": "left, 5 meters",
+      "state": "static",
+      "attributes": [
+        "POKKA Logistics",
+        "parked in loading bay",
+        "rear doors open"
+      ],
+      "visibility": "high"
+    },
+    {
+      "category": "car",
+      "position": "left, 30 meters",
+      "state": "static",
+      "attributes": [
+        "blue sedan",
+        "parked"
+      ],
+      "visibility": "medium"
+    },
+    {
+      "category": "car",
+      "position": "left, 30 meters",
+      "state": "static",
+      "attributes": [
+        "white van",
+        "parked"
+      ],
+      "visibility": "medium"
+    },
+    {
+      "category": "barrier",
+      "position": "right, 10 meters",
+      "state": "static",
+      "attributes": [
+        "orange and white plastic barriers",
+        "construction zone"
+      ],
+      "visibility": "high"
+    },
+    {
+      "category": "traffic cone",
+      "position": "right, 10 meters",
+      "state": "static",
+      "attributes": [
+        "six traffic cones",
+        "construction area"
+      ],
+      "visibility": "high"
+    },
+    {
+      "category": "pedestrian",
+      "position": "left, 20 meters",
+      "state": "moving",
+      "attributes": [
+        "crossing from right to left"
+      ],
+      "visibility": "medium"
+    },
+    {
+      "category": "pedestrian",
+      "position": "right, 10 meters",
+      "state": "moving",
+      "attributes": [
+        "walking away from camera"
+      ],
+      "visibility": "high"
+    },
+    {
+      "category": "traffic light",
+      "position": "front, 50 meters",
+      "state": "static",
+      "attributes": [
+        "green signal"
+      ],
+      "visibility": "high"
+    },
+    {
+      "category": "sign",
+      "position": "right, 10 meters",
+      "state": "static",
+      "attributes": [
+        "No Parking sign"
+      ],
+      "visibility": "high"
+    },
+    {
+      "category": "sign",
+      "position": "right, 10 meters",
+      "state": "static",
+      "attributes": [
+        "To Expressway directional sign"
+      ],
+      "visibility": "high"
+    }
+  ],
+  "road_structure": {
+    "type": "straight with slight rightward curve",
+    "lanes": "three lanes for forward traffic",
+    "markings": [
+      "dashed white lane markings"
+    ]
+  },
+  "environment": {
+    "lighting": "day",
+    "weather": "clear",
+    "location_type": "urban"
+  },
+  "safety_critical": [
+    "Ego vehicle is 20 meters behind a moving white sedan.",
+    "A parked truck obstructs visibility for vehicles in the left lane.",
+    "Construction barriers on the right reduce road width and require caution.",
+    "Two pedestrians are crossing the road from right to left, posing a hazard.",
+    "A green traffic light is visible ahead, managing vehicle flow."
+  ],
+  "full_caption": "In this vibrant urban scene, bright daylight illuminates a busy street under clear skies, providing excellent visibility for all road users. The roadway consists of three lanes designated for forward traffic, each marked by dashed white lane markings that facilitate the orderly flow of vehicles. The ego vehicle is positioned in the center lane, approximately 20 meters behind a white sedan traveling ahead at a steady speed of around 30 kilometers per hour. Slightly ahead of the white sedan, a black sedan is moving in the right lane, maintaining a similar speed and contributing to the coordinated flow of traffic. In the far-left lane, a silver SUV is observed to be stationary, possibly waiting to merge into the center lane where the ego vehicle is situated. This situation requires heightened vigilance from the ego vehicle to avoid potential merging conflicts, particularly due to the visibility obstruction caused by the parked truck on the left side of the road.\n\nOn the left side, a large truck branded with \"POKKA Logistics\" is parked in a designated loading/unloading bay, fully occupying the space. The truck's rear doors are open, revealing a glimpse of various goods stacked inside, indicating active deliveries. This parked truck is positioned approximately 5 meters from the lane of the ego vehicle, which could obstruct visibility for vehicles in the left lane, especially those attempting to merge or change lanes. Further back on the left side, about 30 meters behind the camera, a blue sedan is parked closely to a white van, which is also stationed nearby, creating minor congestion that could complicate navigation for approaching vehicles.\n\nOn the right side of the road, orange and white plastic barriers delineate a construction zone, reducing the usable width of the road. These barriers, along with six strategically placed traffic cones, signal the need for caution as vehicles navigate through this section, particularly for those in the right lane where the black sedan is located. The road remains predominantly straight, but a slight rightward curve becomes more pronounced as it continues beyond the immediate view. Sidewalks run parallel on both sides of the road, separated from the roadway by curbs, ensuring a clear demarcation between pedestrian and vehicular spaces. The sidewalk on the right features a grass verge adorned with decorative plants, enhancing the urban landscape.\n\nIn terms of pedestrian activity, though minimal in the immediate view, two pedestrians are crossing the road from right to left, approximately 20 meters behind the camera, posing a potential hazard for any vehicles approaching from that direction. Another pedestrian is visible on the sidewalk to the right, walking away from the camera, located near a building entrance that is about 10 meters from the camera's perspective. This clustering of pedestrians underscores the importance of monitoring the surroundings for sudden movements from these vulnerable road users.\n\nA traffic light is visible in the distance, approximately 50 meters ahead, currently displaying a green signal, which is crucial for managing the flow of vehicles and ensuring safe crossings for pedestrians. Additionally, a small rectangular sign reading \"No Parking\" is mounted on a pole near the grass verge, reinforcing parking regulations in the area. Near the building, a yellow directional sign indicating \"To Expressway\" provides guidance for drivers navigating the local road network.\n\nAs the ego vehicle continues its journey, it must remain alert to the potential hazards presented by the parked truck, which could obstruct visibility for vehicles in the left lane, as well as the construction barriers on the right side of the road that further complicate navigation. The presence of pedestrians crossing the road and the parked vehicles on the left side adds to the complexity of the environment, necessitating a cautious approach. The clear weather and good visibility provide an advantage; however, the dynamic nature of the scene\u2014marked by the interplay of moving and stationary vehicles, the potential for pedestrian crossings, and the implications of construction and parking constraints\u2014highlights the need for constant attention to all elements present.\n\nIn summary, this urban driving scene presents a complex interaction of vehicles, pedestrians, and static infrastructure elements that require heightened awareness and strategic planning from the ego vehicle to navigate safely through the area. The careful observation of all these elements is crucial for ensuring safe navigation, particularly as the situation may evolve with the movements of pedestrians and the interactions among vehicles."
+}
+
+
+================================================================================
+FINAL OUTPUT - STRUCTURED CAPTION
+================================================================================
+
+{'scene_summary': 'In this vibrant urban scene, bright daylight illuminates a busy street under clear skies, providing excellent visibility for all road users. The environment features a mix of moving and stationary vehicles, pedestrians, and construction elements that require careful navigation.', 'ego_vehicle': {'action': 'driving', 'lane_position': 'center', 'speed_estimate': 'moderate'}, 'objects': [{'category': 'car', 'position': 'front, 20 meters', 'state': 'moving', 'attributes': ['white sedan', 'steady speed of 30 km/h'], 'visibility': 'high'}, {'category': 'car', 'position': 'front/right, 15 meters', 'state': 'moving', 'attributes': ['black sedan', 'steady speed of 30 km/h'], 'visibility': 'high'}, {'category': 'car', 'position': 'left, 5 meters', 'state': 'stopped', 'attributes': ['silver SUV', 'waiting to merge'], 'visibility': 'high'}, {'category': 'truck', 'position': 'left, 5 meters', 'state': 'static', 'attributes': ['POKKA Logistics', 'parked in loading bay', 'rear doors open'], 'visibility': 'high'}, {'category': 'car', 'position': 'left, 30 meters', 'state': 'static', 'attributes': ['blue sedan', 'parked'], 'visibility': 'medium'}, {'category': 'car', 'position': 'left, 30 meters', 'state': 'static', 'attributes': ['white van', 'parked'], 'visibility': 'medium'}, {'category': 'barrier', 'position': 'right, 10 meters', 'state': 'static', 'attributes': ['orange and white plastic barriers', 'construction zone'], 'visibility': 'high'}, {'category': 'traffic cone', 'position': 'right, 10 meters', 'state': 'static', 'attributes': ['six traffic cones', 'construction area'], 'visibility': 'high'}, {'category': 'pedestrian', 'position': 'left, 20 meters', 'state': 'moving', 'attributes': ['crossing from right to left'], 'visibility': 'medium'}, {'category': 'pedestrian', 'position': 'right, 10 meters', 'state': 'moving', 'attributes': ['walking away from camera'], 'visibility': 'high'}, {'category': 'traffic light', 'position': 'front, 50 meters', 'state': 'static', 'attributes': ['green signal'], 'visibility': 'high'}, {'category': 'sign', 'position': 'right, 10 meters', 'state': 'static', 'attributes': ['No Parking sign'], 'visibility': 'high'}, {'category': 'sign', 'position': 'right, 10 meters', 'state': 'static', 'attributes': ['To Expressway directional sign'], 'visibility': 'high'}], 'road_structure': {'type': 'straight with slight rightward curve', 'lanes': 'three lanes for forward traffic', 'markings': ['dashed white lane markings']}, 'environment': {'lighting': 'day', 'weather': 'clear', 'location_type': 'urban'}, 'safety_critical': ['Ego vehicle is 20 meters behind a moving white sedan.', 'A parked truck obstructs visibility for vehicles in the left lane.', 'Construction barriers on the right reduce road width and require caution.', 'Two pedestrians are crossing the road from right to left, posing a hazard.', 'A green traffic light is visible ahead, managing vehicle flow.'], 'full_caption': 'In this vibrant urban scene, bright daylight illuminates a busy street under clear skies, providing excellent visibility for all road users. The roadway consists of three lanes designated for forward traffic, each marked by dashed white lane markings that facilitate the orderly flow of vehicles. The ego vehicle is positioned in the center lane, approximately 20 meters behind a white sedan traveling ahead at a steady speed of around 30 kilometers per hour. Slightly ahead of the white sedan, a black sedan is moving in the right lane, maintaining a similar speed and contributing to the coordinated flow of traffic. In the far-left lane, a silver SUV is observed to be stationary, possibly waiting to merge into the center lane where the ego vehicle is situated. This situation requires heightened vigilance from the ego vehicle to avoid potential merging conflicts, particularly due to the visibility obstruction caused by the parked truck on the left side of the road.\n\nOn the left side, a large truck branded with "POKKA Logistics" is parked in a designated loading/unloading bay, fully occupying the space. The truck\'s rear doors are open, revealing a glimpse of various goods stacked inside, indicating active deliveries. This parked truck is positioned approximately 5 meters from the lane of the ego vehicle, which could obstruct visibility for vehicles in the left lane, especially those attempting to merge or change lanes. Further back on the left side, about 30 meters behind the camera, a blue sedan is parked closely to a white van, which is also stationed nearby, creating minor congestion that could complicate navigation for approaching vehicles.\n\nOn the right side of the road, orange and white plastic barriers delineate a construction zone, reducing the usable width of the road. These barriers, along with six strategically placed traffic cones, signal the need for caution as vehicles navigate through this section, particularly for those in the right lane where the black sedan is located. The road remains predominantly straight, but a slight rightward curve becomes more pronounced as it continues beyond the immediate view. Sidewalks run parallel on both sides of the road, separated from the roadway by curbs, ensuring a clear demarcation between pedestrian and vehicular spaces. The sidewalk on the right features a grass verge adorned with decorative plants, enhancing the urban landscape.\n\nIn terms of pedestrian activity, though minimal in the immediate view, two pedestrians are crossing the road from right to left, approximately 20 meters behind the camera, posing a potential hazard for any vehicles approaching from that direction. Another pedestrian is visible on the sidewalk to the right, walking away from the camera, located near a building entrance that is about 10 meters from the camera\'s perspective. This clustering of pedestrians underscores the importance of monitoring the surroundings for sudden movements from these vulnerable road users.\n\nA traffic light is visible in the distance, approximately 50 meters ahead, currently displaying a green signal, which is crucial for managing the flow of vehicles and ensuring safe crossings for pedestrians. Additionally, a small rectangular sign reading "No Parking" is mounted on a pole near the grass verge, reinforcing parking regulations in the area. Near the building, a yellow directional sign indicating "To Expressway" provides guidance for drivers navigating the local road network.\n\nAs the ego vehicle continues its journey, it must remain alert to the potential hazards presented by the parked truck, which could obstruct visibility for vehicles in the left lane, as well as the construction barriers on the right side of the road that further complicate navigation. The presence of pedestrians crossing the road and the parked vehicles on the left side adds to the complexity of the environment, necessitating a cautious approach. The clear weather and good visibility provide an advantage; however, the dynamic nature of the scene—marked by the interplay of moving and stationary vehicles, the potential for pedestrian crossings, and the implications of construction and parking constraints—highlights the need for constant attention to all elements present.\n\nIn summary, this urban driving scene presents a complex interaction of vehicles, pedestrians, and static infrastructure elements that require heightened awareness and strategic planning from the ego vehicle to navigate safely through the area. The careful observation of all these elements is crucial for ensuring safe navigation, particularly as the situation may evolve with the movements of pedestrians and the interactions among vehicles.'}
+
+
+================================================================================
+PIPELINE METADATA
+================================================================================
+
+Refinement Converged: False
+Refinement Iterations: 3
+
+================================================================================
+END OF LOG
+================================================================================

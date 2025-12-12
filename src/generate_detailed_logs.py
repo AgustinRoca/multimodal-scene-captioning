@@ -77,11 +77,13 @@ def generate_detailed_logs(num_scenes=3):
     
     # Get first scene
     scenes = loader.get_scene_list()
-    first_scene = scenes[0]
     
     # Load samples from first scene
-    print(f"Loading samples from scene: {first_scene['name']}")
-    samples = loader.load_scene_samples(first_scene['token'], max_samples=num_scenes)
+    
+    samples = []
+    for scene in scenes[:num_scenes]:
+        print(f"Loading samples from scene: {scene['name']}")
+        samples.extend(loader.load_scene_samples(scene['token'], max_samples=1))
     
     # Process each scene
     for i, sample_data in enumerate(samples):

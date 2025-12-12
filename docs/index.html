@@ -1,0 +1,2658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scene Analysis Pipeline</title>
+    <style>
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .scene-selector {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .scene-selector h2 {
+            margin-bottom: 15px;
+            color: #495057;
+        }
+
+        .scene-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .scene-btn {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 2px solid #dee2e6;
+            padding: 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            text-align: left;
+        }
+
+        .scene-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+
+        .scene-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+        }
+
+        .scene-btn strong {
+            font-size: 1.1em;
+        }
+
+        .scene-btn span {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        .metadata {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .metadata-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .metadata-item {
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            border-left: 4px solid #667eea;
+        }
+
+        .metadata-item strong {
+            display: block;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .layer {
+            background: white;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .layer-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .agent-section {
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .agent-section:last-child {
+            border-bottom: none;
+        }
+
+        .agent-header {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+        .agent-header:hover {
+            background: #e9ecef;
+        }
+
+        .agent-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .toggle-icon {
+            font-size: 1.2em;
+            transition: transform 0.3s;
+        }
+
+        .toggle-icon.expanded {
+            transform: rotate(180deg);
+        }
+
+        .agent-content {
+            padding: 20px;
+            display: none;
+        }
+
+        .agent-content.show {
+            display: block;
+        }
+
+        .summary {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 4px solid #2196F3;
+            margin-bottom: 15px;
+        }
+
+        .detail-toggle {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+
+        .detail-toggle:hover {
+            background: #5568d3;
+        }
+
+        .full-content {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            max-height: 500px;
+            overflow-y: auto;
+            border: 1px solid #dee2e6;
+        }
+
+        .full-content.show {
+            display: block;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+
+        .badge-camera { background: #d4edda; color: #155724; }
+        .badge-lidar { background: #cce5ff; color: #004085; }
+        .badge-scene-graph { background: #fff3cd; color: #856404; }
+        .badge-cross-modal { background: #f8d7da; color: #721c24; }
+
+        .stats-box {
+            background: #fff;
+            padding: 15px;
+            border-radius: 4px;
+            border: 1px solid #dee2e6;
+            margin: 10px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .stat-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+
+        .iteration-section {
+            background: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .iteration-header {
+            background: #495057;
+            color: white;
+            padding: 10px 15px;
+            font-weight: 600;
+        }
+
+        .iteration-content {
+            padding: 15px;
+        }
+
+        .suggestion-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .suggestion-list li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .suggestion-list li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .safety-critical {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+
+        .safety-critical h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .safety-critical ul {
+            margin-left: 20px;
+        }
+
+        .image-gallery {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .image-gallery h2 {
+            margin-bottom: 20px;
+            color: #495057;
+        }
+
+        .image-row {
+            margin-bottom: 30px;
+        }
+
+        .image-row-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .image-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .image-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            transition: transform 0.3s;
+        }
+
+        .image-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+        }
+
+        .image-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .image-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            padding: 10px;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        .annotation-toggle {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .annotation-toggle button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background 0.3s;
+        }
+
+        .annotation-toggle button:hover {
+            background: #5568d3;
+        }
+
+        .annotations-content {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            border: 1px solid #dee2e6;
+        }
+
+        .annotations-content.show {
+            display: block;
+        }
+
+        .annotations-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+
+        .annotations-table th,
+        .annotations-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .annotations-table th {
+            background: #495057;
+            color: white;
+            font-weight: 600;
+        }
+
+        .annotations-table tr:hover {
+            background: #e9ecef;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <header>
+            <h1>🚗 Captioning semántico de escenas de conducción multimodal con flujos agénticos</h1>
+            <p style="font-size: 1.3em; margin-top: 15px; opacity: 0.95;">Agustín Roca</p>
+        </header>
+        
+        <div class="scene-selector">
+            <h2>📂 Select Scene</h2>
+            <div class="scene-buttons">
+                
+                <button class="scene-btn active" onclick="loadScene(1)">
+                    <strong>Scene 1</strong>
+                    <span>Token: ca9a282c</span>
+                    <span>69 annotations</span>
+                </button>
+            
+                <button class="scene-btn " onclick="loadScene(2)">
+                    <strong>Scene 2</strong>
+                    <span>Token: 3e8750f3</span>
+                    <span>23 annotations</span>
+                </button>
+            
+                <button class="scene-btn " onclick="loadScene(3)">
+                    <strong>Scene 3</strong>
+                    <span>Token: 8687ba92</span>
+                    <span>40 annotations</span>
+                </button>
+            
+            </div>
+        </div>
+        
+        
+        <!-- Metadata sections for each scene -->
+        
+        <div class="metadata" id="metadata-1">
+            <h2>📋 Scene Metadata</h2>
+            <div class="metadata-grid">
+                <div class="metadata-item">
+                    <strong>Scene ID</strong>
+                    scene-0061
+                </div>
+                <div class="metadata-item">
+                    <strong>Location</strong>
+                    singapore-onenorth
+                </div>
+                <div class="metadata-item">
+                    <strong>Description</strong>
+                    Parked truck, construction, intersection, turn left, following a van
+                </div>
+                <div class="metadata-item">
+                    <strong>Timestamp</strong>
+                    1532402927647951
+                </div>
+            </div>
+
+            <div class="stats-box">
+                <h3>Input Data Summary</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value">6</div>
+                        <div class="stat-label">Camera Views</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">34,688</div>
+                        <div class="stat-label">LiDAR Points</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">69</div>
+                        <div class="stat-label">Annotations</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">21</div>
+                        <div class="stat-label">Detected Objects</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="metadata" id="metadata-2">
+            <h2>📋 Scene Metadata</h2>
+            <div class="metadata-grid">
+                <div class="metadata-item">
+                    <strong>Scene ID</strong>
+                    scene-0103
+                </div>
+                <div class="metadata-item">
+                    <strong>Location</strong>
+                    boston-seaport
+                </div>
+                <div class="metadata-item">
+                    <strong>Description</strong>
+                    Many peds right, wait for turning car, long bike rack left, cyclist
+                </div>
+                <div class="metadata-item">
+                    <strong>Timestamp</strong>
+                    1533151603547590
+                </div>
+            </div>
+
+            <div class="stats-box">
+                <h3>Input Data Summary</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value">6</div>
+                        <div class="stat-label">Camera Views</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">34,752</div>
+                        <div class="stat-label">LiDAR Points</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">23</div>
+                        <div class="stat-label">Annotations</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">21</div>
+                        <div class="stat-label">Detected Objects</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="metadata" id="metadata-3">
+            <h2>📋 Scene Metadata</h2>
+            <div class="metadata-grid">
+                <div class="metadata-item">
+                    <strong>Scene ID</strong>
+                    scene-0553
+                </div>
+                <div class="metadata-item">
+                    <strong>Location</strong>
+                    boston-seaport
+                </div>
+                <div class="metadata-item">
+                    <strong>Description</strong>
+                    Wait at intersection, bicycle, large truck, peds crossing crosswalk, ped with stroller
+                </div>
+                <div class="metadata-item">
+                    <strong>Timestamp</strong>
+                    1535489296047917
+                </div>
+            </div>
+
+            <div class="stats-box">
+                <h3>Input Data Summary</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value">6</div>
+                        <div class="stat-label">Camera Views</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">34,400</div>
+                        <div class="stat-label">LiDAR Points</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">40</div>
+                        <div class="stat-label">Annotations</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">26</div>
+                        <div class="stat-label">Detected Objects</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        <!-- Image galleries for each scene -->
+        
+        <div class="image-gallery" id="image-gallery-1" style="">
+            <h2>📸 Scene Visualizations</h2>
+            
+            <!-- Front Cameras Row -->
+            <div class="image-row">
+                <div class="image-row-title">Front Camera Views</div>
+                <div class="image-container">
+                    <div class="image-item">
+                        <img src="assets/scene_1_ca9a282c_assets/CAM_FRONT_LEFT.jpg" alt="Front Left Camera">
+                        <div class="image-label">Front Left</div>
+                    </div>
+                    <div class="image-item">
+                        <img src="assets/scene_1_ca9a282c_assets/CAM_FRONT.jpg" alt="Front Camera">
+                        <div class="image-label">Front Center</div>
+                    </div>
+                    <div class="image-item">
+                        <img src="assets/scene_1_ca9a282c_assets/CAM_FRONT_RIGHT.jpg" alt="Front Right Camera">
+                        <div class="image-label">Front Right</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Back Cameras Row -->
+            <div class="image-row">
+                <div class="image-row-title">Back Camera Views</div>
+                <div class="image-container">
+                    <div class="image-item">
+                        <img src="assets/scene_1_ca9a282c_assets/CAM_BACK_LEFT.jpg" alt="Back Left Camera">
+                        <div class="image-label">Back Left</div>
+                    </div>
+                    <div class="image-item">
+                        <img src="assets/scene_1_ca9a282c_assets/CAM_BACK.jpg" alt="Back Camera">
+                        <div class="image-label">Back Center</div>
+                    </div>
+                    <div class="image-item">
+                        <img src="assets/scene_1_ca9a282c_assets/CAM_BACK_RIGHT.jpg" alt="Back Right Camera">
+                        <div class="image-label">Back Right</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- LiDAR Visualizations Row -->
+            <div class="image-row">
+                <div class="image-row-title">LiDAR Bird's Eye View Visualizations</div>
+                <div class="image-container">
+                    <div class="image-item">
+                        <img src="assets/scene_1_ca9a282c_assets/lidar_bev_density.png" alt="LiDAR Density">
+                        <div class="image-label">Point Density</div>
+                    </div>
+                    <div class="image-item">
+                        <img src="assets/scene_1_ca9a282c_assets/lidar_bev_height.png" alt="LiDAR Height">
+                        <div class="image-label">Height Map</div>
+                    </div>
+                    <div class="image-item">
+                        <img src="assets/scene_1_ca9a282c_assets/lidar_bev_semantic.png" alt="LiDAR Semantic">
+                        <div class="image-label">Semantic View</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Annotations Toggle -->
+            <div class="annotation-toggle">
+                <button onclick="toggleAnnotations(0)">📋 Show Object Annotations</button>
+            </div>
+            <div class="annotations-content" id="annotations-0">
+                <h3>Object Annotations</h3>
+                <p>Total detected objects from LiDAR</p>
+                
+                    <table class="annotations-table">
+                        <thead>
+                            <tr>
+                                <th>Object ID</th>
+                                <th>Category</th>
+                                <th>Position (x, y, z)</th>
+                                <th>Size (w, l, h)</th>
+                                <th>Visibility</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                    
+                            <tr>
+                                <td>6dd2cbf4...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(373.3, 1130.4, 0.8)</td>
+                                <td>(0.6, 0.7, 1.6)</td>
+                                <td>visibility of whole object is between 0 and 40%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>48d58b69...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(378.9, 1153.3, 0.9)</td>
+                                <td>(0.8, 0.8, 1.7)</td>
+                                <td>visibility of whole object is between 40 and 60%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>bd26c2cd...</td>
+                                <td>vehicle.car</td>
+                                <td>(353.8, 1132.4, 0.6)</td>
+                                <td>(2.0, 4.6, 1.6)</td>
+                                <td>visibility of whole object is between 60 and 80%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>6e04e175...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(376.1, 1158.5, 0.9)</td>
+                                <td>(0.8, 0.8, 1.6)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>4a5a657f...</td>
+                                <td>movable_object.trafficcone</td>
+                                <td>(410.1, 1196.8, 0.7)</td>
+                                <td>(0.4, 0.4, 0.8)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>f4b2632a...</td>
+                                <td>vehicle.bicycle</td>
+                                <td>(372.7, 1129.2, 0.7)</td>
+                                <td>(0.7, 1.8, 1.7)</td>
+                                <td>visibility of whole object is between 0 and 40%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>c08be936...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(378.7, 1151.0, 0.8)</td>
+                                <td>(0.7, 0.7, 1.8)</td>
+                                <td>visibility of whole object is between 40 and 60%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>085fb7c4...</td>
+                                <td>vehicle.car</td>
+                                <td>(409.1, 1201.5, 1.0)</td>
+                                <td>(1.8, 4.3, 1.6)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>bbd6c47a...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(396.3, 1122.1, 0.5)</td>
+                                <td>(0.6, 0.7, 1.6)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>03e81d6b...</td>
+                                <td>movable_object.barrier</td>
+                                <td>(394.8, 1158.7, 0.5)</td>
+                                <td>(2.0, 0.7, 1.1)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>3c7d5216...</td>
+                                <td>movable_object.barrier</td>
+                                <td>(408.5, 1190.7, 0.7)</td>
+                                <td>(1.9, 0.6, 1.1)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>91f0f127...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(417.4, 1193.5, 1.0)</td>
+                                <td>(1.0, 0.9, 1.7)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>3843d351...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(423.6, 1167.6, 1.1)</td>
+                                <td>(0.9, 0.9, 1.8)</td>
+                                <td>visibility of whole object is between 40 and 60%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>f138c230...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(356.1, 1144.5, 0.8)</td>
+                                <td>(0.8, 0.9, 1.8)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>85d771dc...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(431.6, 1172.9, 1.1)</td>
+                                <td>(0.9, 0.9, 1.7)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>be2c3211...</td>
+                                <td>movable_object.barrier</td>
+                                <td>(394.1, 1156.8, 0.5)</td>
+                                <td>(2.0, 0.7, 1.1)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>bc38961c...</td>
+                                <td>vehicle.car</td>
+                                <td>(393.4, 1149.2, 0.7)</td>
+                                <td>(1.7, 4.0, 1.6)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>81714918...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(371.8, 1129.2, 0.6)</td>
+                                <td>(0.8, 0.7, 1.7)</td>
+                                <td>visibility of whole object is between 40 and 60%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>e91afa15...</td>
+                                <td>vehicle.truck</td>
+                                <td>(410.0, 1164.1, 1.6)</td>
+                                <td>(2.9, 10.2, 3.6)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>56a71c20...</td>
+                                <td>vehicle.car</td>
+                                <td>(392.1, 1104.2, 1.0)</td>
+                                <td>(2.1, 5.0, 2.2)</td>
+                                <td>visibility of whole object is between 0 and 40%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>03d01c95...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(391.4, 1119.7, 1.0)</td>
+                                <td>(0.8, 1.0, 1.8)</td>
+                                <td>visibility of whole object is between 0 and 40%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>8705ebef...</td>
+                                <td>movable_object.barrier</td>
+                                <td>(387.5, 1143.6, 0.5)</td>
+                                <td>(2.0, 0.7, 1.0)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>16dc9512...</td>
+                                <td>movable_object.barrier</td>
+                                <td>(392.5, 1153.2, 0.5)</td>
+                                <td>(2.1, 0.8, 1.1)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>038a951e...</td>
+                                <td>movable_object.barrier</td>
+                                <td>(396.2, 1164.8, 0.4)</td>
+                                <td>(2.0, 0.7, 1.2)</td>
+                                <td>visibility of whole object is between 0 and 40%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>2ce122b0...</td>
+                                <td>movable_object.trafficcone</td>
+                                <td>(401.3, 1173.5, 0.5)</td>
+                                <td>(0.5, 0.5, 0.7)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>100427ca...</td>
+                                <td>movable_object.barrier</td>
+                                <td>(399.0, 1167.9, 0.5)</td>
+                                <td>(2.0, 0.7, 1.1)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>cfd5f1ab...</td>
+                                <td>vehicle.bus.rigid</td>
+                                <td>(422.0, 1233.3, 2.4)</td>
+                                <td>(2.9, 6.9, 3.6)</td>
+                                <td>visibility of whole object is between 40 and 60%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>4c8ffcda...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(438.3, 1171.0, 1.1)</td>
+                                <td>(0.8, 0.9, 1.8)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>d16b36f8...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(382.7, 1209.8, 1.9)</td>
+                                <td>(0.8, 0.9, 1.7)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>3b54d4dd...</td>
+                                <td>movable_object.barrier</td>
+                                <td>(386.8, 1141.7, 0.5)</td>
+                                <td>(2.0, 0.7, 0.9)</td>
+                                <td>visibility of whole object is between 0 and 40%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>221dd725...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(410.5, 1166.2, 2.3)</td>
+                                <td>(0.7, 0.9, 1.6)</td>
+                                <td>visibility of whole object is between 0 and 40%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>37f12d00...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(379.7, 1153.2, 0.8)</td>
+                                <td>(0.7, 0.8, 1.8)</td>
+                                <td>visibility of whole object is between 40 and 60%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>10b58854...</td>
+                                <td>movable_object.barrier</td>
+                                <td>(397.0, 1166.7, 0.5)</td>
+                                <td>(2.1, 0.7, 1.1)</td>
+                                <td>visibility of whole object is between 0 and 40%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>1610b41e...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(377.0, 1147.5, 0.8)</td>
+                                <td>(0.7, 0.7, 1.7)</td>
+                                <td>visibility of whole object is between 60 and 80%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>59cfdb95...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(417.9, 1194.1, 0.9)</td>
+                                <td>(0.9, 0.9, 1.7)</td>
+                                <td>visibility of whole object is between 60 and 80%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>2f5921c1...</td>
+                                <td>movable_object.barrier</td>
+                                <td>(390.1, 1149.6, 0.4)</td>
+                                <td>(2.0, 0.7, 1.1)</td>
+                                <td>visibility of whole object is between 0 and 40%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>85246a44...</td>
+                                <td>vehicle.car</td>
+                                <td>(394.0, 1143.2, 0.6)</td>
+                                <td>(1.8, 4.1, 1.5)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>c0741f8b...</td>
+                                <td>movable_object.barrier</td>
+                                <td>(391.7, 1151.3, 0.5)</td>
+                                <td>(2.0, 0.8, 1.1)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>01c08325...</td>
+                                <td>movable_object.barrier</td>
+                                <td>(386.1, 1139.8, 0.5)</td>
+                                <td>(1.8, 0.7, 0.9)</td>
+                                <td>visibility of whole object is between 40 and 60%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>00cfe531...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(401.3, 1193.5, 0.9)</td>
+                                <td>(0.8, 1.0, 1.6)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>42641eb6...</td>
+                                <td>vehicle.car</td>
+                                <td>(360.9, 1129.1, 0.6)</td>
+                                <td>(1.9, 4.8, 1.7)</td>
+                                <td>visibility of whole object is between 60 and 80%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>05739869...</td>
+                                <td>movable_object.barrier</td>
+                                <td>(400.5, 1171.7, 0.6)</td>
+                                <td>(2.1, 0.6, 1.1)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>7c80918c...</td>
+                                <td>movable_object.barrier</td>
+                                <td>(395.7, 1160.5, 0.5)</td>
+                                <td>(1.9, 0.6, 1.1)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>e3c5b72c...</td>
+                                <td>vehicle.construction</td>
+                                <td>(398.6, 1110.0, 1.8)</td>
+                                <td>(3.0, 4.0, 2.9)</td>
+                                <td>visibility of whole object is between 0 and 40%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>9f6aafa4...</td>
+                                <td>movable_object.barrier</td>
+                                <td>(398.2, 1166.0, 0.6)</td>
+                                <td>(2.0, 0.7, 1.1)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>4080c30a...</td>
+                                <td>vehicle.car</td>
+                                <td>(351.1, 1126.4, 0.6)</td>
+                                <td>(2.0, 4.7, 1.6)</td>
+                                <td>visibility of whole object is between 40 and 60%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>b4db9467...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(390.3, 1121.6, 0.8)</td>
+                                <td>(0.8, 0.8, 1.9)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>58ce00fe...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(376.2, 1148.0, 0.6)</td>
+                                <td>(0.7, 0.8, 1.8)</td>
+                                <td>visibility of whole object is between 0 and 40%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>cf04a584...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(389.6, 1116.0, 1.0)</td>
+                                <td>(0.7, 0.9, 1.8)</td>
+                                <td>visibility of whole object is between 0 and 40%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>62bfd58b...</td>
+                                <td>movable_object.trafficcone</td>
+                                <td>(409.0, 1191.8, 0.6)</td>
+                                <td>(0.3, 0.3, 0.7)</td>
+                                <td>visibility of whole object is between 60 and 80%</td>
+                            </tr>
+                        
+                        </tbody>
+                    </table>
+                    
+            </div>
+        </div>
+        
+        <div class="image-gallery" id="image-gallery-2" style="display: none;">
+            <h2>📸 Scene Visualizations</h2>
+            
+            <!-- Front Cameras Row -->
+            <div class="image-row">
+                <div class="image-row-title">Front Camera Views</div>
+                <div class="image-container">
+                    <div class="image-item">
+                        <img src="assets/scene_2_3e8750f3_assets/CAM_FRONT_LEFT.jpg" alt="Front Left Camera">
+                        <div class="image-label">Front Left</div>
+                    </div>
+                    <div class="image-item">
+                        <img src="assets/scene_2_3e8750f3_assets/CAM_FRONT.jpg" alt="Front Camera">
+                        <div class="image-label">Front Center</div>
+                    </div>
+                    <div class="image-item">
+                        <img src="assets/scene_2_3e8750f3_assets/CAM_FRONT_RIGHT.jpg" alt="Front Right Camera">
+                        <div class="image-label">Front Right</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Back Cameras Row -->
+            <div class="image-row">
+                <div class="image-row-title">Back Camera Views</div>
+                <div class="image-container">
+                    <div class="image-item">
+                        <img src="assets/scene_2_3e8750f3_assets/CAM_BACK_LEFT.jpg" alt="Back Left Camera">
+                        <div class="image-label">Back Left</div>
+                    </div>
+                    <div class="image-item">
+                        <img src="assets/scene_2_3e8750f3_assets/CAM_BACK.jpg" alt="Back Camera">
+                        <div class="image-label">Back Center</div>
+                    </div>
+                    <div class="image-item">
+                        <img src="assets/scene_2_3e8750f3_assets/CAM_BACK_RIGHT.jpg" alt="Back Right Camera">
+                        <div class="image-label">Back Right</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- LiDAR Visualizations Row -->
+            <div class="image-row">
+                <div class="image-row-title">LiDAR Bird's Eye View Visualizations</div>
+                <div class="image-container">
+                    <div class="image-item">
+                        <img src="assets/scene_2_3e8750f3_assets/lidar_bev_density.png" alt="LiDAR Density">
+                        <div class="image-label">Point Density</div>
+                    </div>
+                    <div class="image-item">
+                        <img src="assets/scene_2_3e8750f3_assets/lidar_bev_height.png" alt="LiDAR Height">
+                        <div class="image-label">Height Map</div>
+                    </div>
+                    <div class="image-item">
+                        <img src="assets/scene_2_3e8750f3_assets/lidar_bev_semantic.png" alt="LiDAR Semantic">
+                        <div class="image-label">Semantic View</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Annotations Toggle -->
+            <div class="annotation-toggle">
+                <button onclick="toggleAnnotations(1)">📋 Show Object Annotations</button>
+            </div>
+            <div class="annotations-content" id="annotations-1">
+                <h3>Object Annotations</h3>
+                <p>Total detected objects from LiDAR</p>
+                
+                    <table class="annotations-table">
+                        <thead>
+                            <tr>
+                                <th>Object ID</th>
+                                <th>Category</th>
+                                <th>Position (x, y, z)</th>
+                                <th>Size (w, l, h)</th>
+                                <th>Visibility</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                    
+                            <tr>
+                                <td>ab8d210d...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(637.1, 1636.3, -0.2)</td>
+                                <td>(0.6, 0.6, 1.8)</td>
+                                <td>visibility of whole object is between 0 and 40%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>3b19bb63...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(612.7, 1632.1, 0.5)</td>
+                                <td>(0.7, 0.9, 1.9)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>68a40df2...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(619.0, 1648.9, 0.4)</td>
+                                <td>(0.6, 0.6, 1.8)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>ab2c4151...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(635.4, 1674.3, -0.2)</td>
+                                <td>(0.9, 1.1, 2.0)</td>
+                                <td>visibility of whole object is between 40 and 60%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>fa107c6d...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(622.4, 1624.0, -0.0)</td>
+                                <td>(0.8, 1.0, 2.0)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>c283b224...</td>
+                                <td>vehicle.car</td>
+                                <td>(635.4, 1620.5, -0.3)</td>
+                                <td>(2.0, 4.7, 1.5)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>f1010738...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(598.1, 1642.1, 1.0)</td>
+                                <td>(0.6, 0.6, 1.9)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>ead6a822...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(622.2, 1646.1, 0.3)</td>
+                                <td>(0.7, 0.5, 1.8)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>99fbf1b9...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(619.6, 1624.7, 0.1)</td>
+                                <td>(0.7, 0.7, 1.9)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>200c440c...</td>
+                                <td>vehicle.car</td>
+                                <td>(583.5, 1656.4, 1.3)</td>
+                                <td>(1.9, 4.5, 1.5)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>6e71a9ce...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(627.0, 1617.9, -0.4)</td>
+                                <td>(0.5, 0.4, 1.6)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>84d4bf98...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(640.9, 1643.0, -0.3)</td>
+                                <td>(0.6, 0.4, 1.8)</td>
+                                <td>visibility of whole object is between 0 and 40%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>26a4275a...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(602.2, 1626.3, 0.2)</td>
+                                <td>(0.5, 0.5, 1.9)</td>
+                                <td>visibility of whole object is between 0 and 40%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>34aaf645...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(631.8, 1637.0, 0.1)</td>
+                                <td>(0.6, 0.7, 1.9)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>f3995943...</td>
+                                <td>vehicle.car</td>
+                                <td>(660.9, 1604.4, -0.4)</td>
+                                <td>(1.8, 4.5, 1.6)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>b3412553...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(650.7, 1625.2, -0.3)</td>
+                                <td>(0.6, 0.7, 1.7)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>cb86f244...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(582.3, 1668.6, 1.5)</td>
+                                <td>(0.9, 1.1, 2.2)</td>
+                                <td>visibility of whole object is between 60 and 80%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>ff7dc6c9...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(597.7, 1641.4, 1.0)</td>
+                                <td>(0.7, 0.6, 1.9)</td>
+                                <td>visibility of whole object is between 0 and 40%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>a67af729...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(636.8, 1680.1, -0.2)</td>
+                                <td>(0.8, 1.2, 2.1)</td>
+                                <td>visibility of whole object is between 0 and 40%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>8096b5ad...</td>
+                                <td>vehicle.car</td>
+                                <td>(582.4, 1661.0, 1.4)</td>
+                                <td>(2.0, 5.0, 1.6)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>e147a4c0...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(639.6, 1606.7, -0.1)</td>
+                                <td>(0.7, 0.8, 1.8)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>fef3f0c1...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(631.8, 1644.6, -0.5)</td>
+                                <td>(0.7, 0.8, 1.5)</td>
+                                <td>visibility of whole object is between 0 and 40%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>bc6bc2b0...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(637.8, 1636.7, -0.0)</td>
+                                <td>(0.7, 0.7, 1.9)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                        </tbody>
+                    </table>
+                    
+            </div>
+        </div>
+        
+        <div class="image-gallery" id="image-gallery-3" style="display: none;">
+            <h2>📸 Scene Visualizations</h2>
+            
+            <!-- Front Cameras Row -->
+            <div class="image-row">
+                <div class="image-row-title">Front Camera Views</div>
+                <div class="image-container">
+                    <div class="image-item">
+                        <img src="assets/scene_3_8687ba92_assets/CAM_FRONT_LEFT.jpg" alt="Front Left Camera">
+                        <div class="image-label">Front Left</div>
+                    </div>
+                    <div class="image-item">
+                        <img src="assets/scene_3_8687ba92_assets/CAM_FRONT.jpg" alt="Front Camera">
+                        <div class="image-label">Front Center</div>
+                    </div>
+                    <div class="image-item">
+                        <img src="assets/scene_3_8687ba92_assets/CAM_FRONT_RIGHT.jpg" alt="Front Right Camera">
+                        <div class="image-label">Front Right</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Back Cameras Row -->
+            <div class="image-row">
+                <div class="image-row-title">Back Camera Views</div>
+                <div class="image-container">
+                    <div class="image-item">
+                        <img src="assets/scene_3_8687ba92_assets/CAM_BACK_LEFT.jpg" alt="Back Left Camera">
+                        <div class="image-label">Back Left</div>
+                    </div>
+                    <div class="image-item">
+                        <img src="assets/scene_3_8687ba92_assets/CAM_BACK.jpg" alt="Back Camera">
+                        <div class="image-label">Back Center</div>
+                    </div>
+                    <div class="image-item">
+                        <img src="assets/scene_3_8687ba92_assets/CAM_BACK_RIGHT.jpg" alt="Back Right Camera">
+                        <div class="image-label">Back Right</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- LiDAR Visualizations Row -->
+            <div class="image-row">
+                <div class="image-row-title">LiDAR Bird's Eye View Visualizations</div>
+                <div class="image-container">
+                    <div class="image-item">
+                        <img src="assets/scene_3_8687ba92_assets/lidar_bev_density.png" alt="LiDAR Density">
+                        <div class="image-label">Point Density</div>
+                    </div>
+                    <div class="image-item">
+                        <img src="assets/scene_3_8687ba92_assets/lidar_bev_height.png" alt="LiDAR Height">
+                        <div class="image-label">Height Map</div>
+                    </div>
+                    <div class="image-item">
+                        <img src="assets/scene_3_8687ba92_assets/lidar_bev_semantic.png" alt="LiDAR Semantic">
+                        <div class="image-label">Semantic View</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Annotations Toggle -->
+            <div class="annotation-toggle">
+                <button onclick="toggleAnnotations(2)">📋 Show Object Annotations</button>
+            </div>
+            <div class="annotations-content" id="annotations-2">
+                <h3>Object Annotations</h3>
+                <p>Total detected objects from LiDAR</p>
+                
+                    <table class="annotations-table">
+                        <thead>
+                            <tr>
+                                <th>Object ID</th>
+                                <th>Category</th>
+                                <th>Position (x, y, z)</th>
+                                <th>Size (w, l, h)</th>
+                                <th>Visibility</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                    
+                            <tr>
+                                <td>19804c35...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(1292.8, 1030.6, 0.5)</td>
+                                <td>(0.6, 0.9, 1.7)</td>
+                                <td>visibility of whole object is between 0 and 40%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>b61b72a5...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(1295.1, 1032.8, 0.4)</td>
+                                <td>(0.7, 0.8, 1.7)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>e2afd7ea...</td>
+                                <td>vehicle.bicycle</td>
+                                <td>(1309.0, 1052.6, 1.4)</td>
+                                <td>(0.5, 1.6, 1.7)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>94e0b9b0...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(1277.9, 1072.3, 0.9)</td>
+                                <td>(0.5, 0.7, 1.3)</td>
+                                <td>visibility of whole object is between 60 and 80%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>d02ce7e3...</td>
+                                <td>vehicle.car</td>
+                                <td>(1331.4, 1089.9, 3.2)</td>
+                                <td>(2.0, 4.8, 1.8)</td>
+                                <td>visibility of whole object is between 60 and 80%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>21d40602...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(1298.9, 1037.3, 0.6)</td>
+                                <td>(0.6, 0.8, 1.6)</td>
+                                <td>visibility of whole object is between 0 and 40%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>01a9922c...</td>
+                                <td>movable_object.barrier</td>
+                                <td>(1328.4, 1052.6, 1.3)</td>
+                                <td>(2.9, 0.4, 0.9)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>4604a50b...</td>
+                                <td>movable_object.barrier</td>
+                                <td>(1331.5, 1043.5, 0.8)</td>
+                                <td>(3.0, 0.4, 1.0)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>4c6a549e...</td>
+                                <td>movable_object.barrier</td>
+                                <td>(1337.5, 1035.2, 0.2)</td>
+                                <td>(3.6, 0.4, 1.0)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>ecf7d2d3...</td>
+                                <td>movable_object.pushable_pullable</td>
+                                <td>(1299.5, 1037.5, 0.3)</td>
+                                <td>(0.5, 0.7, 0.8)</td>
+                                <td>visibility of whole object is between 0 and 40%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>9c81acda...</td>
+                                <td>vehicle.car</td>
+                                <td>(1334.8, 1094.8, 3.2)</td>
+                                <td>(2.0, 4.6, 1.5)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>73b29b41...</td>
+                                <td>movable_object.barrier</td>
+                                <td>(1330.1, 1046.3, 1.0)</td>
+                                <td>(3.0, 0.4, 0.9)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>de98ed23...</td>
+                                <td>movable_object.barrier</td>
+                                <td>(1351.3, 1022.5, 0.0)</td>
+                                <td>(3.3, 0.5, 1.0)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>2e19253f...</td>
+                                <td>vehicle.bus.rigid</td>
+                                <td>(1269.5, 1024.9, 1.0)</td>
+                                <td>(2.7, 9.6, 3.2)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>6ae762f1...</td>
+                                <td>vehicle.car</td>
+                                <td>(1321.5, 1033.8, 1.0)</td>
+                                <td>(2.0, 4.8, 2.0)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>fb0b1fa4...</td>
+                                <td>vehicle.car</td>
+                                <td>(1257.2, 1029.0, 0.3)</td>
+                                <td>(2.0, 4.5, 1.7)</td>
+                                <td>visibility of whole object is between 0 and 40%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>6a0d7a29...</td>
+                                <td>vehicle.car</td>
+                                <td>(1283.2, 1030.7, 0.4)</td>
+                                <td>(2.0, 4.7, 1.6)</td>
+                                <td>visibility of whole object is between 0 and 40%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>078a2d6a...</td>
+                                <td>vehicle.car</td>
+                                <td>(1340.6, 1102.1, 3.4)</td>
+                                <td>(2.2, 4.8, 1.9)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>3993afe4...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(1242.4, 1096.6, 1.3)</td>
+                                <td>(0.7, 0.6, 1.8)</td>
+                                <td>visibility of whole object is between 40 and 60%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>75bbb97a...</td>
+                                <td>vehicle.trailer</td>
+                                <td>(1325.6, 1026.2, 2.0)</td>
+                                <td>(2.3, 14.0, 3.9)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>07bf3d83...</td>
+                                <td>movable_object.barrier</td>
+                                <td>(1342.8, 1030.1, -0.0)</td>
+                                <td>(3.3, 0.5, 0.9)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>c99728ce...</td>
+                                <td>movable_object.barrier</td>
+                                <td>(1329.0, 1049.6, 1.1)</td>
+                                <td>(3.1, 0.4, 1.0)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>254ca291...</td>
+                                <td>vehicle.truck</td>
+                                <td>(1319.4, 1031.4, 1.8)</td>
+                                <td>(2.3, 6.4, 4.0)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>9e94bea2...</td>
+                                <td>vehicle.car</td>
+                                <td>(1365.1, 1015.0, 0.3)</td>
+                                <td>(2.0, 4.6, 1.7)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>340ccb3c...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(1299.0, 1034.3, 0.5)</td>
+                                <td>(0.7, 0.8, 1.8)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>6b9c9912...</td>
+                                <td>movable_object.barrier</td>
+                                <td>(1340.1, 1032.6, 0.2)</td>
+                                <td>(3.3, 0.5, 0.9)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>eba0e66d...</td>
+                                <td>movable_object.barrier</td>
+                                <td>(1273.9, 1072.5, 0.9)</td>
+                                <td>(2.9, 0.5, 0.9)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>39f72710...</td>
+                                <td>movable_object.barrier</td>
+                                <td>(1335.0, 1038.0, 0.4)</td>
+                                <td>(3.1, 0.4, 0.9)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>451f91f4...</td>
+                                <td>movable_object.barrier</td>
+                                <td>(1345.4, 1027.9, -0.2)</td>
+                                <td>(3.3, 0.5, 0.9)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>afd09737...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(1297.2, 1034.0, 0.4)</td>
+                                <td>(0.6, 0.9, 1.6)</td>
+                                <td>visibility of whole object is between 60 and 80%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>d9a4df9e...</td>
+                                <td>vehicle.car</td>
+                                <td>(1181.9, 1122.4, 2.1)</td>
+                                <td>(2.2, 4.7, 1.7)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>2d7491fa...</td>
+                                <td>vehicle.car</td>
+                                <td>(1326.9, 1029.5, 0.9)</td>
+                                <td>(2.0, 4.6, 1.5)</td>
+                                <td>visibility of whole object is between 0 and 40%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>7a8b2460...</td>
+                                <td>vehicle.car</td>
+                                <td>(1277.0, 1033.2, 0.3)</td>
+                                <td>(2.0, 4.7, 1.4)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>7e799fde...</td>
+                                <td>vehicle.bus.rigid</td>
+                                <td>(1274.8, 1021.3, 0.9)</td>
+                                <td>(2.6, 7.4, 2.8)</td>
+                                <td>visibility of whole object is between 0 and 40%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>18cdcf0d...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(1293.2, 1033.2, 0.4)</td>
+                                <td>(0.7, 0.9, 1.7)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>888521a8...</td>
+                                <td>vehicle.car</td>
+                                <td>(1184.5, 1119.0, 2.4)</td>
+                                <td>(2.2, 4.7, 2.0)</td>
+                                <td>visibility of whole object is between 40 and 60%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>f53b4aa3...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(1241.3, 1063.6, 1.2)</td>
+                                <td>(0.7, 0.7, 2.0)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>2397a588...</td>
+                                <td>human.pedestrian.adult</td>
+                                <td>(1295.0, 1034.3, 0.4)</td>
+                                <td>(0.9, 1.0, 1.9)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>c7d9c788...</td>
+                                <td>movable_object.barrier</td>
+                                <td>(1333.2, 1040.6, 0.6)</td>
+                                <td>(2.9, 0.4, 1.0)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>ff07eea7...</td>
+                                <td>vehicle.car</td>
+                                <td>(1313.1, 1037.0, 0.7)</td>
+                                <td>(1.9, 4.6, 1.5)</td>
+                                <td>visibility of whole object is between 80 and 100%</td>
+                            </tr>
+                        
+                        </tbody>
+                    </table>
+                    
+            </div>
+        </div>
+        
+        
+        
+        <!-- Scene 1 Layers -->
+        <div class="scene-layers" id="scene-layers-1" style="">
+            <!-- Layer 1: Content Transformation -->
+            <div class="layer" id="layer1-0">
+                <div class="layer-header">Layer 1: Content Transformation</div>
+                
+        <div class="agent-section">
+            <div class="agent-header" onclick="toggleAgent('camera-agent-0')">
+                <div>
+                    <span class="badge badge-camera">CAMERA</span>
+                    <span class="agent-title">CameraAgent</span>
+                </div>
+                <span class="toggle-icon" id="camera-agent-0-icon">▼</span>
+            </div>
+            <div class="agent-content" id="camera-agent-0">
+                <div class="summary">
+                    <strong>Summary:</strong> Analyzed 6 camera views to extract visual observations including vehicles, pedestrians, road structure, traffic signs, and environmental conditions.
+                </div>
+                
+                <h4>Key Observations by View:</h4>
+                
+            <div style="margin: 15px 0;">
+                <h4 style="color: #667eea;">CAM_FRONT</h4>
+                <p>CAM_FRONT
+- **Vehicles**:  
+  - A large truck with "POKKA Logistics" branding is parked on the left side of the road, occupying a designated loading/unloading bay. The truck's rear is open, and goods ...</p>
+            </div>
+            
+            <div style="margin: 15px 0;">
+                <h4 style="color: #667eea;">CAM_FRONT_RIGHT</h4>
+                <p>CAM_FRONT_RIGHT
+- **Vehicles**:  
+  - No vehicles are visible in this view.  
+
+- **Pedestrians and Cyclists**:  
+  - No pedestrians or cyclists are visible in this view.  
+
+- **Road Structure and Mark...</p>
+            </div>
+            
+            <div style="margin: 15px 0;">
+                <h4 style="color: #667eea;">CAM_FRONT_LEFT</h4>
+                <p>CAM_FRONT_LEFT
+- **Vehicles**:  
+  - The rear portion of the parked "POKKA Logistics" truck is visible on the right side of the frame.  
+
+- **Pedestrians and Cyclists**:  
+  - A pedestrian is visible ...</p>
+            </div>
+            
+            <div style="margin: 15px 0;">
+                <h4 style="color: #667eea;">CAM_BACK</h4>
+                <p>CAM_BACK
+- **Vehicles**:  
+  - A blue sedan is parked on the left side of the road, approximately 30 meters behind the camera.  
+  - A white van is parked further back on the left side, near the blue ...</p>
+            </div>
+            
+            <div style="margin: 15px 0;">
+                <h4 style="color: #667eea;">CAM_BACK_LEFT</h4>
+                <p>CAM_BACK_LEFT
+- **Vehicles**:  
+  - No vehicles are visible in this view.  
+
+- **Pedestrians and Cyclists**:  
+  - No pedestrians or cyclists are visible in this view.  
+
+- **Road Structure and Markin...</p>
+            </div>
+            
+
+                <button class="detail-toggle" onclick="toggleDetail('camera-full-0')">Show Full Response</button>
+                <div class="full-content" id="camera-full-0">### CAM_FRONT
+CAM_FRONT
+- **Vehicles**:  
+  - A large truck with "POKKA Logistics" branding is parked on the left side of the road, occupying a designated loading/unloading bay. The truck's rear is open, and goods are visible inside.  
+  - A white sedan is driving in the center lane, approximately 20 meters ahead of the camera.  
+  - A black sedan is in the right lane, slightly ahead of the white sedan, moving in the same direction.  
+  - A silver SUV is in the far-left lane, stationary or moving slowly, possibly waiting to merge.  
+
+- **Pedestrians and Cyclists**:  
+  - No pedestrians or cyclists are visible in this view.  
+
+- **Road Structure and Markings**:  
+  - The road has three lanes in the forward direction, separated by dashed white lane markings.  
+  - A loading/unloading bay is present on the left side of the road, marked with a solid white line.  
+  - Orange and white plastic barriers line the right side of the road, indicating a construction or restricted area.  
+
+- **Traffic Signs and Signals**:  
+  - A traffic light is visible in the distance, approximately 50 meters ahead, currently green.  
+
+- **Environmental Conditions**:  
+  - Daytime with clear skies and good visibility.  
+
+- **Potential Hazards**:  
+  - The parked truck on the left could obstruct visibility or cause merging issues for vehicles in the left lane.  
+  - The construction barriers on the right reduce the usable road width, potentially causing congestion or confusion.  
+
+---
+
+### Camera:
+
+### CAM_FRONT_RIGHT
+CAM_FRONT_RIGHT
+- **Vehicles**:  
+  - No vehicles are visible in this view.  
+
+- **Pedestrians and Cyclists**:  
+  - No pedestrians or cyclists are visible in this view.  
+
+- **Road Structure and Markings**:  
+  - The road curves slightly to the right, with a sidewalk and grass verge on the right side.  
+  - A curb separates the road from the sidewalk.  
+  - Orange and white plastic barriers are visible on the left edge of the frame, continuing from the CAM_FRONT view.  
+
+- **Traffic Signs and Signals**:  
+  - A small rectangular sign on the grass verge reads "No Parking."  
+
+- **Environmental Conditions**:  
+  - Daytime with clear skies and good visibility.  
+
+- **Potential Hazards**:  
+  - The orange and white barriers may indicate ongoing construction or roadwork, requiring caution.  
+
+---
+
+### Camera:
+
+### CAM_FRONT_LEFT
+CAM_FRONT_LEFT
+- **Vehicles**:  
+  - The rear portion of the parked "POKKA Logistics" truck is visible on the right side of the frame.  
+
+- **Pedestrians and Cyclists**:  
+  - A pedestrian is visible near the building entrance, approximately 10 meters from the camera, walking toward the building.  
+
+- **Road Structure and Markings**:  
+  - A sidewalk runs parallel to the road, separated by a curb.  
+  - A grass verge with decorative plants is present between the building and the sidewalk.  
+  - A red and white striped tape is stretched across the grass verge, possibly indicating restricted access.  
+
+- **Traffic Signs and Signals**:  
+  - A yellow directional sign reading "To Expressway" is mounted on a pole near the building.  
+
+- **Environmental Conditions**:  
+  - Daytime with clear skies and good visibility.  
+
+- **Potential Hazards**:  
+  - The red and white tape could indicate a hazard or restricted area on the grass verge.  
+
+---
+
+### Camera:
+
+### CAM_BACK
+CAM_BACK
+- **Vehicles**:  
+  - A blue sedan is parked on the left side of the road, approximately 30 meters behind the camera.  
+  - A white van is parked further back on the left side, near the blue sedan.  
+
+- **Pedestrians and Cyclists**:  
+  - Two pedestrians are crossing the road from right to left, approximately 20 meters behind the camera.  
+  - Another pedestrian is visible on the sidewalk to the right, walking away from the camera.  
+
+- **Road Structure and Markings**:  
+  - The road has two lanes in the backward direction, separated by dashed white lane markings.  
+  - A sidewalk runs along both sides of the road, separated by curbs.  
+
+- **Traffic Signs and Signals**:  
+  - No visible traffic signs or signals in this view.  
+
+- **Environmental Conditions**:  
+  - Daytime with clear skies and good visibility.  
+
+- **Potential Hazards**:  
+  - The pedestrians crossing the road could pose a hazard to vehicles.  
+  - The parked vehicles on the left may obstruct visibility for drivers.  
+
+---
+
+### Camera:
+
+### CAM_BACK_LEFT
+CAM_BACK_LEFT
+- **Vehicles**:  
+  - No vehicles are visible in this view.  
+
+- **Pedestrians and Cyclists**:  
+  - No pedestrians or cyclists are visible in this view.  
+
+- **Road Structure and Markings**:  
+  - A sidewalk runs along the left side, separated by a curb.  
+  - A grass verge with decorative plants is present between the building and the sidewalk.  
+  - A red and white striped tape is stretched across the grass verge, possibly indicating restricted access.  
+  - A metal guardrail is installed along the edge of the grass verge.  
+
+- **Traffic Signs and Signals**:  
+  - No visible traffic signs or signals in this view.  
+
+- **Environmental Conditions**:  
+  - Daytime with clear skies and good visibility.  
+
+- **Potential Hazards**:  
+  - The red and white tape could indicate a hazard or restricted area on the grass verge.  
+
+---
+
+### Camera:</div>
+            </div>
+        </div>
+        
+                
+        <div class="agent-section">
+            <div class="agent-header" onclick="toggleAgent('lidar-agent-0')">
+                <div>
+                    <span class="badge badge-lidar">LIDAR</span>
+                    <span class="agent-title">LiDARAgent</span>
+                </div>
+                <span class="toggle-icon" id="lidar-agent-0-icon">▼</span>
+            </div>
+            <div class="agent-content" id="lidar-agent-0">
+                <div class="summary">
+                    <strong>Summary:</strong> Detected 21 objects from LiDAR point cloud analysis.
+                </div>
+                
+                <h4>Analysis Highlights:</h4>
+                <ul>
+                    <li>Comprehensive object detection and classification</li>
+                    <li>Spatial distribution analysis across all directions</li>
+                    <li>Distance-based risk assessment</li>
+                </ul>
+
+                <button class="detail-toggle" onclick="toggleDetail('lidar-full-0')">Show Full Analysis</button>
+                <div class="full-content" id="lidar-full-0">=== LiDAR Scene Analysis ===
+
+Total detected objects: 21
+
+Object Distribution:
+  - 1 barrier(s)
+  - 3 bicycle(s)
+  - 3 bus(s)
+  - 2 construction_vehicle(s)
+  - 2 motorcycle(s)
+  - 1 pedestrian(s)
+  - 6 traffic_cone(s)
+  - 3 truck(s)
+
+Spatial Distribution:
+  - front: 1 objects (barrier)
+  - back: 3 objects (construction_vehicle, bus, truck)
+  - left: 5 objects (bicycle, traffic_cone, bus)
+  - front_left: 3 objects (bicycle, traffic_cone, truck)
+  - front_right: 1 objects (pedestrian)
+  - back_left: 7 objects (bicycle, construction_vehicle, motorcycle, traffic_cone, truck)
+  - back_right: 1 objects (traffic_cone)
+
+Distance Distribution:
+  - Close (<10m): 5 objects
+  - Medium (10-30m): 16 objects
+  - Far (>30m): 0 objects
+
+Nearest Object:
+  - Type: traffic_cone
+  - Distance: 1.0m
+  - Direction: back_right
+
+Scene Characteristics:
+  - Traffic density: moderate
+  - Object point ratio: 35.21%
+
+### High-Level Scene Interpretation
+
+1. **Overall Scene Context:**
+   - The scene appears to be in an urban environment, characterized by moderate traffic density. The presence of diverse object types, including bicycles, buses, and construction vehicles, suggests a mixed-use area, likely near a construction zone or a busy intersection.
+
+2. **Key Objects and Their Significance:**
+   - **Barrier (1 object, front):** This indicates a potential obstruction or a zone that should be avoided, possibly marking a construction area or a lane closure.
+   - **Traffic Cones (6 objects):** These are typically used to redirect traffic or indicate construction zones. Their presence suggests that the area may require heightened caution.
+   - **Bicycles (3 objects):** The presence of bicycles indicates shared road use, necessitating careful navigation to avoid collisions.
+   - **Buses (3 objects):** Buses are significant as they often stop frequently, and their presence may affect traffic flow.
+   - **Construction Vehicles (2 objects):** These vehicles can pose risks due to their size and potential for sudden movement or obstruction.
+
+3. **Potential Risks or Safety Concerns:**
+   - **Proximity of Traffic Cone (1.0m, back-right):** This object is very close to the ego vehicle, indicating a need for immediate caution to avoid contact.
+   - **Presence of Bicycles and Pedestrian (front-right):** The proximity of a pedestrian and multiple bicycles increases the risk of accidents, especially if the ego vehicle is maneuvering in a tight space.
+   - **Construction Vehicles:** These may be moving or stationary, and their presence can lead to unpredictable changes in the driving environment.
+
+4. **Notable Spatial Patterns or Relationships:**
+   - **Distribution of Objects:** The majority of objects (16 out of 21) are located within a medium range (10-30m), indicating that the immediate vicinity is relatively clear, but caution is needed for objects approaching from various angles.
+   - **Left Side Congestion:** There is a notable concentration of objects on the left side (5 objects), including bicycles and traffic cones, suggesting potential hazards or obstacles that the vehicle may need to navigate around.
+   - **Back Area Activity:** The back area has a mix of construction vehicles, buses, and trucks, indicating possible traffic flow issues or the need for the ego vehicle to yield or maneuver carefully.
+
+### Actionable Insights for Autonomous Driving:
+- **Adjust Speed:** Reduce speed when approaching the area to enhance reaction time to unexpected movements, especially near the barrier and traffic cones.
+- **Monitor Surroundings:** Pay close attention to the left side where multiple bicycles and cones are present, and be prepared to yield to pedestrians and cyclists.
+- **Plan Maneuvers:** Consider alternative routes if the area appears congested or if construction vehicles are actively moving, to avoid potential delays or hazards.</div>
+            </div>
+        </div>
+        
+                
+        <div class="agent-section">
+            <div class="agent-header" onclick="toggleAgent('scenegraph-agent-0')">
+                <div>
+                    <span class="badge badge-scene-graph">SCENE GRAPH</span>
+                    <span class="agent-title">SceneGraphAgent</span>
+                </div>
+                <span class="toggle-icon" id="scenegraph-agent-0-icon">▼</span>
+            </div>
+            <div class="agent-content" id="scenegraph-agent-0">
+                <div class="summary">
+                    <strong>Summary:</strong> Generated hierarchical scene graph with detailed road structure, traffic participants, and static infrastructure.
+                </div>
+                
+                <div class="safety-critical">
+                    <h4>⚠️ Safety Critical Elements:</h4>
+                    <ul>
+                        <li>Multiple stopped vehicles ahead.</li><li>Pedestrians present near the road.</li><li>Traffic cones indicating construction ahead.</li>
+                    </ul>
+                </div>
+
+                <button class="detail-toggle" onclick="toggleDetail('scenegraph-full-0')">Show Full Scene Graph</button>
+                <div class="full-content" id="scenegraph-full-0">=== Hierarchical Scene Graph ===
+
+Scene: A driving scene with multiple vehicles, pedestrians, and static infrastructure elements. The environment is clear with high visibility. The road is congested with stopped vehicles and pedestrians.
+Total objects: 69
+
+Environment:
+  - Lighting: day
+  - Weather: clear
+  - Location: urban
+
+Road Structure:
+  - Type: urban street
+  - Lanes: 2 urban lanes
+  - Ego position: center lane
+  - Elements: 2 road signs/markings
+
+Traffic Participants:
+  - Vehicles: 5
+  - Cyclists: 1
+  - Vulnerable road users: 5
+
+Sidewalk Areas (both):
+  - Pedestrians: 0
+  - Static objects: 0
+
+Static Infrastructure:
+  - Barriers: 2
+  - Traffic cones: 3
+  - Construction: 1
+
+Spatial Zones:
+
+Safety Critical Elements:
+  - Multiple stopped vehicles ahead.
+  - Pedestrians present near the road.
+  - Traffic cones indicating construction ahead.</div>
+            </div>
+        </div>
+        
+                
+        <div class="agent-section">
+            <div class="agent-header" onclick="toggleAgent('crossmodal-agent-0')">
+                <div>
+                    <span class="badge badge-cross-modal">CROSS-MODAL</span>
+                    <span class="agent-title">CrossModalAgent</span>
+                </div>
+                <span class="toggle-icon" id="crossmodal-agent-0-icon">▼</span>
+            </div>
+            <div class="agent-content" id="crossmodal-agent-0">
+                <div class="summary">
+                    <strong>Summary:</strong> Synthesized observations from Camera, LiDAR, and Scene Graph agents to create coordinated understanding.
+                </div>
+
+                <button class="detail-toggle" onclick="toggleDetail('crossmodal-full-0')">Show Full Coordination Summary</button>
+                <div class="full-content" id="crossmodal-full-0">### Coordinated Summary of Multi-Modal Understanding
+
+#### Scene Overview
+The scene is set in an urban environment characterized by clear skies and good visibility during the daytime. There is moderate traffic density, with a mix of vehicles, pedestrians, and construction-related elements. The road features multiple lanes and is marked with various road signs and barriers, indicating ongoing construction or restricted access.
+
+#### Vehicles
+1. **Parked Vehicles:**
+   - A large **POKKA Logistics** truck is parked in a designated loading/unloading bay on the left side of the road, with its rear open and goods visible.
+   - A **blue sedan** is parked on the left side of the road, approximately **30 meters** behind the camera.
+   - A **white van** is parked further back on the left side, near the blue sedan.
+
+2. **Moving Vehicles:**
+   - A **white sedan** is driving in the center lane, approximately **20 meters** ahead of the camera.
+   - A **black sedan** is in the right lane, slightly ahead of the white sedan, moving in the same direction.
+   - A **silver SUV** is in the far-left lane, either stationary or moving slowly, possibly waiting to merge.
+
+3. **Additional Vehicles Observed:**
+   - **Buses (3)** and **construction vehicles (2)** are present, contributing to the complexity of traffic flow.
+
+#### Pedestrians and Cyclists
+- **Pedestrians:**
+  - Two pedestrians are crossing the road from right to left, approximately **20 meters** behind the camera.
+  - Another pedestrian is visible near the building entrance, approximately **10 meters** from the camera, walking toward the building.
+  - A pedestrian is also seen on the sidewalk to the right, walking away from the camera, and another pedestrian is near the building entrance further back.
+
+- **Cyclists:**
+  - There are **3 bicycles** noted in the vicinity, indicating shared road use and the need for caution around these vulnerable road users.
+
+#### Road Structure and Markings
+- The road consists of **three lanes** in the forward direction, with dashed white lane markings separating them. There are also **two lanes** in the backward direction.
+- A loading/unloading bay is marked with a solid white line on the left side of the road.
+- Orange and white plastic barriers are present on the right side of the road, indicating a construction or restricted area.
+- Traffic cones (6) and additional barriers (2) are noted, emphasizing the need for caution in the area.
+
+#### Traffic Signs and Signals
+- A traffic light, approximately **50 meters** ahead, is currently green.
+- A small rectangular sign reading "No Parking" is visible on the grass verge.
+- A yellow directional sign reading "To Expressway" is mounted near the building.
+
+#### Environmental Conditions
+- The scene is characterized by clear weather and daytime conditions, providing good visibility for all road users.
+
+#### Potential Hazards
+- The parked **POKKA Logistics** truck may obstruct visibility or cause merging issues for vehicles in the left lane.
+- The construction barriers on the right reduce usable road width, potentially leading to congestion or confusion.
+- The presence of pedestrians crossing the road and parked vehicles may pose hazards to moving traffic.
+- The proximity of traffic cones and construction vehicles increases the risk of accidents, particularly for cyclists and pedestrians.
+
+### Discrepancies and Areas Needing Attention
+- The **LiDARAgent** mentions the presence of **traffic cones (6)**, while the **CameraAgent** only identifies **3 traffic cones**. This discrepancy needs clarification regarding the exact count and positions of these cones.
+- The **SceneGraphAgent** indicates a total of **69 objects** in the scene, while other agents provide specific counts for vehicles and pedestrians. A detailed breakdown of these objects may help reconcile the differences in counts.
+- The **CameraAgent** notes no cyclists in its views, while the **LiDARAgent** and **SceneGraphAgent** confirm the presence of **3 bicycles**. This inconsistency should be addressed to ensure accurate monitoring of all road users.
+
+### Conclusion
+The scene presents a complex urban driving environment with multiple vehicles, pedestrians, and construction elements. It is crucial for drivers, especially autonomous systems, to adjust their speed, monitor their surroundings, and plan maneuvers carefully to navigate safely through this area. Enhanced awareness of the discrepancies in object counts and visibility of cyclists is essential for improving safety and operational efficiency.</div>
+            </div>
+        </div>
+        
+            </div>
+            
+            <!-- Layer 2: Seed Features Generation -->
+            <div class="layer" id="layer2-0">
+                <div class="layer-header">Layer 2: Seed Features Generation</div>
+                
+            <div class="agent-section">
+                <div class="agent-header" onclick="toggleAgent('focus-scene_structure-0')">
+                    <div>
+                        <span class="badge" style="background: #d1ecf1; color: #0c5460;">FOCUSED</span>
+                        <span class="agent-title">FocusedCaption - Scene Structure</span>
+                    </div>
+                    <span class="toggle-icon" id="focus-scene_structure-0-icon">▼</span>
+                </div>
+                <div class="agent-content" id="focus-scene_structure-0">
+                    <div class="summary">
+                        <strong>Focus Area:</strong> Scene Structure
+                        <p style="margin-top: 10px;">The scene unfolds on an urban street characterized by a well-defined road structure that includes three lanes for forward traffic, all marked by dashed white lane markings that guide the flow of vehic...</p>
+                    </div>
+
+                    <button class="detail-toggle" onclick="toggleDetail('focus-scene_structure-full-0')">Show Full Caption</button>
+                    <div class="full-content" id="focus-scene_structure-full-0">The scene unfolds on an urban street characterized by a well-defined road structure that includes three lanes for forward traffic, all marked by dashed white lane markings that guide the flow of vehicles. The ego vehicle occupies the center lane, positioned approximately 20 meters behind a white sedan that is traveling ahead in the same lane. To the right, there is a black sedan that is slightly ahead of the white sedan, also moving forward in the right lane. On the far-left lane, a silver SUV is observed, either stationary or moving slowly, indicating it may be preparing to merge into another lane.
+
+On the left side of the road, a large truck branded with "POKKA Logistics" is parked in a designated loading/unloading bay, which is clearly demarcated by a solid white line. The truck's rear is open, revealing visible goods inside, suggesting that this area is actively being utilized for deliveries. Further back on the left side, approximately 30 meters behind the camera, a blue sedan is parked close to a white van, which is also stationed nearby, creating a minor congestion in the area.
+
+The roadway is in good condition, exhibiting a smooth surface that is suitable for vehicular movement. However, there are orange and white plastic barriers lining the right side of the road, indicating the presence of a construction or restricted area. This setup reduces the usable road width, which may lead to potential congestion or confusion among drivers, particularly those in the right lane. Additionally, six traffic cones have been placed strategically along this construction zone, further emphasizing the need for caution as vehicles navigate through this section of the road.
+
+Pedestrian activity is minimal in this view. However, two pedestrians are observed crossing the road from right to left, approximately 20 meters behind the camera, which poses a potential hazard to any vehicles approaching from that direction. Another pedestrian is visible on the sidewalk to the right, walking away from the camera, and is located near a building entrance that is approximately 10 meters from the camera's perspective. 
+
+The road geometry remains predominantly straight, but there is a slight rightward curve that becomes more apparent as the road continues beyond the immediate view. A sidewalk runs parallel to the road on both sides, separated from the roadway by curbs, which help to delineate pedestrian spaces from vehicular traffic. On the right side, the sidewalk is accompanied by a grass verge that features decorative plants, contributing to the urban landscape.
+
+In terms of traffic control, a traffic light is visible in the distance, approximately 50 meters ahead, currently displaying a green signal. This light is crucial for managing the flow of vehicles and ensuring safe crossings for pedestrians. Additionally, a small rectangular sign reading "No Parking" is mounted on a pole near the grass verge, reinforcing parking regulations in the area. Near the building, a yellow directional sign indicating "To Expressway" is also present, providing guidance for drivers navigating the local road network.
+
+The environmental conditions during this scene are ideal for driving, with clear skies and good visibility, allowing all road users to see and react to each other without obstruction. However, potential hazards do exist. The parked truck on the left could obstruct visibility for vehicles in the left lane and create merging issues. The construction barriers and traffic cones on the right side of the road further complicate the navigation for the ego vehicle, requiring careful maneuvering to avoid any accidents.
+
+Overall, this urban driving scene presents a complex interaction of vehicles, pedestrians, and static infrastructure elements that require heightened awareness and strategic planning from the ego vehicle to navigate safely through the area. The presence of construction, parked vehicles, and pedestrians crossing the road necessitates a cautious approach, with particular attention needed for the areas where visibility could be compromised.</div>
+                </div>
+            </div>
+            
+            <div class="agent-section">
+                <div class="agent-header" onclick="toggleAgent('focus-objects-0')">
+                    <div>
+                        <span class="badge" style="background: #d1ecf1; color: #0c5460;">FOCUSED</span>
+                        <span class="agent-title">FocusedCaption - Objects</span>
+                    </div>
+                    <span class="toggle-icon" id="focus-objects-0-icon">▼</span>
+                </div>
+                <div class="agent-content" id="focus-objects-0">
+                    <div class="summary">
+                        <strong>Focus Area:</strong> Objects
+                        <p style="margin-top: 10px;">In this urban driving scene, the environment is characterized by clear skies and daytime conditions, providing excellent visibility for all road users. The road features a total of three lanes in the ...</p>
+                    </div>
+
+                    <button class="detail-toggle" onclick="toggleDetail('focus-objects-full-0')">Show Full Caption</button>
+                    <div class="full-content" id="focus-objects-full-0">In this urban driving scene, the environment is characterized by clear skies and daytime conditions, providing excellent visibility for all road users. The road features a total of three lanes in the forward direction, clearly marked by dashed white lane markings, with a designated loading/unloading bay situated on the left side of the road, demarcated by a solid white line. On the left side, a large truck emblazoned with "POKKA Logistics" is parked within this bay, occupying the space entirely. The truck's rear doors are open, revealing various goods stacked inside, which adds a layer of complexity to the scene as it occupies a space that could obstruct the view for vehicles merging left.
+
+Moving forward in the center lane, a white sedan is positioned approximately 20 meters ahead of the camera, traveling in the same direction. Slightly ahead of this white sedan, in the right lane, a black sedan is also moving forward, indicating a continuous flow of traffic. In the far-left lane, a silver SUV is either stationary or moving slowly, possibly preparing to merge into traffic, which creates a scenario where the ego vehicle must remain vigilant regarding its intentions.
+
+The right side of the road is lined with orange and white plastic barriers that signify a construction zone or restricted area, reducing the usable width of the road and potentially causing congestion. The barriers stretch from the front view into the right side of the frame, indicating ongoing construction activities. Additionally, a traffic light is visible in the distance, approximately 50 meters ahead, which is currently displaying a green signal, allowing for the flow of traffic to proceed without interruptions.
+
+In terms of pedestrian activity, there are no visible pedestrians or cyclists in the immediate view of the front camera. However, as we move to the left side view, the rear portion of the parked POKKA Logistics truck comes into sight, and a pedestrian is observed approximately 10 meters from the camera, near the entrance of a building and walking towards it. This pedestrian's presence near the building entrance may indicate a potential interaction with the roadway as they navigate to their destination.
+
+From the back view, two pedestrians are seen crossing the road from right to left, positioned approximately 20 meters behind the camera, which introduces a potential hazard for any vehicles approaching from behind. Additionally, another pedestrian is visible on the sidewalk to the right, walking away from the camera, further adding to the pedestrian presence in the area. This highlights the importance of monitoring the surroundings for sudden movements from these vulnerable road users.
+
+In the back view, a blue sedan is parked on the left side of the road, approximately 30 meters behind the camera, accompanied by a white van parked even further back, near the blue sedan. These parked vehicles may obstruct visibility for drivers attempting to navigate through this area, increasing the risk of accidents.
+
+The road structure is complemented by a sidewalk that runs along both sides of the road, separated by curbs, ensuring a clear demarcation between pedestrian and vehicle spaces. The left side view captures a grass verge adorned with decorative plants, alongside a red and white striped tape that stretches across the grass verge, possibly indicating restricted access or a hazard. The presence of a yellow directional sign reading "To Expressway" mounted on a pole near the building further aids drivers in navigating the area.
+
+Overall, the scene presents a complex interaction of vehicles, pedestrians, and static infrastructure elements that require careful navigation. The parked POKKA Logistics truck poses a potential obstruction for vehicles in the left lane, while the construction barriers on the right reduce the road's usable width, necessitating heightened caution. The presence of pedestrians crossing the road and parked vehicles on the left side adds to the complexity of the environment, emphasizing the need for the ego vehicle to adjust its speed and remain alert to ensure safety in this bustling urban context.</div>
+                </div>
+            </div>
+            
+            <div class="agent-section">
+                <div class="agent-header" onclick="toggleAgent('focus-spatial_relations-0')">
+                    <div>
+                        <span class="badge" style="background: #d1ecf1; color: #0c5460;">FOCUSED</span>
+                        <span class="agent-title">FocusedCaption - Spatial Relations</span>
+                    </div>
+                    <span class="toggle-icon" id="focus-spatial_relations-0-icon">▼</span>
+                </div>
+                <div class="agent-content" id="focus-spatial_relations-0">
+                    <div class="summary">
+                        <strong>Focus Area:</strong> Spatial Relations
+                        <p style="margin-top: 10px;">In this urban driving scene, the ego vehicle is positioned in the center lane of a three-lane road, moving forward with a clear view ahead. Approximately 20 meters in front of the camera, a white seda...</p>
+                    </div>
+
+                    <button class="detail-toggle" onclick="toggleDetail('focus-spatial_relations-full-0')">Show Full Caption</button>
+                    <div class="full-content" id="focus-spatial_relations-full-0">In this urban driving scene, the ego vehicle is positioned in the center lane of a three-lane road, moving forward with a clear view ahead. Approximately 20 meters in front of the camera, a white sedan is traveling in the same direction as the ego vehicle, occupying the center lane. Slightly ahead of the white sedan, in the right lane, a black sedan is also moving forward, indicating that both vehicles are likely maintaining a similar speed. To the left, in the far-left lane, a silver SUV is either stationary or moving slowly, possibly preparing to merge into the center lane where the ego vehicle is situated. 
+
+On the left side of the road, occupying a designated loading/unloading bay, is a large truck bearing "POKKA Logistics" branding. The truck's rear is open, allowing a glimpse of goods stacked inside, which adds a layer of complexity to the spatial dynamics of the scene. This truck is positioned approximately 5 meters from the lane of the ego vehicle, meaning that vehicles in the left lane may need to navigate carefully around it, especially if they are merging or changing lanes. 
+
+Additionally, further back on the left side of the road, approximately 30 meters behind the camera, there is a blue sedan parked next to a white van, both of which are also in the left lane. These parked vehicles could obstruct the view for drivers in the left lane when they attempt to merge or navigate around the loading truck. 
+
+As for the road structure, it features three lanes in the forward direction, clearly delineated by dashed white lane markings. The road is marked with a solid white line that indicates the boundary of the loading/unloading bay on the left side, emphasizing the need for caution when navigating in close proximity to the truck. On the right side of the road, orange and white plastic barriers are arranged, indicating a construction or restricted area, which reduces the usable width of the road and could cause congestion or confusion for approaching traffic. 
+
+In terms of pedestrian activity, two pedestrians are seen crossing the road from right to left, approximately 20 meters behind the camera. Their presence poses a potential hazard as they could suddenly move into the path of vehicles. Additionally, another pedestrian is walking toward a building entrance, located about 10 meters from the camera, while yet another pedestrian is visible on the sidewalk to the right, moving away from the camera. This clustering of pedestrians indicates a busy environment, necessitating careful monitoring by the ego vehicle to ensure safety.
+
+The scene is further characterized by a traffic light, located about 50 meters ahead, which is currently green, signaling that vehicles may proceed. This is crucial information for the ego vehicle as it approaches the intersection. The visibility in the scene is excellent due to clear skies and daytime conditions, allowing for optimal observation of all objects and road users.
+
+In summary, the scene presents a complex interplay of vehicles, pedestrians, and static infrastructure. The ego vehicle must navigate carefully, keeping in mind the proximity of the parked POKKA Logistics truck, the moving white and black sedans ahead, the stationary silver SUV, and the pedestrians crossing the road. The presence of barriers and potential merging issues on the left side further complicates the spatial dynamics, necessitating vigilant attention to all elements within the driving environment.</div>
+                </div>
+            </div>
+            
+            <div class="agent-section">
+                <div class="agent-header" onclick="toggleAgent('focus-dynamics-0')">
+                    <div>
+                        <span class="badge" style="background: #d1ecf1; color: #0c5460;">FOCUSED</span>
+                        <span class="agent-title">FocusedCaption - Dynamics</span>
+                    </div>
+                    <span class="toggle-icon" id="focus-dynamics-0-icon">▼</span>
+                </div>
+                <div class="agent-content" id="focus-dynamics-0">
+                    <div class="summary">
+                        <strong>Focus Area:</strong> Dynamics
+                        <p style="margin-top: 10px;">In this urban driving scene captured from multiple camera perspectives, the environment is characterized by clear skies and good visibility during the daytime, creating a setting that allows for compr...</p>
+                    </div>
+
+                    <button class="detail-toggle" onclick="toggleDetail('focus-dynamics-full-0')">Show Full Caption</button>
+                    <div class="full-content" id="focus-dynamics-full-0">In this urban driving scene captured from multiple camera perspectives, the environment is characterized by clear skies and good visibility during the daytime, creating a setting that allows for comprehensive observation of the dynamic elements at play. The primary view from the front camera reveals a busy roadway consisting of three lanes designated for forward movement, each separated by dashed white lane markings. On the left side of the road, there is a large **POKKA Logistics** truck, which is parked in a designated loading/unloading bay, occupying this space entirely. The truck's rear is open, revealing various goods stored within, indicating active loading or unloading operations. This parked truck may pose a visibility obstruction for vehicles attempting to merge from the left lane.
+
+Moving through the scene, a **white sedan** is observed driving in the center lane, positioned approximately **20 meters** ahead of the camera. This vehicle is traveling in a steady manner, maintaining a moderate speed as it continues in the same direction as the other vehicles. Slightly ahead of the white sedan, in the right lane, a **black sedan** is also moving forward, maintaining pace with the white sedan, thus contributing to a coordinated flow of traffic in the same direction. In the far-left lane, a **silver SUV** is either stationary or moving very slowly, possibly preparing to merge into the center lane, which introduces a potential dynamic interaction with the other vehicles.
+
+As we consider the dynamics of the scene, it is important to note the absence of pedestrians or cyclists in the main view, lending a sense of temporary calm amidst the vehicular activity. However, the right side of the roadway is lined with orange and white plastic construction barriers, which restrict the usable width of the road. These barriers, designated to indicate a construction or restricted area, could contribute to confusion or congestion as vehicles navigate around them.
+
+In the back view captured by the rear camera, two pedestrians are seen crossing the road from right to left, positioned approximately **20 meters** behind the camera, thus introducing a potential hazard for any vehicles moving in the opposite direction. This crossing could create a need for caution, especially considering the parked vehicles further back, including a **blue sedan** and a **white van**, which are parked on the left side of the road. These parked vehicles, located approximately **30 meters** behind the camera, may obstruct visibility for drivers approaching the intersection.
+
+The left side of the scene also features a pedestrian near a building entrance, approximately **10 meters** from the camera, who is walking toward the building. This pedestrian is traversing a sidewalk that runs parallel to the road, separated by a curb, and this sidewalk is flanked by a grass verge adorned with decorative plants. Additionally, there is red and white striped tape stretched across the grass verge, possibly indicating restricted access, which could be a concern for pedestrians and cyclists alike.
+
+While no cyclists are visible in the main camera views, the overall scene does suggest a mixed-use area, with potential for bicycle traffic, particularly given the urban setting. The presence of a yellow directional sign reading "To Expressway," mounted on a pole near the building, further indicates that this area serves as a significant thoroughfare for various types of road users.
+
+As we analyze the temporal aspects of the scene, the green traffic light visible approximately **50 meters** ahead serves as an indication that vehicles in the forward lanes may proceed without immediate concern for stopping, though the presence of construction barriers and parked vehicles necessitates ongoing vigilance. The dynamic interactions among the moving vehicles, the stationary truck, and the pedestrian activity create a complex picture of traffic flow and potential hazards that must be navigated carefully.
+
+In sum, the dynamics of this scene involve an intricate interplay of moving and stationary vehicles, the potential for pedestrian crossings, and the implications of construction and parking constraints. The presence of obstacles such as the parked **POKKA Logistics** truck, the orange and white barriers, and the moving **white sedan**, **black sedan**, and **silver SUV** highlight the importance of situational awareness and careful maneuvering in this bustling urban environment. The careful observation of all these elements is crucial for ensuring safe navigation through this area, particularly as the situation may evolve with the movements of pedestrians and the interactions among vehicles.</div>
+                </div>
+            </div>
+            
+            <div class="agent-section">
+                <div class="agent-header" onclick="toggleAgent('focus-safety-0')">
+                    <div>
+                        <span class="badge" style="background: #fff3cd; color: #856404;">SAFETY</span>
+                        <span class="agent-title">FocusedCaption - Safety</span>
+                    </div>
+                    <span class="toggle-icon" id="focus-safety-0-icon">▼</span>
+                </div>
+                <div class="agent-content" id="focus-safety-0">
+                    <div class="summary">
+                        <strong>Focus Area:</strong> Safety
+                        <p style="margin-top: 10px;">In this urban driving scene, the environment is characterized by clear skies and bright daylight, providing excellent visibility for all participants. The ego vehicle is positioned in the center lane ...</p>
+                    </div>
+
+                    <button class="detail-toggle" onclick="toggleDetail('focus-safety-full-0')">Show Full Caption</button>
+                    <div class="full-content" id="focus-safety-full-0">In this urban driving scene, the environment is characterized by clear skies and bright daylight, providing excellent visibility for all participants. The ego vehicle is positioned in the center lane of a three-lane road that extends forward, with dashed white lane markings separating the lanes. Approximately 20 meters ahead of the camera, a white sedan is traveling in the center lane, maintaining a steady pace. Slightly ahead and to the right, a black sedan is also moving in the same direction, positioned in the right lane. On the far-left lane, there is a silver SUV that appears to be either stationary or moving very slowly, possibly preparing to merge into the center lane.
+
+To the left side of the road, a large truck branded with "POKKA Logistics" is parked in a designated loading/unloading bay. The truck's rear is open, revealing visible goods inside, which could pose an obstruction to visibility for vehicles approaching from behind or merging from the left lane. This parked truck, combined with the presence of the silver SUV, creates a potential visibility issue for any vehicle attempting to change lanes or navigate through this area.
+
+On the right side of the road, orange and white plastic barriers are lined up, indicating a construction or restricted area. These barriers reduce the usable road width and may lead to confusion or congestion as vehicles navigate around them. As the ego vehicle approaches these barriers, it is critical to remain alert for any potential lane changes or sudden stops from other vehicles, particularly those in the right lane, where the black sedan is positioned.
+
+Looking at the rear view from the ego vehicle, approximately 30 meters behind the camera, a blue sedan is parked on the left side of the road, closely followed by a white van parked in the same lane. These stationary vehicles could obstruct the view of any pedestrians crossing the road, which is particularly concerning since two pedestrians are visible crossing from right to left, approximately 20 meters behind the ego vehicle. Additionally, another pedestrian is seen on the sidewalk to the right, walking away from the camera, and yet another pedestrian is near a building entrance, about 10 meters from the camera, heading toward the structure. The presence of these pedestrians underscores the importance of vigilance, as their movements could lead to sudden hazards for the ego vehicle.
+
+In terms of road structure, the area features well-defined sidewalks separated from the road by curbs, providing a clear path for pedestrians. There is a grass verge with decorative plants between the building and the sidewalk, and red and white striped tape is stretched across this verge, potentially indicating a restricted access area. This tape may signal caution and should be regarded as a potential hazard that could lead to unexpected situations should any pedestrians decide to venture across it.
+
+As the ego vehicle continues its journey, it must remain aware of the traffic light visible approximately 50 meters ahead, which is currently green. This signal will dictate the flow of traffic, but the presence of the construction barriers and parked vehicles could cause unexpected delays or require sudden stops. The clear weather and good visibility provide an advantage, yet the dynamic nature of the environment necessitates constant attention to all elements present.
+
+In addition to the aforementioned vehicles and pedestrians, it is important to note that while the views provided by the different cameras do not show any cyclists, the presence of bicycles in the vicinity is critical information that must be monitored. The scene's complexity is heightened by the possibility of cyclists navigating through traffic, particularly near the construction areas where the road may be more congested.
+
+Overall, the safety-critical elements in this driving scene include the parked POKKA Logistics truck, which could obstruct visibility for merging vehicles, the construction barriers that limit the road's usable width, the presence of pedestrians crossing the road who pose a risk of sudden movement, and the parked vehicles that could obstruct views of pedestrians. Each of these elements requires careful consideration and heightened awareness as the ego vehicle navigates through this urban environment, ensuring that it responds appropriately to the dynamic and potentially hazardous conditions present.</div>
+                </div>
+            </div>
+            
+                
+        <div class="agent-section">
+            <div class="agent-header" onclick="toggleAgent('seed-agent-0')">
+                <div>
+                    <span class="agent-title">SeedFeatureAgent - Integrated Caption</span>
+                </div>
+                <span class="toggle-icon" id="seed-agent-0-icon">▼</span>
+            </div>
+            <div class="agent-content" id="seed-agent-0">
+                <div class="summary">
+                    <strong>Summary:</strong> Combined all 5 focused captions into a comprehensive initial caption for refinement.
+                </div>
+                
+                <h4>Integration Process:</h4>
+                <ul>
+                    <li>Merged perspectives from all 5 focus areas</li>
+                    <li>Eliminated redundancies across captions</li>
+                    <li>Maintained critical details from each perspective</li>
+                    <li>Created cohesive narrative flow</li>
+                </ul>
+
+                <button class="detail-toggle" onclick="toggleDetail('seed-full-0')">Show Initial Caption</button>
+                <div class="full-content" id="seed-full-0">The scene unfolds on a bustling urban street bathed in bright daylight, characterized by clear skies that provide excellent visibility for all road users. The roadway is structured with three lanes designated for forward traffic, each clearly marked by dashed white lane markings that guide the flow of vehicles. The ego vehicle occupies the center lane, positioned approximately 20 meters behind a white sedan that is traveling ahead in the same lane. Slightly ahead of the white sedan, a black sedan moves forward in the right lane, maintaining a steady pace and contributing to the coordinated flow of traffic. Meanwhile, in the far-left lane, a silver SUV is either stationary or moving slowly, potentially preparing to merge into the center lane where the ego vehicle is situated, which calls for heightened vigilance from the ego vehicle.
+
+To the left side of the road, a large truck branded with "POKKA Logistics" is parked in a designated loading/unloading bay, occupying the space entirely. The truck's rear doors are open, revealing a glimpse of various goods stacked inside, indicating that this area is actively being utilized for deliveries. This parked truck, positioned approximately 5 meters from the lane of the ego vehicle, could obstruct visibility for vehicles in the left lane, particularly those attempting to merge or change lanes. Further back on the left side, about 30 meters behind the camera, a blue sedan is parked close to a white van, which is also stationed nearby, creating a minor congestion that could complicate navigation for approaching vehicles.
+
+The right side of the road is lined with orange and white plastic barriers, signaling a construction zone that reduces the usable width of the road. These barriers and six strategically placed traffic cones emphasize the need for caution as vehicles navigate through this section, particularly for those in the right lane where the black sedan is located. The road remains predominantly straight, but a slight rightward curve becomes more apparent as it continues beyond the immediate view. Alongside the road, sidewalks run parallel on both sides, separated from the roadway by curbs, ensuring a clear demarcation between pedestrian and vehicular spaces. The sidewalk on the right is complemented by a grass verge adorned with decorative plants, enhancing the urban landscape.
+
+In terms of pedestrian activity, although minimal in the immediate view, there are two pedestrians crossing the road from right to left, approximately 20 meters behind the camera, posing a potential hazard for any vehicles approaching from that direction. Another pedestrian is visible on the sidewalk to the right, walking away from the camera, located near a building entrance that is about 10 meters from the camera's perspective. This clustering of pedestrians underscores the importance of monitoring the surroundings for sudden movements from these vulnerable road users. 
+
+A traffic light is visible in the distance, approximately 50 meters ahead, currently displaying a green signal, which is crucial for managing the flow of vehicles and ensuring safe crossings for pedestrians. Additionally, a small rectangular sign reading "No Parking" is mounted on a pole near the grass verge, reinforcing parking regulations in the area. Near the building, a yellow directional sign indicating "To Expressway" provides guidance for drivers navigating the local road network.
+
+As the ego vehicle continues its journey, it must remain alert to the potential hazards presented by the parked truck, which could obstruct visibility for vehicles in the left lane, and the construction barriers on the right side of the road that further complicate navigation. The presence of pedestrians crossing the road and the parked vehicles on the left side adds to the complexity of the environment, necessitating a cautious approach. The clear weather and good visibility provide an advantage, yet the dynamic nature of the scene—marked by the interplay of moving and stationary vehicles, the potential for pedestrian crossings, and the implications of construction and parking constraints—highlights the need for constant attention to all elements present.
+
+In summary, this urban driving scene presents a complex interaction of vehicles, pedestrians, and static infrastructure elements that require heightened awareness and strategic planning from the ego vehicle to navigate safely through the area. The careful observation of all these elements is crucial for ensuring safe navigation, particularly as the situation may evolve with the movements of pedestrians and the interactions among vehicles.</div>
+            </div>
+        </div>
+        
+            </div>
+            
+            <!-- Layer 3: Iterative Refinement -->
+            
+        <div class="layer" id="layer3-0">
+            <div class="layer-header">Layer 3: Iterative Features Refinement</div>
+            
+            <div class="agent-section">
+                <div class="agent-header" onclick="toggleAgent('refinement-agent-0')">
+                    <div>
+                        <span class="agent-title">Refinement Process (1 Iterations)</span>
+                    </div>
+                    <span class="toggle-icon" id="refinement-agent-0-icon">▼</span>
+                </div>
+                <div class="agent-content" id="refinement-agent-0">
+                    <div class="summary">
+                        <strong>Summary:</strong> Performed 1 iterations of caption refinement through SuggesterAgent and EditorAgent collaboration.
+                    </div>
+
+                    
+            <div class="iteration-section">
+                <div class="iteration-header">Iteration 1</div>
+                <div class="iteration-content">
+                    <h4>SuggesterAgent Recommendations:</h4>
+                    <ul class="suggestion-list">
+                        <li>Include specific distances for other vehicles and obstacles for better spatial awareness.</li><li>Clarify the status of the silver SUV (stationary or slow-moving) to reduce ambiguity.</li><li>Add the time of day to provide context for visibility and pedestrian activity.</li><li>Consider providing a brief summary of potential risks or actions the ego vehicle should take based on the scene description.</li>
+                    </ul>
+                    <button class="detail-toggle" onclick="toggleDetail('iter1-full-0')">Show Refined Caption</button>
+                    <div class="full-content" id="iter1-full-0">The scene unfolds on a bustling urban street illuminated by bright daylight, characterized by clear skies that provide excellent visibility for all road users. The roadway consists of three lanes designated for forward traffic, each distinctly marked by dashed white lane markings that facilitate the orderly flow of vehicles. The ego vehicle occupies the center lane, positioned approximately 20 meters behind a white sedan that is traveling ahead in the same lane. Slightly ahead of the white sedan, a black sedan is advancing in the right lane, maintaining a steady pace and contributing to the coordinated flow of traffic. Meanwhile, in the far-left lane, a silver SUV is either stationary or moving slowly, potentially preparing to merge into the center lane where the ego vehicle is situated, necessitating heightened vigilance from the ego vehicle.
+
+To the left side of the road, a large truck branded with "POKKA Logistics" is parked in a designated loading/unloading bay, fully occupying the space. The truck's rear doors are open, revealing a glimpse of various goods stacked inside, indicating that this area is actively being utilized for deliveries. This parked truck, positioned approximately 5 meters from the lane of the ego vehicle, could obstruct visibility for vehicles in the left lane, particularly those attempting to merge or change lanes. Further back on the left side, about 30 meters behind the camera, a blue sedan is parked closely to a white van, which is also stationed nearby, creating a minor congestion that could complicate navigation for approaching vehicles.
+
+The right side of the road is lined with orange and white plastic barriers, marking a construction zone that reduces the usable width of the road. These barriers, along with six strategically placed traffic cones, emphasize the need for caution as vehicles navigate through this section, particularly for those in the right lane where the black sedan is located. The road remains predominantly straight, but a slight rightward curve becomes more apparent as it continues beyond the immediate view. Sidewalks run parallel on both sides of the road, separated from the roadway by curbs, ensuring a clear demarcation between pedestrian and vehicular spaces. The sidewalk on the right features a grass verge adorned with decorative plants, enhancing the urban landscape.
+
+In terms of pedestrian activity, though minimal in the immediate view, there are two pedestrians crossing the road from right to left, approximately 20 meters behind the camera, posing a potential hazard for any vehicles approaching from that direction. Another pedestrian is visible on the sidewalk to the right, walking away from the camera, located near a building entrance that is about 10 meters from the camera's perspective. This clustering of pedestrians underscores the importance of monitoring the surroundings for sudden movements from these vulnerable road users.
+
+A traffic light is visible in the distance, approximately 50 meters ahead, currently displaying a green signal, which is crucial for managing the flow of vehicles and ensuring safe crossings for pedestrians. Additionally, a small rectangular sign reading "No Parking" is mounted on a pole near the grass verge, reinforcing parking regulations in the area. Near the building, a yellow directional sign indicating "To Expressway" provides guidance for drivers navigating the local road network.
+
+As the ego vehicle continues its journey, it must remain alert to the potential hazards presented by the parked truck, which could obstruct visibility for vehicles in the left lane, as well as the construction barriers on the right side of the road that further complicate navigation. The presence of pedestrians crossing the road and the parked vehicles on the left side adds to the complexity of the environment, necessitating a cautious approach. The clear weather and good visibility provide an advantage, yet the dynamic nature of the scene—marked by the interplay of moving and stationary vehicles, the potential for pedestrian crossings, and the implications of construction and parking constraints—highlights the need for constant attention to all elements present.
+
+In summary, this urban driving scene presents a complex interaction of vehicles, pedestrians, and static infrastructure elements that require heightened awareness and strategic planning from the ego vehicle to navigate safely through the area. The careful observation of all these elements is crucial for ensuring safe navigation, particularly as the situation may evolve with the movements of pedestrians and the interactions among vehicles.
+
+
+  ────────────────────────────────────────────────────────────
+  ITERATION 2
+  ────────────────────────────────────────────────────────────
+
+    SuggesterAgent Output:
+      Suggestions: ['Add specific distances or speeds for the vehicles mentioned to enhance clarity and precision.', 'Consider breaking up long sentences to improve readability and comprehension.', 'Include potential actions or decisions the ego vehicle might take in response to the described situation for greater context.', "Clarify the status of the silver SUV in the left lane—whether it's stationary or moving slowly should be clearly defined.", "Provide additional detail about the traffic light's impact on the ego vehicle's navigation, such as whether it will need to stop or slow down."]
+
+    EditorAgent Output:
+      Refined Caption:
+      In this bustling urban scene, bright daylight illuminates a busy street characterized by clear skies, providing excellent visibility for all road users. The roadway features three lanes designated for forward traffic, each marked by dashed white lane markings that facilitate the orderly flow of vehicles. The ego vehicle is positioned in the center lane, approximately 20 meters behind a white sedan traveling ahead in the same lane at a steady speed of around 30 kilometers per hour. Slightly ahead of the white sedan, a black sedan is moving in the right lane, maintaining a similar speed and contributing to the coordinated flow of traffic. In the far-left lane, a silver SUV is observed to be stationary, possibly waiting to merge into the center lane where the ego vehicle is situated, requiring heightened vigilance from the ego vehicle to avoid potential merging conflicts.
+
+To the left side of the road, a large truck branded with "POKKA Logistics" is parked in a designated loading/unloading bay, fully occupying the space. The truck's rear doors are open, revealing a glimpse of various goods stacked inside, indicating active deliveries. This parked truck, positioned approximately 5 meters from the lane of the ego vehicle, could obstruct visibility for vehicles in the left lane, particularly those attempting to merge or change lanes. Further back on the left side, about 30 meters behind the camera, a blue sedan is parked closely to a white van, which is also stationed nearby, creating a minor congestion that could complicate navigation for approaching vehicles.
+
+On the right side of the road, orange and white plastic barriers delineate a construction zone, reducing the usable width of the road. These barriers, along with six strategically placed traffic cones, signal the need for caution as vehicles navigate through this section, especially for those in the right lane where the black sedan is located. The road remains predominantly straight, but a slight rightward curve becomes more apparent as it continues beyond the immediate view. Sidewalks run parallel on both sides of the road, separated from the roadway by curbs, ensuring a clear demarcation between pedestrian and vehicular spaces. The sidewalk on the right features a grass verge adorned with decorative plants, enhancing the urban landscape.
+
+In terms of pedestrian activity, though minimal in the immediate view, two pedestrians are crossing the road from right to left, approximately 20 meters behind the camera, posing a potential hazard for any vehicles approaching from that direction. Another pedestrian is visible on the sidewalk to the right, walking away from the camera, located near a building entrance that is about 10 meters from the camera's perspective. This clustering of pedestrians underscores the importance of monitoring the surroundings for sudden movements from these vulnerable road users.
+
+A traffic light is visible in the distance, approximately 50 meters ahead, currently displaying a green signal, which is crucial for managing the flow of vehicles and ensuring safe crossings for pedestrians. Additionally, a small rectangular sign reading "No Parking" is mounted on a pole near the grass verge, reinforcing parking regulations in the area. Near the building, a yellow directional sign indicating "To Expressway" provides guidance for drivers navigating the local road network.
+
+As the ego vehicle continues its journey, it must remain alert to the potential hazards presented by the parked truck, which could obstruct visibility for vehicles in the left lane, as well as the construction barriers on the right side of the road that further complicate navigation. The presence of pedestrians crossing the road and the parked vehicles on the left side adds to the complexity of the environment, necessitating a cautious approach. The clear weather and good visibility provide an advantage, yet the dynamic nature of the scene—marked by the interplay of moving and stationary vehicles, the potential for pedestrian crossings, and the implications of construction and parking constraints—highlights the need for constant attention to all elements present.
+
+In summary, this urban driving scene presents a complex interaction of vehicles, pedestrians, and static infrastructure elements that require heightened awareness and strategic planning from the ego vehicle to navigate safely through the area. The careful observation of all these elements is crucial for ensuring safe navigation, particularly as the situation may evolve with the movements of pedestrians and the interactions among vehicles.
+
+
+  ────────────────────────────────────────────────────────────
+  ITERATION 3
+  ────────────────────────────────────────────────────────────
+
+    SuggesterAgent Output:
+      Suggestions: ['Include specific distances or speeds of the pedestrians to highlight their proximity and potential risk more accurately.', 'Clarify the relationship between the parked truck and the merging silver SUV to emphasize potential visibility issues for the ego vehicle.', "Add more detail about the traffic light's timing or conditions to understand its impact on traffic flow better."]
+
+    EditorAgent Output:
+      Refined Caption:
+      In this vibrant urban scene, bright daylight illuminates a busy street under clear skies, providing excellent visibility for all road users. The roadway consists of three lanes designated for forward traffic, each marked by dashed white lane markings that facilitate the orderly flow of vehicles. The ego vehicle is positioned in the center lane, approximately 20 meters behind a white sedan traveling ahead at a steady speed of around 30 kilometers per hour. Slightly ahead of the white sedan, a black sedan is moving in the right lane, maintaining a similar speed and contributing to the coordinated flow of traffic. In the far-left lane, a silver SUV is observed to be stationary, possibly waiting to merge into the center lane where the ego vehicle is situated. This situation requires heightened vigilance from the ego vehicle to avoid potential merging conflicts, particularly due to the visibility obstruction caused by the parked truck on the left side of the road.
+
+On the left side, a large truck branded with "POKKA Logistics" is parked in a designated loading/unloading bay, fully occupying the space. The truck's rear doors are open, revealing a glimpse of various goods stacked inside, indicating active deliveries. This parked truck is positioned approximately 5 meters from the lane of the ego vehicle, which could obstruct visibility for vehicles in the left lane, especially those attempting to merge or change lanes. Further back on the left side, about 30 meters behind the camera, a blue sedan is parked closely to a white van, which is also stationed nearby, creating minor congestion that could complicate navigation for approaching vehicles.
+
+On the right side of the road, orange and white plastic barriers delineate a construction zone, reducing the usable width of the road. These barriers, along with six strategically placed traffic cones, signal the need for caution as vehicles navigate through this section, particularly for those in the right lane where the black sedan is located. The road remains predominantly straight, but a slight rightward curve becomes more pronounced as it continues beyond the immediate view. Sidewalks run parallel on both sides of the road, separated from the roadway by curbs, ensuring a clear demarcation between pedestrian and vehicular spaces. The sidewalk on the right features a grass verge adorned with decorative plants, enhancing the urban landscape.
+
+In terms of pedestrian activity, though minimal in the immediate view, two pedestrians are crossing the road from right to left, approximately 20 meters behind the camera, posing a potential hazard for any vehicles approaching from that direction. Another pedestrian is visible on the sidewalk to the right, walking away from the camera, located near a building entrance that is about 10 meters from the camera's perspective. This clustering of pedestrians underscores the importance of monitoring the surroundings for sudden movements from these vulnerable road users.
+
+A traffic light is visible in the distance, approximately 50 meters ahead, currently displaying a green signal, which is crucial for managing the flow of vehicles and ensuring safe crossings for pedestrians. Additionally, a small rectangular sign reading "No Parking" is mounted on a pole near the grass verge, reinforcing parking regulations in the area. Near the building, a yellow directional sign indicating "To Expressway" provides guidance for drivers navigating the local road network.
+
+As the ego vehicle continues its journey, it must remain alert to the potential hazards presented by the parked truck, which could obstruct visibility for vehicles in the left lane, as well as the construction barriers on the right side of the road that further complicate navigation. The presence of pedestrians crossing the road and the parked vehicles on the left side adds to the complexity of the environment, necessitating a cautious approach. The clear weather and good visibility provide an advantage; however, the dynamic nature of the scene—marked by the interplay of moving and stationary vehicles, the potential for pedestrian crossings, and the implications of construction and parking constraints—highlights the need for constant attention to all elements present.
+
+In summary, this urban driving scene presents a complex interaction of vehicles, pedestrians, and static infrastructure elements that require heightened awareness and strategic planning from the ego vehicle to navigate safely through the area. The careful observation of all these elements is crucial for ensuring safe navigation, particularly as the situation may evolve with the movements of pedestrians and the interactions among vehicles.</div>
+                </div>
+            </div>
+            
+                    
+                    <div style="margin-top: 20px;">
+                        <h4>Final Refined Caption:</h4>
+                        <button class="detail-toggle" onclick="toggleDetail('final-refined-full-0')">Show Final Caption</button>
+                        <div class="full-content" id="final-refined-full-0">In this vibrant urban scene, bright daylight illuminates a busy street under clear skies, providing excellent visibility for all road users. The roadway consists of three lanes designated for forward traffic, each marked by dashed white lane markings that facilitate the orderly flow of vehicles. The ego vehicle is positioned in the center lane, approximately 20 meters behind a white sedan traveling ahead at a steady speed of around 30 kilometers per hour. Slightly ahead of the white sedan, a black sedan is moving in the right lane, maintaining a similar speed and contributing to the coordinated flow of traffic. In the far-left lane, a silver SUV is observed to be stationary, possibly waiting to merge into the center lane where the ego vehicle is situated. This situation requires heightened vigilance from the ego vehicle to avoid potential merging conflicts, particularly due to the visibility obstruction caused by the parked truck on the left side of the road.
+
+On the left side, a large truck branded with "POKKA Logistics" is parked in a designated loading/unloading bay, fully occupying the space. The truck's rear doors are open, revealing a glimpse of various goods stacked inside, indicating active deliveries. This parked truck is positioned approximately 5 meters from the lane of the ego vehicle, which could obstruct visibility for vehicles in the left lane, especially those attempting to merge or change lanes. Further back on the left side, about 30 meters behind the camera, a blue sedan is parked closely to a white van, which is also stationed nearby, creating minor congestion that could complicate navigation for approaching vehicles.
+
+On the right side of the road, orange and white plastic barriers delineate a construction zone, reducing the usable width of the road. These barriers, along with six strategically placed traffic cones, signal the need for caution as vehicles navigate through this section, particularly for those in the right lane where the black sedan is located. The road remains predominantly straight, but a slight rightward curve becomes more pronounced as it continues beyond the immediate view. Sidewalks run parallel on both sides of the road, separated from the roadway by curbs, ensuring a clear demarcation between pedestrian and vehicular spaces. The sidewalk on the right features a grass verge adorned with decorative plants, enhancing the urban landscape.
+
+In terms of pedestrian activity, though minimal in the immediate view, two pedestrians are crossing the road from right to left, approximately 20 meters behind the camera, posing a potential hazard for any vehicles approaching from that direction. Another pedestrian is visible on the sidewalk to the right, walking away from the camera, located near a building entrance that is about 10 meters from the camera's perspective. This clustering of pedestrians underscores the importance of monitoring the surroundings for sudden movements from these vulnerable road users.
+
+A traffic light is visible in the distance, approximately 50 meters ahead, currently displaying a green signal, which is crucial for managing the flow of vehicles and ensuring safe crossings for pedestrians. Additionally, a small rectangular sign reading "No Parking" is mounted on a pole near the grass verge, reinforcing parking regulations in the area. Near the building, a yellow directional sign indicating "To Expressway" provides guidance for drivers navigating the local road network.
+
+As the ego vehicle continues its journey, it must remain alert to the potential hazards presented by the parked truck, which could obstruct visibility for vehicles in the left lane, as well as the construction barriers on the right side of the road that further complicate navigation. The presence of pedestrians crossing the road and the parked vehicles on the left side adds to the complexity of the environment, necessitating a cautious approach. The clear weather and good visibility provide an advantage; however, the dynamic nature of the scene—marked by the interplay of moving and stationary vehicles, the potential for pedestrian crossings, and the implications of construction and parking constraints—highlights the need for constant attention to all elements present.
+
+In summary, this urban driving scene presents a complex interaction of vehicles, pedestrians, and static infrastructure elements that require heightened awareness and strategic planning from the ego vehicle to navigate safely through the area. The careful observation of all these elements is crucial for ensuring safe navigation, particularly as the situation may evolve with the movements of pedestrians and the interactions among vehicles.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+            
+            <!-- Layer 4: Caption Generation -->
+            
+      
+            
+    </div>
+    
+    
+        <script>
+        const scenes = {
+    1: {
+        token: "ca9a282c9e77460f8360f564131a8af5",
+        timestamp: "1532402927647951",
+        annotations: 69,
+        lidarPoints: 34688,
+        description: "Parked truck, construction, intersection, turn left, following a van"
+    },
+    2: {
+        token: "3e8750f331d7499e9b5123e9eb70f2e2",
+        timestamp: "1533151603547590",
+        annotations: 23,
+        lidarPoints: 34752,
+        description: "Many peds right, wait for turning car, long bike rack left, cyclist"
+    },
+    3: {
+        token: "8687ba92abd3406aa797115b874ebeba",
+        timestamp: "1535489296047917",
+        annotations: 40,
+        lidarPoints: 34400,
+        description: "Wait at intersection, bicycle, large truck, peds crossing crosswalk, ped with stroller"
+    },
+};
+
+
+        function loadScene(sceneNum) {
+            // Update active button
+            document.querySelectorAll('.scene-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.closest('.scene-btn').classList.add('active');
+            
+            // Hide all metadata sections
+            document.querySelectorAll('[id^="metadata-"]').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Hide all image galleries
+            document.querySelectorAll('[id^="image-gallery-"]').forEach(gallery => {
+                gallery.style.display = 'none';
+            });
+            
+            // Hide all scene layers
+            document.querySelectorAll('[id^="scene-layers-"]').forEach(layers => {
+                layers.style.display = 'none';
+            });
+            
+            // Show selected scene metadata
+            const metadataSection = document.getElementById(`metadata-${sceneNum}`);
+            if (metadataSection) {
+                metadataSection.style.display = 'block';
+            }
+            
+            // Show selected scene image gallery
+            const imageGallery = document.getElementById(`image-gallery-${sceneNum}`);
+            if (imageGallery) {
+                imageGallery.style.display = 'block';
+            }
+            
+            // Show selected scene layers
+            const sceneLayers = document.getElementById(`scene-layers-${sceneNum}`);
+            if (sceneLayers) {
+                sceneLayers.style.display = 'block';
+            }
+            
+            console.log(`Loaded Scene ${sceneNum}`);
+        }
+
+        function toggleAnnotations(sceneIdx) {
+            const annotations = document.getElementById(`annotations-${sceneIdx}`);
+            const button = event.target;
+            
+            if (annotations.classList.contains('show')) {
+                annotations.classList.remove('show');
+                button.textContent = '📋 Show Object Annotations';
+            } else {
+                annotations.classList.add('show');
+                button.textContent = '📋 Hide Object Annotations';
+            }
+        }
+
+        function toggleAgent(agentId) {
+            const content = document.getElementById(agentId);
+            const icon = document.getElementById(agentId + '-icon');
+            
+            if (content.classList.contains('show')) {
+                content.classList.remove('show');
+                icon.classList.remove('expanded');
+            } else {
+                content.classList.add('show');
+                icon.classList.add('expanded');
+            }
+        }
+
+        function toggleDetail(detailId) {
+            const detail = document.getElementById(detailId);
+            const button = event.target;
+            
+            if (detail.classList.contains('show')) {
+                detail.classList.remove('show');
+                button.textContent = button.textContent.replace('Hide', 'Show');
+            } else {
+                detail.classList.add('show');
+                button.textContent = button.textContent.replace('Show', 'Hide');
+            }
+        }
+        </script>
+        
+</body>
+</html>
